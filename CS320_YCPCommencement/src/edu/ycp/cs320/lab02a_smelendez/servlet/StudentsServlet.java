@@ -20,7 +20,7 @@ public class StudentsServlet extends HttpServlet {
 		System.out.println("AddNumbers Servlet: doGet");	
 		
 		// call JSP to generate empty form
-		req.getRequestDispatcher("/_view/addNumbers.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/studentLogin.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -89,7 +89,7 @@ public class StudentsServlet extends HttpServlet {
 		req.setAttribute("result", result);
 		
 		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/addNumbers.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/studentLogin.jsp").forward(req, resp);
 	}
 
 	// gets double from the request with attribute named s
