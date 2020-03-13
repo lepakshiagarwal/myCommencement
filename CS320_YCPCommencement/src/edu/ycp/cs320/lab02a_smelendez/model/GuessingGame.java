@@ -8,7 +8,7 @@ package edu.ycp.cs320.lab02a_smelendez.model;
 // when the JSP specifies if(game.done), that gets converted to
 //    a call to model.isDone()
 public class GuessingGame {
-	private int min, max;
+	private String min, max;
 	
 	public GuessingGame() {
 	}
