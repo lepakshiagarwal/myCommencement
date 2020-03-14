@@ -20,7 +20,7 @@ public class AdvisorsServlet extends HttpServlet {
 		System.out.println("GuessingGame Servlet: doGet");	
 		
 		// call JSP to generate empty form
-		req.getRequestDispatcher("/_view/guessingGame.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/advisorLogin.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public class AdvisorsServlet extends HttpServlet {
 		req.setAttribute("game", model);
 		
 		// now call the JSP to render the new page
-		req.getRequestDispatcher("/_view/guessingGame.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/advisorLogin.jsp").forward(req, resp);
 	}
 
 	// gets an Integer from the Posted form data, for the given attribute name

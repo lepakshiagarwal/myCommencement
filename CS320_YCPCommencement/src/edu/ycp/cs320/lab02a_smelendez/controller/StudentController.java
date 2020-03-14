@@ -12,16 +12,19 @@ public class StudentController {
 	}
 	
 	
-	public Double add(Double first, Double second) {
-		return first + second;
+	public void choose() {
+		return view;
 	}
 	
-	public Double add(Double first, Double second, Double third) {
-		return (first + second + third);
+	public void populate() {
+		return template;
 	}
 	
-	public Double multiply(Double first, Double second) {
-		return first * second;
+	public void edit() {
+		return content;
+	}
+	public void upload() {
+		return view;
 	}
 	
 }
