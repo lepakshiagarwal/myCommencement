@@ -8,40 +8,31 @@ package edu.ycp.cs320.lab02a_smelendez.model;
 // when the JSP specifies if(game.done), that gets converted to
 //    a call to model.isDone()
 public class Advisors {
-	private int min, max;
+	private String username;
+	private String password;
 	
-	public Advisors() {
+	public Advisors() 
+	{
+		
 	}
 	
-	public void setMin(int min) {
-		this.min = min;
+	public void setUsername(String userName) 
+	{
+		this.username=userName;
 	}
 	
-	public int getMin() {
-		return min;
+	public int getUsername() 
+	{
+		return username;
 	}
 	
-	public void setMax(int max) {
-		this.max = max;
+	public void setPassword(String passWord) {
+		this.password = passWord;
 	}
 	
-	public int getMax() {
-		return max;
+	public int getPassword() {
+		return password;
 	}
 	
-	public boolean isDone() {
-		return min == max;
-	}
-	
-	public int getGuess() {
-		return min + (max-min)/2;
-	}
-	
-	public void setIsLessThan(int guess) {
-		this.max = guess-1;
-	}
-	
-	public void setIsGreaterThan(int guess) {
-		this.min = guess+1;
-	}
+
 }

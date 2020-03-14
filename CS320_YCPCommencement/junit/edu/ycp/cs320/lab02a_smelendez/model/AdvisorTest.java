@@ -16,13 +16,13 @@ public class AdvisorTest {
 	}
 	
 	@Test
-	public void testSetMin() {
-		model.setMin(1);
-		assertEquals(1, model.getMin());
+	public void testSetUsername() {
+		model.setMin("Don Hake");
+		assertEquals("Don Hake", model.getUsername());
 	}
 	
-	public void testSetMax() {
-		model.setMax(100);
-		assertEquals(100, model.getMax());
+	public void testSetPassword() {
+		model.setPassword("Tesla");
+		assertEquals("Tesla", model.getPassword());
 	}
 }
