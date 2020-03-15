@@ -11,20 +11,11 @@ public class StudentController {
 		this.model = model;
 	}
 	
-	
-	public void choose() {
-		return view;
+	public void Validate() {
+		model.isValid();
+		
 	}
-	
-	public void populate() {
-		return template;
-	}
-	
-	public void edit() {
-		return content;
-	}
-	public void upload() {
-		return view;
-	}
+
+
 	
 }

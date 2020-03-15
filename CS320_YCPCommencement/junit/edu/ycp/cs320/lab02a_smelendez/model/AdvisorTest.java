@@ -17,10 +17,11 @@ public class AdvisorTest {
 	
 	@Test
 	public void testSetUsername() {
-		model.setMin("Don Hake");
+		model.setUsername("Don Hake");
 		assertEquals("Don Hake", model.getUsername());
 	}
 	
+
 	public void testSetPassword() {
 		model.setPassword("Tesla");
 		assertEquals("Tesla", model.getPassword());

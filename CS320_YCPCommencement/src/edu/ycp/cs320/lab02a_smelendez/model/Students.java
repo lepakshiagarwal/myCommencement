@@ -8,34 +8,40 @@ package edu.ycp.cs320.lab02a_smelendez.model;
 // when the JSP specifies if(game.done), that gets converted to
 //    a call to model.isDone()
 public class Students {
-	private Double first, second, third;
-	
+	private String username;
+	private String password;
+		
 	public Students() {
 	}
 	
-	public void setFirst(Double f) {
-		this.first = f;
+	public void setUsername(String userName) 
+	{
+		this.username=userName;
 	}
 	
-	public Double getFirst() {
-		return first;
+	public String getUsername() 
+	{
+		return username;
 	}
 	
-	public void setSecond(Double s) {
-		this.second = s;
+	public void setPassword(String passWord) {
+		this.password = passWord;
 	}
 	
-	public Double getSecond() {
-		return second;
+	public String getPassword() {
+		return password;
 	}
 	
-	public void setThird(Double t) {
-		this.third = t;
+	public boolean isValid() {
+		if(this.username == getUsername() ) {
+			if(this.password == getPassword() ) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			return false;
+		}
+		
 	}
-	
-	public Double getThird() {
-		return third;
-	}
-	
-
 }

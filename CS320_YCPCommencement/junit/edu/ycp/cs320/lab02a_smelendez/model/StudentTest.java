@@ -16,13 +16,14 @@ public class StudentTest {
 	}
 	
 	@Test
-	public void testSetMin() {
-		model.setMin(1);
-		assertEquals(1, model.getMin());
+	public void testSetUsername() {
+		model.setUsername("Stu Dent");
+		assertEquals("Stu Dent", model.getUsername());
 	}
 	
-	public void testSetMax() {
-		model.setMax(100);
-		assertEquals(100, model.getMax());
+
+	public void testSetPassword() {
+		model.setPassword("wordpass");
+		assertEquals("wordpass", model.getPassword());
 	}
 }

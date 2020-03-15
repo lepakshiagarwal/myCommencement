@@ -17,18 +17,19 @@ public class StudentControllerTest {
 	public void setUp() {
 		model = new Students();
 		controller = new StudentController();
-		
-		model.setFirst(1.0);
-		model.setSecond(100.0);
+	
+		model.setUsername("Stu Dent");
+		model.setPassword("wordpass");
 		
 		controller.setModel(model);
 	}
 	
 	@Test
-	public void testNumber() {
-		double currentGuess = 100.0;
-		//controller.setNumberIsGreaterThanGuess();
-		assertTrue(controller.multiply(model.getFirst(), model.getSecond()) == currentGuess);
+	public void testValidate() {
+		String username = model.getUsername();
+		String password = model.getPassword();
+		boolean te = model.isValid();
+		assertTrue(controller.Validate() == te);
 	}
 	
 }
