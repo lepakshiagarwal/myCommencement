@@ -21,7 +21,7 @@ public class Advisors {
 		this.username=userName;
 	}
 	
-	public int getUsername() 
+	public String getUsername() 
 	{
 		return username;
 	}
@@ -30,7 +30,7 @@ public class Advisors {
 		this.password = passWord;
 	}
 	
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	
