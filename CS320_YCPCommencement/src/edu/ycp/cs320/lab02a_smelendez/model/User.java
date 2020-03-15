@@ -5,6 +5,10 @@ public abstract class User
 	private String password;
 	private String username;
 	
+	public User(username, password) {
+		this.username=username;
+		this.password=password;
+	}
 	public String getPassword()
 	{
 		return password;

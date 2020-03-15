@@ -8,22 +8,18 @@ import org.junit.Test;
 import edu.ycp.cs320.lab02a_smelendez.model.Advisors;
 
 public class StudentTest {
-	private Advisors model;
+	private Students model;
+	private int qrCode;
 	
 	@Before
 	public void setUp() {
-		model = new Advisors();
+		model = new Students(lepakshi,hi);
+		qrCode=4560;
 	}
 	
 	@Test
-	public void testSetUsername() {
-		model.setUsername("Stu Dent");
-		assertEquals("Stu Dent", model.getUsername());
+	public void testGetUsername() {
+		assertEqual(lepakshi,getuername());
 	}
 	
-
-	public void testSetPassword() {
-		model.setPassword("wordpass");
-		assertEquals("wordpass", model.getPassword());
-	}
 }
