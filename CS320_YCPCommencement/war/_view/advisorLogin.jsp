@@ -38,6 +38,7 @@
 				</tr>
 			</table>
 			<input type="Submit" name="submit" value="Login!">
+			<button onclick="href="http://localhost:8081/lab02a_smelendez/index">Back!</button>
 		</form>
 	</body>
 </html>
