@@ -5,7 +5,7 @@ package edu.ycp.cs320.lab02a_smelendez.model;
 public class Advisors inherits User{
 	
 	String username, password;
-	Double qrCode;
+	int qrCode;
 	public Advisors() {
 	}
 	
@@ -27,12 +27,12 @@ public class Advisors inherits User{
 		return password;
 	}
 		//setting qrCode
-	public void setQrCode(Double qrcode)) {
+	public void setQrCode(int qrcode)) {
 		this.qrCode = qrCode;
 	}
 
 	//get method for qrCode
-	public Double getQrCode() {
+	public int getQrCode() {
 		return qrCode;
 	}
 	
