@@ -11,10 +11,7 @@ public class StudentController {
 		this.model = model;
 	}
 	
-	public boolean Validate() {
-		return model.isValid();
-		
-	}
+	
 
 
 	

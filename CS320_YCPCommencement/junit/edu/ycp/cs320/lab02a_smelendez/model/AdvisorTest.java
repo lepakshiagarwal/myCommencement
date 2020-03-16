@@ -21,7 +21,7 @@ public class AdvisorTest {
 		assertEquals("Don Hake", model.getUsername());
 	}
 	
-
+	@Test
 	public void testSetPassword() {
 		model.setPassword("Tesla");
 		assertEquals("Tesla", model.getPassword());

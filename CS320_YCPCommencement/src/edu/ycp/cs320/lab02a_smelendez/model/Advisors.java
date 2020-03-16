@@ -1,11 +1,9 @@
 package edu.ycp.cs320.lab02a_smelendez.model;
 
-// model class for Advisor
-//type of user, inherits username and password
-public class Advisors extends User{
+public class Advisors{
 	
-	String username, password;
-	int qrCode;
+	private String username;
+	private String password;
 	
 	public Advisors() {
 	}

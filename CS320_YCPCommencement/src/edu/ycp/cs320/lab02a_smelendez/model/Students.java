@@ -7,11 +7,12 @@ package edu.ycp.cs320.lab02a_smelendez.model;
 //    a call to model.getMin()
 // when the JSP specifies if(game.done), that gets converted to
 //    a call to model.isDone()
-public class Students extends User{
+public class Students{
 	private String username;
 	private String password;
 	private String test1 = "Stu Dent";
 	private String test2 = "wordpass";
+	private int qrcode;
 	
 	public Students() {
 	}
@@ -34,13 +35,13 @@ public class Students extends User{
 		return password;
 	}
 		//setting qrCode
-	public void setQrCode(int qrcode)) {
-		this.qrCode = qrCode;
+	public void setQrCode(int qrcode) {
+		this.qrcode = qrcode;
 	}
 
 	//get method for qrCode
-	public Double getQrCode() {
-		return qrCode;
+	public int getQrCode() {
+		return qrcode;
 	}
 	
 	public boolean isValid() {

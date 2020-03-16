@@ -12,8 +12,5 @@ public class AdvisorController {
 		this.model = model;
 	}
 	
-	public boolean Validate() {
-		return model.isValid();
-		
-	}
+	
 }

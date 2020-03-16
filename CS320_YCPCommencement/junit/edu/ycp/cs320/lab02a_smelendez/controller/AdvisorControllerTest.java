@@ -1,5 +1,6 @@
 package edu.ycp.cs320.lab02a_smelendez.controller;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class AdvisorControllerTest {
 		String password = "pass";
 		
 		
-		model.setUsername(name)
+		model.setUsername(name);
 		model.setPassword(password);
 		
 		controller.setModel(model);
@@ -40,12 +41,12 @@ public class AdvisorControllerTest {
 	
 	@Test
 	public void testPasswordCorrect() {
-		String username = model.getUsername();
-		assertTrue(username.equals("pass"));
+		String pass = model.getPassword();
+		assertTrue(pass.equals("pass"));
 	}
 	@Test
 	public void testPasswordIncorrect() {
 		String pass = model.getPassword();
-		assertFalse(username.equals("wewew"));
+		assertFalse(pass.equals("wewew"));
 	}
 }

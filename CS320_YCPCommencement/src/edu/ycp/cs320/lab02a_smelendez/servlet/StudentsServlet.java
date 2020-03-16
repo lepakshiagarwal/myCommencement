@@ -41,20 +41,18 @@ public class StudentsServlet extends HttpServlet {
 		String errorMessage = null;
 
 		// result of calculation goes here
-		Double result = null;
+		boolean result = false;
 		
 		// decode POSTed form parameters and dispatch to controller
 		try {
-			Double first = getDoubleFromParameter(req.getParameter("first"));
-			Double second = getDoubleFromParameter(req.getParameter("second"));
-			Double third = getDoubleFromParameter(req.getParameter("third"));
-			model.setFirst(first);
-			model.setSecond(second);
-			model.setThird(third);
+			String username = getStringFromParameter(req.getParameter("first"));
+			String password = getStringFromParameter(req.getParameter("second"));
+			model.setUsername(username);
+			model.setPassword(password);
 			
 			// check for errors in the form data before using is in a calculation
-			if (model.getFirst() == null || model.getSecond() == null || model.getThird() == null) {
-				errorMessage = "Please specify three numbers";
+			if (model.getUsername() == null || model.getPassword() == null) {
+				errorMessage = "Please enter stuff";
 			}
 			
 			
@@ -68,7 +66,6 @@ public class StudentsServlet extends HttpServlet {
 			else {
 				
 				
-				result = controller.add(model.getFirst(), model.getSecond(), model.getThird());
 			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
@@ -81,7 +78,6 @@ public class StudentsServlet extends HttpServlet {
 		// and forth, it's a good idea
 		req.setAttribute("first", req.getParameter("first"));
 		req.setAttribute("second", req.getParameter("second"));
-		req.setAttribute("third", req.getParameter("third"));
 		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
@@ -93,11 +89,11 @@ public class StudentsServlet extends HttpServlet {
 	}
 
 	// gets double from the request with attribute named s
-	private Double getDoubleFromParameter(String s) {
+	private String getStringFromParameter(String s) {
 		if (s == null || s.equals("")) {
 			return null;
 		} else {
-			return Double.parseDouble(s);
+			return s;
 		}
 	}
 }

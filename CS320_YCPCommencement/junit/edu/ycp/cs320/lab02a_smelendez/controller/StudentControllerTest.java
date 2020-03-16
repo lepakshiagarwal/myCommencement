@@ -17,22 +17,35 @@ public class StudentControllerTest {
 		model = new Students();
 		controller = new StudentController();
 	
-		model.setUsername("Stu Dent");
-		model.setPassword("wordpass");
+		String name = "User";
+		String password = "pass";
+		
+		
+		model.setUsername(name);
+		model.setPassword(password);
 		
 		controller.setModel(model);
 	}
 	
 	@Test
-	public void testValidate() {
-		boolean te = true;
-		assertTrue(controller.Validate() == te);
+	public void testUsernameCorrect() {
+		String username = model.getUsername();
+		assertTrue(username.equals("User"));
 	}
 	@Test
-	public void testfailValidate() {
-		boolean te = false;
-		assertFalse(controller.Validate() == te);
+	public void testUsernameIncorrect() {
+		String username = model.getUsername();
+		assertFalse(username.equals("wewedw"));
 	}
-
 	
+	@Test
+	public void testPasswordCorrect() {
+		String pass = model.getPassword();
+		assertTrue(pass.equals("pass"));
+	}
+	@Test
+	public void testPasswordIncorrect() {
+		String pass = model.getPassword();
+		assertFalse(pass.equals("wewew"));
+	}
 }

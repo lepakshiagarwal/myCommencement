@@ -27,65 +27,74 @@ public class AdvisorsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("GuessingGame Servlet: doPost");
-		
-		// create GuessingGame model - model does not persist between requests
-		// must recreate it each time a Post comes in 
-		Advisors model = new Advisors();
 
-		// create GuessingGame controller - controller does not persist between requests
-		// must recreate it each time a Post comes in
+		System.out.println("advisor Servlet: doPost");
+		
+		
+		Advisors model = new Advisors();
+		
 		AdvisorController controller = new AdvisorController();
 		
-		// assign model reference to controller so that controller can access model
 		controller.setModel(model);
 		
-		// check if user is starting a new game and call controller method
-		if (req.getParameter("startGame") != null) {
-			controller.startGame();
-		}
-		// otherwise, user is already playing the game - get the old min and max
-		// from the posted form
-		// without persistence, we must pass the values back and forth between the
-		// client and the server every time in order to remember them
-		else {
-			// get min and max from the Posted form data
-			Integer curMin = getInteger(req, "min");
-			Integer curMax = getInteger(req, "max");
-			
-			// initialize model with the old min, max values
-			// since the data does not persist between posts, we need to 
-			// recreate and re-initialize the model each time
-			model.setMin(curMin);
-			model.setMax(curMax);
 
-			// now check to see which button the user pressed
-			// and adjust min, max, and guess accordingly
-			// must call controller methods to do this since the
-			// view only reads the model data, it never changes
-			// the model - only the controller can change the model
-			if (req.getParameter("gotIt") != null) {
-				controller.setNumberFound();
-				model.isDone();
-			} else if (req.getParameter("less") != null) {
-				controller.setNumberIsLessThanGuess();
-			} else if (req.getParameter("more") != null) {
-				controller.setNumberIsGreaterThanGuess();
-			} else {
-				throw new ServletException("Unknown command");
+		// holds the error message text, if there is any
+		String errorMessage = null;
+
+		// result of calculation goes here
+		boolean result = false;
+		
+		// decode POSTed form parameters and dispatch to controller
+		try {
+			String username = getStringFromParameter(req.getParameter("first"));
+			String password = getStringFromParameter(req.getParameter("second"));
+			model.setUsername(username);
+			model.setPassword(password);
+			
+			// check for errors in the form data before using is in a calculation
+			if (model.getUsername() == null || model.getPassword() == null) {
+				errorMessage = "Please enter stuff";
 			}
+			
+			
+			
+			
+			
+			// otherwise, data is good, do the calculation
+			// must create the controller each time, since it doesn't persist between POSTs
+			// the view does not alter data, only controller methods should be used for that
+			// thus, always call a controller method to operate on the data
+			else {
+				
+				
+			}
+		} catch (NumberFormatException e) {
+			errorMessage = "Invalid double";
 		}
 		
-		// set "game" attribute to the model reference
-		// the JSP will reference the model elements through "game"
-		req.setAttribute("game", model);
+		// Add parameters as request attributes
+		// this creates attributes named "first" and "second for the response, and grabs the
+		// values that were originally assigned to the request attributes, also named "first" and "second"
+		// they don't have to be named the same, but in this case, since we are passing them back
+		// and forth, it's a good idea
+		req.setAttribute("first", req.getParameter("first"));
+		req.setAttribute("second", req.getParameter("second"));
 		
-		// now call the JSP to render the new page
-		req.getRequestDispatcher("/_view/advisorLogin.jsp").forward(req, resp);
+		// add result objects as attributes
+		// this adds the errorMessage text and the result to the response
+		req.setAttribute("errorMessage", errorMessage);
+		req.setAttribute("result", result);
+		
+		// Forward to view to render the result HTML document
+		req.getRequestDispatcher("/_view/studentLogin.jsp").forward(req, resp);
 	}
 
-	// gets an Integer from the Posted form data, for the given attribute name
-	private int getInteger(HttpServletRequest req, String name) {
-		return Integer.parseInt(req.getParameter(name));
+	// gets double from the request with attribute named s
+	private String getStringFromParameter(String s) {
+		if (s == null || s.equals("")) {
+			return null;
+		} else {
+			return s;
+		}
 	}
 }
