@@ -26,15 +26,7 @@ public class Advisors inherits User{
 	public String getPassword() {
 		return password;
 	}
-		//setting qrCode
-	public void setQrCode(int qrcode)) {
-		this.qrCode = qrCode;
-	}
-
-	//get method for qrCode
-	public int getQrCode() {
-		return qrCode;
-	}
+	
 	
 	public boolean isValid() {
 		if(test1 == getUsername() ) {
