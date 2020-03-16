@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ycp.cs320.lab02a_smelendez.model.Advisors;
+import edu.ycp.cs320.lab02a_smelendez.model.Students;
 
 public class StudentTest {
 	private Students model;
