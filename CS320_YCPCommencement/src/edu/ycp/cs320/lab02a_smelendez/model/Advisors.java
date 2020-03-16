@@ -6,6 +6,7 @@ public class Advisors Extends User{
 	
 	String username, password;
 	int qrCode;
+	
 	public Advisors() {
 	}
 	
@@ -28,15 +29,5 @@ public class Advisors Extends User{
 	}
 	
 	
-	public boolean isValid() {
-		if(test1 == getUsername() ) {
-			if(test2 == getPassword() ) {
-				return true;
-			}else {
-				return false;
-			}
-		}else {
-			return false;
-		}
-		
+	
 	}
