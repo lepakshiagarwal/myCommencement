@@ -33,6 +33,15 @@ public class Students extends User{
 	public String getPassword() {
 		return password;
 	}
+		//setting qrCode
+	public void setQrCode(int qrcode)) {
+		this.qrCode = qrCode;
+	}
+
+	//get method for qrCode
+	public Double getQrCode() {
+		return qrCode;
+	}
 	
 	public boolean isValid() {
 		if(test1 == getUsername() ) {
