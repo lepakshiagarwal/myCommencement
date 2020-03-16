@@ -6,14 +6,7 @@ import edu.ycp.cs320.lab02a_smelendez.model.Advisors;
 public class AdvisorController {
 	private Advisors model;
 
-	/**
-	 * Set the model.
-	 * 
-	 * @param model the model to set
-	 */
-	public void setModel(Advisors model) {
-		this.model = model;
-	}
+
 
 	public void setModel(Advisors model) {
 		this.model = model;
