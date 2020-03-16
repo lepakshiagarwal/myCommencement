@@ -17,22 +17,35 @@ public class AdvisorControllerTest {
 		model = new Advisors();
 		controller = new AdvisorController();
 		
-		model.setMin(1);
-		model.setMax(100);
+		String name = "User";
+		String password = "pass";
+		
+		
+		model.setUsername(name)
+		model.setPassword(password);
 		
 		controller.setModel(model);
 	}
 	
 	@Test
-	public void testNumberIsGreater() {
-		int currentGuess = model.getGuess();
-		controller.setNumberIsGreaterThanGuess();
-		assertTrue(model.getGuess() > currentGuess);
+	public void testUsernameCorrect() {
+		String username = model.getUsername();
+		assertTrue(username.equals("User");
 	}
 	@Test
-	public void testNumberIsLess() {
-		int currentGuess = model.getGuess();
-		controller.setNumberIsLessThanGuess();
-		assertTrue(model.getGuess() < currentGuess);
+	public void testUsernameIncorrect() {
+		String username = model.getUsername();
+		assertFalse(username.equals("wewedw");
+	}
+	
+	@Test
+	public void testPasswordCorrect() {
+		String username = model.getUsername();
+		assertTrue(username.equals("pass");
+	}
+	@Test
+	public void testPasswordIncorrect() {
+		String pass = model.getPassword();
+		assertFalse(username.equals("wewew");
 	}
 }
