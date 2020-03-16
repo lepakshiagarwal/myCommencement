@@ -1,12 +1,11 @@
 package edu.ycp.cs320.lab02a_smelendez.controller;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ycp.cs320.lab02a_smelendez.controller.AdvisorController;
-import edu.ycp.cs320.lab02a_smelendez.model.Advisors;
 import edu.ycp.cs320.lab02a_smelendez.model.Students;
 
 public class StudentControllerTest {
@@ -26,10 +25,14 @@ public class StudentControllerTest {
 	
 	@Test
 	public void testValidate() {
-		String username = model.getUsername();
-		String password = model.getPassword();
-		boolean te = model.isValid();
+		boolean te = true;
 		assertTrue(controller.Validate() == te);
 	}
+	@Test
+	public void testfailValidate() {
+		boolean te = false;
+		assertFalse(controller.Validate() == te);
+	}
+
 	
 }
