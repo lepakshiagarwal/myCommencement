@@ -30,22 +30,22 @@ public class AdvisorControllerTest {
 	@Test
 	public void testUsernameCorrect() {
 		String username = model.getUsername();
-		assertTrue(username.equals("User");
+		assertTrue(username.equals("User"));
 	}
 	@Test
 	public void testUsernameIncorrect() {
 		String username = model.getUsername();
-		assertFalse(username.equals("wewedw");
+		assertFalse(username.equals("wewedw"));
 	}
 	
 	@Test
 	public void testPasswordCorrect() {
 		String username = model.getUsername();
-		assertTrue(username.equals("pass");
+		assertTrue(username.equals("pass"));
 	}
 	@Test
 	public void testPasswordIncorrect() {
 		String pass = model.getPassword();
-		assertFalse(username.equals("wewew");
+		assertFalse(username.equals("wewew"));
 	}
 }

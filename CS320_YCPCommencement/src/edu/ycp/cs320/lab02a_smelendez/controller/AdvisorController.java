@@ -15,7 +15,7 @@ public class AdvisorController {
 		this.model = model;
 	}
 
-	public void setModel(Students model) {
+	public void setModel(Advisors model) {
 		this.model = model;
 	}
 	
