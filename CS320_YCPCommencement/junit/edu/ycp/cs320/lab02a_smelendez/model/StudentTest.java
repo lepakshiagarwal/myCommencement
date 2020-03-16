@@ -19,7 +19,11 @@ public class StudentTest {
 	
 	@Test
 	public void testGetUsername() {
-		assertEqual(lepakshi,getuername());
+		assertEqual(lepakshi,getUsername());
+	}
+	@Test
+	public void testGetPassword() {
+		assertEqual(hi,getPassword());
 	}
 	
 }
