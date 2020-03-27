@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.lab02a_smelendez.controller.GuessingGameController;
-import edu.ycp.cs320.lab02a_smelendez.model.GuessingGame;
+import edu.ycp.cs320.lab02a_smelendez.controller.AdvisorController;
+import edu.ycp.cs320.lab02a_smelendez.model.Advisors;
 
-public class NextGuessAjaxServlet extends HttpServlet {
+public class AdvisorsAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -36,14 +36,14 @@ public class NextGuessAjaxServlet extends HttpServlet {
 			return;
 		}
 		
-		GuessingGame model = new GuessingGame();
+		Advisors model = new Advisors();
 		model.setMin(min);
 		model.setMax(max);
 		
 		// If an action was specified, use a GuessingGameController to carry it out
 		String action = req.getParameter("action");
 		if (action != null) {
-			GuessingGameController controller = new GuessingGameController();
+			AdvisorController controller = new AdvisorController();
 			controller.setModel(model);
 			
 			if (action.equals("less")) {

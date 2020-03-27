@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.lab02a_smelendez.controller.NumbersController;
-import edu.ycp.cs320.lab02a_smelendez.model.Numbers;
+import edu.ycp.cs320.lab02a_smelendez.controller.StudentController;
+import edu.ycp.cs320.lab02a_smelendez.model.Students;
 
-public class AddNumbersAjaxServlet extends HttpServlet {
+public class StudentsAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -39,8 +39,8 @@ public class AddNumbersAjaxServlet extends HttpServlet {
 			return;
 		}
 		
-		NumbersController controller = new NumbersController();
-		Numbers model = new Numbers();
+		StudentController controller = new StudentController();
+		Students model = new Students();
 		model.setFirst(first);
 		model.setSecond(second);
 		model.setThird(third);
