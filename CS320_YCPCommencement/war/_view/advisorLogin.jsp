@@ -37,6 +37,7 @@
 				</tr>
 			</table>
 			<input type="Submit" name="submit" value="Login!">
+			<a href="http://localhost:8081/lab02a_smelendez/index">Back!</a>
 		</form>
 	</body>
 </html>
