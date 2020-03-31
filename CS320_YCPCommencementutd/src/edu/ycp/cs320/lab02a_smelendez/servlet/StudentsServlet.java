@@ -41,7 +41,6 @@ public class StudentsServlet extends HttpServlet {
 		String errorMessage = null;
 
 		// result of calculation goes here
-		boolean result = false;
 		
 		// decode POSTed form parameters and dispatch to controller
 		try {
@@ -53,8 +52,16 @@ public class StudentsServlet extends HttpServlet {
 			// check for errors in the form data before using is in a calculation
 			if (model.getUsername() == null || model.getPassword() == null) {
 				errorMessage = "Please enter stuff";
+			}else {
+				boolean result = model.isValid();
+				if(result== true) {
+					resp.sendRedirect(req.getContextPath() + "/next.jsp");
+
+				}else {
+					
+				}
+				
 			}
-			
 			
 			
 			
@@ -63,12 +70,9 @@ public class StudentsServlet extends HttpServlet {
 			// must create the controller each time, since it doesn't persist between POSTs
 			// the view does not alter data, only controller methods should be used for that
 			// thus, always call a controller method to operate on the data
-			else {
-				
-				
-			}
+			
 		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
+			errorMessage = "Invalid";
 		}
 		
 		// Add parameters as request attributes
