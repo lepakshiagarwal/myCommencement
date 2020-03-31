@@ -12,7 +12,7 @@ public class Advisor {
 	private ArrayList<String> adviceList2;
 	private Map<String, ArrayList<String>> Advices;
  
-	public  Advisor() {
+	public Advisor() {
 		usernames = new ArrayList<String>();
 		passwords = new ArrayList<String>();
 		credentials = new TreeMap<String, String>();

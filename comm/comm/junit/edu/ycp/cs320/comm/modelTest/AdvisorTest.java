@@ -13,6 +13,7 @@ import edu.ycp.cs320.comm.model.Advisor;
 
 public class AdvisorTest {
 	public Advisor model;
+	
 	@Before
 	public void setUp() {
 		model = new Advisor();

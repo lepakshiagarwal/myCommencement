@@ -1,5 +1,7 @@
 package edu.ycp.cs320.comm.controller;
 
+import java.util.ArrayList;
+
 import edu.ycp.cs320.comm.model.Advisor;
 
 /**
@@ -21,5 +23,10 @@ public class AdvisorController {
 	//method to validate password
 	public boolean validateCredentials(String name, String password) {
 		return model.validatePassword(name, password);
+	}
+	
+	//method to get advices list for a advisor
+	public ArrayList<String> getAdviceList(String name){
+		return model.adviceList(name);
 	}
 }
