@@ -1,7 +1,6 @@
 package edu.ycp.cs320.comm.servlet;
 
 import java.io.IOException;
-import java.util.TreeMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.comm.controller.AdvisorController;
 import edu.ycp.cs320.comm.model.Advisor;
 
+
 public class AdvisorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//for validate method
-	private TreeMap<String, String> advisors= new TreeMap<String,String>();
+	private Advisor model;
+	private AdvisorController controller;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("GuessingGame Servlet: doGet");	
+		System.out.println("Advisor Servlet: doGet");	
 		
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/Advisorlogin.jsp").forward(req, resp);
@@ -33,81 +34,53 @@ public class AdvisorServlet extends HttpServlet {
 
 		System.out.println("advisor Servlet: doPost");
 		
-		
-		Advisor model = new Advisor(null,null);
-		
-		AdvisorController controller = new AdvisorController();
-		
-		controller.setModel(model);
-		//two advisors exist
-		advisors.put("Mshae","xyz");
-		advisors.put("Rshae","abc");
-		
-		// holds the error message text, if there is any
 		String errorMessage = null;
+		String name         = null;
+		String pw           = null;
+		boolean validLogin  = false;
 
-		// result of calculation goes here
-		boolean result = false;
-		
-		// decode POSTed form parameters and dispatch to controller
-		try {
-			String username = getStringFromParameter(req.getParameter("first"));
-			String password = getStringFromParameter(req.getParameter("second"));
-			model.setUsername(username);
-			model.setPassword(password);
-			
-			// check for errors in the form data before using is in a calculation
-			if (model.getUsername() == null || model.getPassword() == null) {
-				errorMessage = "Please enter stuff";
+		// Decode form parameters and dispatch to controller
+		name = req.getParameter("username");
+		pw   = req.getParameter("password");
+
+		System.out.println("   Name: <" + name + "> PW: <" + pw + ">");			
+
+		if (name == null || pw == null || name.equals("") || pw.equals("")) {
+			errorMessage = "Please specify both user name and password";
+		} else {
+			model      = new Advisor();
+			controller = new AdvisorController(model);
+			validLogin = controller.validateCredentials(name, pw);
+
+			if (!validLogin) {
+				errorMessage = "Username and/or password invalid";
 			}
-			
-			//check to see if username exits
-			else if(!advisors.containsKey(model.getUsername())){
-				errorMessage="user doesnot exist";
-			}
-			
-			//check to see if password is correct for username
-			else if(!advisors.get(model.getUsername()).equals(model.getPassword())) {
-				errorMessage= "password does not match";
-			}
-			
-			
-			
-			// otherwise, data is good, do the calculation
-			// must create the controller each time, since it doesn't persist between POSTs
-			// the view does not alter data, only controller methods should be used for that
-			// thus, always call a controller method to operate on the data
-			else {
-				errorMessage = "Logged in!";
-				
-			}
-		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
 		}
-		
+
 		// Add parameters as request attributes
-		// this creates attributes named "first" and "second for the response, and grabs the
-		// values that were originally assigned to the request attributes, also named "first" and "second"
-		// they don't have to be named the same, but in this case, since we are passing them back
-		// and forth, it's a good idea
-		req.setAttribute("first", req.getParameter("first"));
-		req.setAttribute("second", req.getParameter("second"));
-		
-		// add result objects as attributes
-		// this adds the errorMessage text and the result to the response
+		req.setAttribute("username", req.getParameter("username"));
+		req.setAttribute("password", req.getParameter("password"));
+
+		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);
-		req.setAttribute("result", result);
+		req.setAttribute("login",        validLogin);
+
+		// if login is valid, start a session
+		if (validLogin) {
+			System.out.println("   Valid login - starting session, redirecting to /index");
+
+			// store user object in session
+			req.getSession().setAttribute("user", name);
+
+			// redirect to /index page
+			resp.sendRedirect(req.getContextPath() + "/index");
+
+			return;
+		}
+
+		System.out.println("   Invalid login - returning to /Login");
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/Advisorlogin.jsp").forward(req, resp);
-	}
-
-	// gets double from the request with attribute named s
-	private String getStringFromParameter(String s) {
-		if (s == null || s.equals("")) {
-			return null;
-		} else {
-			return s;
-		}
 	}
 }

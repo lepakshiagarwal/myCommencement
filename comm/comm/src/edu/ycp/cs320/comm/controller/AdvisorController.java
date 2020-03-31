@@ -9,8 +9,17 @@ public class AdvisorController {
 	private Advisor model;
 
 	 //Set the model.
-	public void setModel(Advisor model) {
+	public AdvisorController(Advisor model) {
 		this.model = model;
 	}
+	
+	//method to check username
+	public boolean checkUserName(String name) {
+		return model.validateUserName(name);
+	}
+	
+	//method to validate password
+	public boolean validateCredentials(String name, String password) {
+		return model.validatePassword(name, password);
+	}
 }
-//comment
