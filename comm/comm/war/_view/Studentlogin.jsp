@@ -38,7 +38,10 @@
 					
 				</tr>
 			</table>
-			<input type="Submit" name="submit" value="Login!">
+			<form action="${pageContext.servletContext.contextPath}/index" method="get">
+			<input type="Submit" name="studentMain" value="Login!">
+		</form>	
+			
 		</form>
 	</body>
 </html>

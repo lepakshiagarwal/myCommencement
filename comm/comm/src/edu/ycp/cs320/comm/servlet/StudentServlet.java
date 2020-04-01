@@ -74,6 +74,7 @@ public class StudentServlet extends HttpServlet {
 			else {
 				
 				errorMessage = "Logged in!";
+				
 			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
