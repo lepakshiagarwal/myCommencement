@@ -39,9 +39,9 @@ public class StudentMainServlet extends HttpServlet {
 		
 	    controller = new StudentController(model);
 		
-		double GPA = model.getGPA();
+		double GPA = model.getGpa();
 		String Major = model.getMajor();
-		String AdvisorName = model.getAdvisor();
+		int AdvisorID = model.getAdvisorId();
 
 		// Decode form parameters and dispatch to controller
 		
@@ -51,7 +51,7 @@ public class StudentMainServlet extends HttpServlet {
 		// Add parameters as request attributes
 	    req.setAttribute("GPA", GPA);
 	    req.setAttribute("Major", Major);
-	    req.setAttribute("AdvisorName", AdvisorName);
+	    req.setAttribute("AdvisorID", AdvisorID);
 
 		// Add result objects as request attributes
 
