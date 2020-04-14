@@ -1,8 +1,8 @@
 package edu.ycp.cs320.comm.model;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.awt.Image;
+import java.io.File;
+import java.util.List;
 
 public class Student extends User {
 
@@ -13,6 +13,7 @@ public class Student extends User {
 	private String firstname;
 	private int advisorId;
 	private int studentId;
+	private Content studentContent;
 	
 	public Student(String username, String password)
 	{
@@ -33,6 +34,7 @@ public class Student extends User {
 		return major;
 	}
 
+	
 	public int getAdvisorId() {
 		return advisorId;
 	}
@@ -57,6 +59,10 @@ public class Student extends User {
 		this.studentId=studentId;;
 		
 	}
+	public int getStudentId()
+	{
+		return studentId;
+	}
 
 	public void setAdvisorId(int advisorId) {
 		this.advisorId=advisorId;		
@@ -78,4 +84,23 @@ public class Student extends User {
 		this.minor=minor;
 		
 	}
+	
+	public void setContent(Content newContent)
+	{
+		this.studentContent=newContent;
+	}
+	
+	public Content getContent()
+	{
+		return studentContent;
+		
+	}
+	
+	public void setContent(Image img, List<Image> imgs, File Video)
+	{
+		studentContent.setStaticImage(img);
+		studentContent.setSlideShowImgs(imgs);
+		studentContent.setVideoFile(Video);
+	}
+	
 }
