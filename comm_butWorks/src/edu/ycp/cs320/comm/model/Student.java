@@ -19,6 +19,11 @@ public class Student extends User {
 		super(username, password);
 	}
 	
+	public Student()
+	{
+		super(null,null);
+	}
+	
 	public void setMajor(String major) 
 	{
 		this.major=major;
