@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Student extends User {
 
-	private double gpa;
+	private float gpa;
 	private String major;
 	private String minor;
 	private String lastname;
@@ -47,7 +47,7 @@ public class Student extends User {
 		return lastname;
 	}
 
-	public double getGpa() {
+	public float getGpa() {
 		return gpa;
 	}
 
@@ -76,7 +76,7 @@ public class Student extends User {
 		this.lastname=lastname;
 	}
 
-	public void setGpa(double gpa) {
+	public void setGpa(float gpa) {
 		this.gpa=gpa;		
 	}
 
