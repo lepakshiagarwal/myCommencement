@@ -254,7 +254,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	private Connection connect() throws SQLException {
-		Connection connycp = DriverManager.getConnection("jdbc:derby:test.db;create=true");
+		Connection connycp = DriverManager.getConnection("jdbc:derby:C:/CS320-2020-myComm-DB/ycp.db;create=true");
 
 		// Set autocommit to false to allow execution of
 		// multiple queries/statements as part of the same transaction.
@@ -306,7 +306,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "	lastname varchar(40)," 
 							+ "	username varchar(40),"
 							+ "	major varchar(70)," 
-							+ " gpa  numeric(5,2), " 
+							+ " gpa  float(40), " 
 							+ "	minor varchar(15)" 
 							+ ")");
 					stmt2.executeUpdate();
@@ -360,6 +360,7 @@ public class DerbyDatabase implements IDatabase {
 						insertStudent.setInt(1, student.getAdvisorId());
 						insertStudent.setString(2, student.getFirstname());
 						insertStudent.setString(3, student.getLastname());
+						System.out.println("almost there");
 						insertStudent.setString(4, student.getUsername());
 						insertStudent.setString(5, student.getMajor());
 						insertStudent.setFloat(6, student.getGpa());
@@ -381,7 +382,6 @@ public class DerbyDatabase implements IDatabase {
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
-		
 		db.createTables();
 		
 		System.out.println("Loading initial data...");
