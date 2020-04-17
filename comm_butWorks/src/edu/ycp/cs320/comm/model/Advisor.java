@@ -15,13 +15,13 @@ public class Advisor extends User
 		advisees = new ArrayList<Student>();
 	}
 	
-	
-	public Advisor() 
+	public Advisor()
 	{
-		super(null, null);
+		super(null,null);
+		advisees= new ArrayList<Student>();
 	}
-
-
+	
+	
 	//adds new advisee
 	public void addAdvisee(Student s)
 	{
