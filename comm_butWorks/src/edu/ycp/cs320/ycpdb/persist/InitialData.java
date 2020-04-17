@@ -48,6 +48,7 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				Student student = new Student();
 				student.setStudentId(studentId++);
+				i.next();
 				student.setAdvisorId(Integer.parseInt(i.next()));
 				student.setFirstname(i.next());
 				student.setLastname(i.next());
