@@ -10,7 +10,7 @@ import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
 
 public class FindStudentByAdvisorUsername
 {
-	public void main(String args[])
+	public static void main(String args[])
 	{
 		Scanner keyboard = new Scanner(System.in);
 	
@@ -19,8 +19,8 @@ public class FindStudentByAdvisorUsername
 		String AdvUsername = keyboard.nextLine();
 		
 		// get the DB instance and execute transaction
+		DatabaseProvider.setInstance(new DerbyDatabase());
 		DerbyDatabase db = (DerbyDatabase) DatabaseProvider.getInstance();
-		
 		List<Student> students = db.findStudentUsernameByAdvisorUsername(AdvUsername);
 		
 		// check if anything was returned and output the list

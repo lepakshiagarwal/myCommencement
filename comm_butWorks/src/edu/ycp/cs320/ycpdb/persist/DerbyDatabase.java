@@ -298,17 +298,27 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt2 = null;
 
 				try {
-					stmt1 = connycp.prepareStatement("create table advisors (" + "	advisorId integer primary key "
-							+ "		generated always as identity (start with 1, increment by 1), "
-							+ "	firstname varchar(40)," + "	lastname varchar(40)," + " username varchar(40)" + " ) ");
+					stmt1 = connycp.prepareStatement("create table advisors (" 
+							+ "	advisorId integer primary key "
+							+ "	generated always as identity (start with 1, increment by 1), "
+							+ "	firstname varchar(40)," 
+							+ "	lastname varchar(40)," 
+							+ " username varchar(40)" 
+							+ " ) ");
 					stmt1.executeUpdate();
 					
 					System.out.println("stmt1 executed");
-					stmt2 = connycp.prepareStatement("create table students (" + "	studentId integer primary key "
-							+ "		generated always as identity (start with 1, increment by 1), "
+					stmt2 = connycp.prepareStatement("create table students (" 
+							+ "	studentId integer primary key "
+							+ "	generated always as identity (start with 1, increment by 1), "
 							+ "	advisorId integer constraint advisorId references advisors, "
-							+ "	firstname varchar(40)," + "	lastname varchar(40)," + "	username varchar(40),"
-							+ "	major varchar(70)," + "   gpa  float(40), " + "	minor varchar(15)" + ")");
+							+ "	firstname varchar(40)," 
+							+ "	lastname varchar(40)," 
+							+ "	username varchar(40),"
+							+ "	major varchar(70)," 
+							+ " gpa  float(40), " 
+							+ "	minor varchar(15)" 
+							+ ")");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
 					return true;
