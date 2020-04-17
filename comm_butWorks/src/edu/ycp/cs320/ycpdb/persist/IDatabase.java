@@ -8,7 +8,6 @@ import edu.ycp.cs320.comm.model.Student;
 
 public interface IDatabase {
 
-	List<Student> findStudentsByAdvisorId(final String AdvisorId);
-
+	List<Student> findStudentUsernameByAdvisorUsername(final String aUsername);
 	
 }
