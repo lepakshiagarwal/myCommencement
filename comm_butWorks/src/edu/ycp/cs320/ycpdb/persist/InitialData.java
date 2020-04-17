@@ -53,7 +53,7 @@ public class InitialData {
 				student.setLastname(i.next());
 				student.setUsername(i.next());
 				student.setMajor(i.next());
-				student.setGpa(Double.parseDouble(i.next()));
+				student.setGpa(Float.parseFloat(i.next()));
 				student.setMinor(i.next());
 				studentList.add(student);
 			}
