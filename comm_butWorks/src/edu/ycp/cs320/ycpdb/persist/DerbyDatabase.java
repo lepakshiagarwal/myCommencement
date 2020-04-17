@@ -263,7 +263,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	private Connection connect() throws SQLException {
-		Connection connycp = DriverManager.getConnection("jdbc:derby:test.db;create=true");
+		Connection connycp = DriverManager.getConnection("jdbc:derby:C:/CS320-myComm-datbase/ycp.db;create=true");
 
 		// Set autocommit to false to allow execution of
 		// multiple queries/statements as part of the same transaction.
@@ -308,7 +308,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "		generated always as identity (start with 1, increment by 1), "
 							+ "	advisorId integer constraint advisorId references advisors, "
 							+ "	firstname varchar(40)," + "	lastname varchar(40)," + "	username varchar(40),"
-							+ "	major varchar(70)," + "   gpa  numeric(5,2), " + "	minor varchar(15)" + ")");
+							+ "	major varchar(70)," + "   gpa  float(40), " + "	minor varchar(15)" + ")");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
 					return true;
@@ -354,7 +354,7 @@ public class DerbyDatabase implements IDatabase {
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connycp.prepareStatement(
-							"insert into students (authorId, firstname, lastname, major, gpa, minor) values (?, ?, ?, ?, ?, ?)");
+							"insert into students (advisorId, firstname, lastname, Username, major, gpa, minor) values (?, ?, ?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setInt(1, student.getAdvisorId());
@@ -362,7 +362,7 @@ public class DerbyDatabase implements IDatabase {
 						insertStudent.setString(3, student.getLastname());
 						insertStudent.setString(4, student.getUsername());
 						insertStudent.setString(5, student.getMajor());
-						insertStudent.setFloat(6, student.getGpa());
+						insertStudent.setFloat(	6, student.getGpa());
 						insertStudent.setString(7, student.getMinor());
 						insertStudent.addBatch();
 					}

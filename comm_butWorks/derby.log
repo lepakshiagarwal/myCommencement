@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Tue Apr 14 22:03:57 EDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-7b94-14ec-000001a239f8 
-on database directory C:\Users\DELL\Documents\GitHub\myCommencement\comm_butWorks\test.db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44 
+Fri Apr 17 13:48:16 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-8941-6121-000001a0ea00 
+on database directory C:\CS320-myComm-datbase\ycp.db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44 
 Loaded from file:/C:/Users/DELL/Documents/GitHub/myCommencement/comm_butWorks/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=13+33
