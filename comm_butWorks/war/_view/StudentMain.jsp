@@ -105,7 +105,9 @@
 			<input type="Submit" name="submithome" value="Update Content">
 		</form>		
 		</form>
-		<a href="http://localhost:8081/lab02/ViewChoose">views</a>
+		<a href="http://localhost:8081/lab02/ViewChoose">
+		<input type="button" value="Choose view" />
+		</a>
 		<br> <br> <br>
 	</body>
 </html>
