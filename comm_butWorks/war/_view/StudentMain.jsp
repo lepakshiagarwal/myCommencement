@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <html>
 	<head>
 		<title>CS320 Books</title>
@@ -77,7 +76,7 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 	
-		<form action="${pageContext.servletContext.contextPath}/studentMain" method="post">
+		<form action="${pageContext.servletContext.contextPath}/StudentMain" method="post">
 			
 			<table>
 			    <tr>
@@ -94,16 +93,19 @@
 			        <tr class="studentRow">
 			           
 			            <td class="major">${student.major}</td>
-			            <td class="GPA">${book.GPA}</td>	
-			            <td class="AdvisorName">${book.advisorName}</td>		            
+			            <td class="GPA">${student.GPA}</td>	
+			            <td class="AdvisorName">${student.advisorName}</td>		
+			            <td class="cont">${student.cont}</td>		             
 			        </tr>
 			    </c:forEach>
 			    
 			</table>
 			
-			<form action="${pageContext.servletContext.contextPath}/index" method="post">
-			<input type="Submit" name="submithome" value="Upload Content">
+			<form action="${pageContext.servletContext.contextPath}/StudentMain" method="post">
+			<input type="Submit" name="submithome" value="Update Content">
 		</form>		
 		</form>
+		<a href="http://localhost:8081/lab02/ViewChoose">views</a>
+		<br> <br> <br>
 	</body>
 </html>

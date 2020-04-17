@@ -1,5 +1,7 @@
 package edu.ycp.cs320.ycpdb.persist;
 
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,6 +57,7 @@ public class InitialData {
 				student.setMajor(i.next());
 				student.setGpa(Double.parseDouble(i.next()));
 				student.setMinor(i.next());
+				//student.getContent(File.parseFile(i.next()));
 				studentList.add(student);
 			}
 			return studentList;

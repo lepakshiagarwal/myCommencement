@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.comm.controller.AdvisorController;
 import edu.ycp.cs320.comm.controller.StudentController;
 import edu.ycp.cs320.comm.model.Advisor;
+import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 
 
@@ -35,14 +36,14 @@ public class StudentMainServlet extends HttpServlet {
 		
 
 		System.out.println("student Servlet: doPost");
-		model = new Student("Smelendez", "42");
+		model = new Student();
 		
 	    controller = new StudentController(model);
 		
 		double GPA = model.getGpa();
 		String Major = model.getMajor();
 		int AdvisorID = model.getAdvisorId();
-
+		Content cont = model.getContent(); 
 		// Decode form parameters and dispatch to controller
 		
 
@@ -52,6 +53,7 @@ public class StudentMainServlet extends HttpServlet {
 	    req.setAttribute("GPA", GPA);
 	    req.setAttribute("Major", Major);
 	    req.setAttribute("AdvisorID", AdvisorID);
+	    req.setAttribute("cont", cont);
 
 		// Add result objects as request attributes
 

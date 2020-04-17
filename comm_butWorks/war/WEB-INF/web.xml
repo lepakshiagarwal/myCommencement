@@ -26,7 +26,14 @@
     <servlet-name>StudentMainServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.comm.servlet.StudentMainServlet</servlet-class>
   </servlet>
- 
+ <servlet>
+    <servlet-name>StaticUploadServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.comm.servlet.StaticUploadServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ViewChooseServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.comm.servlet.ViewChooseServlet</servlet-class>
+  </servlet>
   
  
 
@@ -50,6 +57,14 @@
   <servlet-mapping>
     <servlet-name>StudentMainServlet</servlet-name>
     <url-pattern>/StudentMain</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StaticUploadServlet</servlet-name>
+    <url-pattern>/Static</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>ViewChooseServlet</servlet-name>
+    <url-pattern>/ViewChoose</url-pattern>
   </servlet-mapping>
   
   
