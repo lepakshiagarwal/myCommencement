@@ -31,20 +31,23 @@ public class DerbyDatabase implements IDatabase {
 	private static final int MAX_ATTEMPTS = 10;
 
 	@Override
+
 	public List<Student> findStudentUsernameByAdvisorUsername(final String aUsername) {
 		return executeTransaction(new Transaction<List<Student>>() {
-			@Override
+
 			public List<Student> execute(Connection connycp) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
 				try {
 					// retreive all attributes from both Books and Authors tables
+
 					stmt = connycp.prepareStatement("select students.* " + "  from advisors, students "
 							+ " where advisors.advisorId = students.advisorId " + "   and advisors.username = ?");
 					stmt.setString(1, aUsername);
 
 					List<Student> result = new ArrayList<Student>();
+
 
 					resultSet = stmt.executeQuery();
 
@@ -65,7 +68,9 @@ public class DerbyDatabase implements IDatabase {
 						Student student = new Student();
 						loadStudent(student, resultSet, 4);
 
+
 						result.add(student);
+
 					}
 
 					// check if the title was found
