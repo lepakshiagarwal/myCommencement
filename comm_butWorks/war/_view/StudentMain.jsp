@@ -88,6 +88,9 @@
 				 <tr>
 					<td class="AdvisorName">Advisor Name:   </td>      				
 			    </tr>
+			    <tr>
+					<td class="studentContent">Upload:   </td>      				
+			    </tr>
 			        
 			    <c:forEach items="${students}" var="student">
 			        <tr class="studentRow">
@@ -95,7 +98,7 @@
 			            <td class="major">${student.major}</td>
 			            <td class="GPA">${student.GPA}</td>	
 			            <td class="AdvisorName">${student.advisorName}</td>		
-			            <td class="cont">${student.cont}</td>		             
+			            <td class="studentContent">${student.studentContent}</td>		             
 			        </tr>
 			    </c:forEach>
 			    
