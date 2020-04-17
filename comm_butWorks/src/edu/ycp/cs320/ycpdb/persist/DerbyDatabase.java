@@ -31,7 +31,8 @@ public class DerbyDatabase implements IDatabase {
 	private static final int MAX_ATTEMPTS = 10;
 
 	@Override
-	public List<Student> findStudentUsernameByAdvisorUsername(final String aUsername) {
+
+	public List<Student> findStudentsByAdvisorId(final String AdvisorId) {
 		return executeTransaction(new Transaction<List<Student>>() {
 			@Override
 			public List<Student> execute(Connection connycp) throws SQLException {
@@ -39,38 +40,33 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 
 				try {
-					// retreive all attributes from both Books and Authors tables
-					stmt = connycp.prepareStatement("select students.* " + "  from advisors, students "
-							+ " where advisors.advisorId = students.advisorId " + "   and advisors.username = ?");
-					stmt.setString(1, aUsername);
+					// retreive all attributes from both Students table, given advisor ID
+					stmt = connycp.prepareStatement("select students.* " + " from students "
+							+ " where students.advisorId=?");
+					stmt.setString(1, AdvisorId);
 
+					
 					List<Student> result = new ArrayList<Student>();
-
 					resultSet = stmt.executeQuery();
 
 					// for testing that a result was returned
 					Boolean found = false;
-
-					while (resultSet.next()) {
+					while (resultSet.next()) 
+					{
 						found = true;
-
-						// create new Author object
-						// retrieve attributes from resultSet starting with index 1
-						Advisor advisor = new Advisor();
-						loadAdvisor(advisor, resultSet, 1);
-
-						// create new Book object
+						// create new Student object
 						// retrieve attributes from resultSet starting at index 4
 						//why 4? -Shea
 						Student student = new Student();
-						loadStudent(student, resultSet, 4);
 
+						loadStudent(student, resultSet, 0);
 						result.add(student);
 					}
 
+					
 					// check if the title was found
 					if (!found) {
-						System.out.println("<" + aUsername + "> was not found in the advisors table");
+						System.out.println("Students with AdvisorId<" + AdvisorId + "> was not found in the Students table");
 					}
 
 					return result;
@@ -82,6 +78,9 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
+	//This is all commented out, in case we need to reference example code at a later time
+	
+	
 	/*
 	 * @Override public List<Pair<Author, Book>> findBooksByAuthorLastName(final
 	 * String lastName) { return executeTransaction(new
@@ -293,17 +292,26 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt2 = null;
 
 				try {
-					stmt1 = connycp.prepareStatement("create table advisors (" + "	advisorId integer primary key "
-							+ "		generated always as identity (start with 1, increment by 1), "
-							+ "	firstname varchar(40)," + "	lastname varchar(40)," + " username varchar(40)" + " ) ");
+					stmt1 = connycp.prepareStatement("create table advisors ("
+							+ " advisorId integer primary key "
+							+ "	generated always as identity (start with 1, increment by 1), "
+							+ "	firstname varchar(40)," 
+							+ "	lastname varchar(40)," 
+							+ " username varchar(40)" 
+							+ ")");
 					stmt1.executeUpdate();
-					
-					System.out.println("stmt1 executed");
-					stmt2 = connycp.prepareStatement("create table students (" + "	studentId integer primary key "
-							+ "		generated always as identity (start with 1, increment by 1), "
+
+					stmt2 = connycp.prepareStatement("create table students (" 
+							+ "	studentId integer primary key "
+							+ "	generated always as identity (start with 1, increment by 1), "
 							+ "	advisorId integer constraint advisorId references advisors, "
-							+ "	firstname varchar(40)," + "	lastname varchar(40)," + "	username varchar(40),"
-							+ "	major varchar(70)," + "   gpa  numeric(5,2), " + "	minor varchar(15)" + ")");
+							+ "	firstname varchar(40)," 
+							+ "	lastname varchar(40)," 
+							+ "	username varchar(40),"
+							+ "	major varchar(70)," 
+							+ " gpa  numeric(5,2), " 
+							+ "	minor varchar(15)" 
+							+ ")");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
 					return true;
@@ -349,7 +357,7 @@ public class DerbyDatabase implements IDatabase {
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connycp.prepareStatement(
-							"insert into students (authorId, firstname, lastname, major, gpa, minor) values (?, ?, ?, ?, ?, ?)");
+							"insert into students (advisorId, firstname, lastname, major, gpa, minor) values (?, ?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setInt(1, student.getAdvisorId());
@@ -376,11 +384,12 @@ public class DerbyDatabase implements IDatabase {
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
+		
 		db.createTables();
-
+		
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
-
+		
 		System.out.println("Success!");
 	}
 }
