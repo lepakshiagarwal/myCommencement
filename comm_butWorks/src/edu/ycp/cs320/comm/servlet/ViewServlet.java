@@ -59,7 +59,6 @@ public class ViewServlet extends HttpServlet {
 			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 		}else if (action.equals("video")){ 
 			req.setAttribute("video", model.getContent());
-			req.setAttribute("audio", model.getContent());
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);
 		}
 
