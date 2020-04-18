@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 
@@ -27,20 +28,6 @@ public class ViewServlet extends HttpServlet {
 		
 		System.out.println("View Servlet: doGet");	
 		
-		// call JSP to generate empty form
-		req.getRequestDispatcher("/_view/V.jsp").forward(req, resp);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
-
-		System.out.println("upload Servlet: doPost");
-	
-	
-
-		// Add parameters as request attributes
 		String action = req.getParameter("action");
 		if (action.equals("static")){ 
 			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
@@ -49,9 +36,32 @@ public class ViewServlet extends HttpServlet {
 		}else if (action.equals("video")){ 
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);
 		}
+		// call JSP to generate empty form
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+
+		System.out.println("view Servlet: doPost");
+	
+		Student model = (Student) req.getSession().getAttribute("user");
 
 
-
+		// Add parameters as request attributes
+		String action = req.getParameter("action");
+		if (action.equals("static")){ 
+			req.setAttribute("img", model.getContent());
+			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
+		}else if (action.equals("slideshow")){ 
+			req.setAttribute("", model.getContent());
+			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
+		}else if (action.equals("video")){ 
+			req.setAttribute("video", model.getContent());
+			req.setAttribute("audio", model.getContent());
+			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);
+		}
 
 		
 	}
