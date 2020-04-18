@@ -16,7 +16,7 @@ import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 
 @MultipartConfig(maxFileSize = 1699999999)
-public class StaticUploadServlet extends HttpServlet {
+public class ViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//for validate method
 	private Student model;
@@ -25,10 +25,10 @@ public class StaticUploadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("Static Servlet: doGet");	
+		System.out.println("View Servlet: doGet");	
 		
 		// call JSP to generate empty form
-		req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/V.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -37,32 +37,22 @@ public class StaticUploadServlet extends HttpServlet {
 		
 
 		System.out.println("upload Servlet: doPost");
-		
-		 try {
-			Part filePart = req.getPart("fileToUpload");
-			InputStream input = null;
-			 if(filePart != null) {
-				 long fileSize = filePart.getSize();
-				 String cont = filePart.getContentType();
-				 input = filePart.getInputStream();
-			 }
-			 
-			 
-			 
-		 }catch(Exception exe) {
-			 exe.printStackTrace();
-		 }
-
+	
 	
 
 		// Add parameters as request attributes
-		req.setAttribute("fileToUpload", req.getParameter("fileToUpload"));
+		String action = req.getParameter("action");
+		if (action.equals("static")){ 
+			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
+		}else if (action.equals("slideshow")){ 
+			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
+		}else if (action.equals("video")){ 
+			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);
+		}
 
 
 
 
 		
-		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
 	}
 }

@@ -98,7 +98,6 @@
 			            <td class="major">${student.major}</td>
 			            <td class="GPA">${student.GPA}</td>	
 			            <td class="AdvisorName">${student.advisorName}</td>		
-			            <td class="studentContent">${student.studentContent}</td>		             
 			        </tr>
 			    </c:forEach>
 			    
@@ -108,15 +107,15 @@
 			<input type="Submit" name="submithome" value="Update Content">
 		</form>		
 		</form>
-		<a href="http://localhost:8081/lab02/Static">  
- 		<input type="button" value="Static view" />
-		</a>
-		<a href="http://localhost:8081/lab02/Slideshow">  
- 		<input type="button" value="Slideshow view" />
-		</a>
-		<a href="http://localhost:8081/lab02/Video">  
- 		<input type="button" value="Video view" />
-		</a>
+		<form action="${pageContext.servletContext.contextPath}/View" method="POST">
+ 		 <input type="submit" value="Static" name="static">                 
+		</form>
+		<form action="${pageContext.servletContext.contextPath}/View" method="POST">
+ 		 <input type="submit" value="Slideshow" name="slideshow">                 
+		</form>
+		<form action="${pageContext.servletContext.contextPath}/View" method="POST">
+ 		 <input type="submit" value="Video" name="video">                 
+		</form>
 		<br> <br> <br>
 	</body>
 </html>
