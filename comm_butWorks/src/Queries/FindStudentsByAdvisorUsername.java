@@ -15,18 +15,18 @@ public class FindStudentsByAdvisorUsername
 		Scanner keyboard = new Scanner(System.in);
 	
 		// Create the default IDatabase instance
-		System.out.print("Enter advisor username");
-		String AdvUsername = keyboard.nextLine();
+		System.out.print("Enter advisor Id");
+		int AdvId = keyboard.nextInt();
 		
 		// get the DB instance and execute transaction
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		DerbyDatabase db = (DerbyDatabase) DatabaseProvider.getInstance();
-		List<Student> students = db.findStudentsByAdvisorUsername(AdvUsername);
+		List<Student> students = db.findStudentsByAdvisorUsername(AdvId);
 		
 		// check if anything was returned and output the list
 		if (students.isEmpty()) 
 		{
-			System.out.println("No students found with advisor: <" + AdvUsername + ">");
+			System.out.println("No students found with advisor: <" + AdvId + ">");
 		}
 		else 
 		{

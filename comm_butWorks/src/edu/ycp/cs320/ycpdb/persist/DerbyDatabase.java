@@ -38,7 +38,7 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 
-	public List<Student> findStudentsByAdvisorUsername(final String aUsername) {
+	public List<Student> findStudentsByAdvisorUsername(final int advId) {
 		return executeTransaction(new Transaction<List<Student>>() {
 
 			public List<Student> execute(Connection connycp) throws SQLException {
@@ -49,10 +49,10 @@ public class DerbyDatabase implements IDatabase {
 					// retreive all attributes from both Books and Authors tables
 
 					stmt = connycp.prepareStatement("select students.* " 
-							+ "  from advisors, students "
+							+ " from advisors, students "
 							+ " where advisors.advisorId = students.advisorId " 
-							+ "   and advisors.username = ?");
-					stmt.setString(1, aUsername);
+							+ " and advisors.advisorId = ?");
+					stmt.setInt(1, advId);
 
 					List<Student> result = new ArrayList<Student>();
 
@@ -67,14 +67,12 @@ public class DerbyDatabase implements IDatabase {
 
 						// create new Author object
 						// retrieve attributes from resultSet starting with index 1
-						Advisor advisor = new Advisor();
-						loadAdvisor(advisor, resultSet, 4);
-
+					
 						// create new Book object
 						// retrieve attributes from resultSet starting at index 4
 						//why 4? -Shea
 						Student student = new Student();
-						loadStudent(student, resultSet, 4);
+						loadStudent(student, resultSet, 1);
 
 
 						result.add(student);
@@ -83,7 +81,7 @@ public class DerbyDatabase implements IDatabase {
 
 					// check if the title was found
 					if (!found) {
-						System.out.println("<" + aUsername + "> was not found in the advisors table");
+						System.out.println("<" + advId + "> was not found in the advisors table");
 					}
 
 					return result;

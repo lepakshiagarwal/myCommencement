@@ -30,35 +30,9 @@ public class findContentByStudentUsername
 		}
 		else 
 		{
-			System.out.print("Video file: ");
-			if(!studentContent.getVideoFile().equals(null))
-			{
-				System.out.println("uploaded");
-			}
-			else
-			{
-				System.out.print("Null");
-			}
+			System.out.print("Success!");
 			
-			System.out.print("Static Imagea: ");
-			if(!studentContent.getStaticImage().equals(null))
-			{
-				System.out.println("uploaded");
-			}
-			else
-			{
-				System.out.print("Null");
-			}
-			
-			System.out.print("SlideShow: ");
-			if(!studentContent.getSlideShowImages().equals(null))
-			{
-				System.out.println("uploaded");
-			}
-			else
-			{
-				System.out.print("Null");
-			}
+		
 		}
 	}
 }
