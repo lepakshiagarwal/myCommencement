@@ -17,6 +17,10 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.ycp.cs320.comm.model.Advisor;
+import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.ycpdb.persist.DerbyDatabase.Transaction;
+
 /**
  * An interactive query tool for SQLite.
  */
@@ -50,9 +54,22 @@ public class SQLDemo {
 			DBUtil.closeQuietly(conn);
 		}
 }
+	
+	private void loadStudent(Student student, ResultSet resultSet, int index) throws SQLException {
+		student.setStudentId(resultSet.getInt(index++));
+		student.setAdvisorId(resultSet.getInt(index++));
+		student.setFirstname(resultSet.getString(index++));
+		student.setLastname(resultSet.getString(index++));
+		student.setUsername(resultSet.getString(index++));
+		student.setMajor(resultSet.getString(index++));
+		student.setGpa(resultSet.getFloat(index++));
+		student.setMinor(resultSet.getString(index++));
+	}
+
+
 
 	private static void queryLoop(Connection conn) throws IOException {
-		StatementReader stmtReader = new StatementReader(new InputStreamReader(System.in));
+		StatementReader stmtReader = new StatementReader(new InputStreamReader(System.in));;
 
 		boolean done = false;
 		while (!done) {

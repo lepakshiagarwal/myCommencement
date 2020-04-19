@@ -8,25 +8,25 @@ import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
 import edu.ycp.cs320.ycpdb.persist.IDatabase;
 import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
 
-public class FindStudentByAdvisorUsername
+public class FindStudentsByAdvisorUsername
 {
 	public static void main(String args[])
 	{
 		Scanner keyboard = new Scanner(System.in);
 	
 		// Create the default IDatabase instance
-		System.out.print("Enter advisor last name");
-		String AdvUsername = keyboard.nextLine();
+		System.out.print("Enter advisor Id");
+		int AdvId = keyboard.nextInt();
 		
 		// get the DB instance and execute transaction
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		DerbyDatabase db = (DerbyDatabase) DatabaseProvider.getInstance();
-		List<Student> students = db.findStudentUsernameByAdvisorUsername(AdvUsername);
+		List<Student> students = db.findStudentsByAdvisorUsername(AdvId);
 		
 		// check if anything was returned and output the list
 		if (students.isEmpty()) 
 		{
-			System.out.println("No students found with advisor: <" + AdvUsername + ">");
+			System.out.println("No students found with advisor: <" + AdvId + ">");
 		}
 		else 
 		{
