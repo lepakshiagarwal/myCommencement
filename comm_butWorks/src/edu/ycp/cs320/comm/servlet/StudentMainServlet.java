@@ -42,7 +42,6 @@ public class StudentMainServlet extends HttpServlet {
 		double GPA = model.getGpa();
 		String Major = model.getMajor();
 		int AdvisorID = model.getAdvisorId();
-
 		// Decode form parameters and dispatch to controller
 		
 
@@ -54,6 +53,11 @@ public class StudentMainServlet extends HttpServlet {
 	    req.setAttribute("AdvisorID", AdvisorID);
 
 		// Add result objects as request attributes
+
+			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
+			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
+			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);
+		
 
 		
 		req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);

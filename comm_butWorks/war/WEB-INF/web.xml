@@ -26,10 +26,7 @@
     <servlet-name>StudentMainServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.comm.servlet.StudentMainServlet</servlet-class>
   </servlet>
-   <servlet>
-    <servlet-name>ViewServlet</servlet-name>
-    <servlet-class>edu.ycp.cs320.comm.servlet.ViewServlet</servlet-class>
-  </servlet>
+
  
   
  
@@ -54,11 +51,11 @@
   <servlet-mapping>
     <servlet-name>StudentMainServlet</servlet-name>
     <url-pattern>/StudentMain</url-pattern>
+      <url-pattern>/Static</url-pattern>
+    <url-pattern>/SlideShow</url-pattern>
+    <url-pattern>/Video</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
-    <servlet-name>ViewServlet</servlet-name>
-    <url-pattern>/View</url-pattern>
-  </servlet-mapping>
+ 
   
 
   <welcome-file-list>

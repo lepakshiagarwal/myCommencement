@@ -107,13 +107,13 @@
 			<input type="Submit" name="submithome" value="Update Content">
 		</form>		
 		</form>
-		<form action="${pageContext.servletContext.contextPath}/View" method="POST">
+		<form action="${pageContext.servletContext.contextPath}/Static" method="POST">
  		 <input type="submit" value="Static" name="static">                 
 		</form>
-		<form action="${pageContext.servletContext.contextPath}/View" method="POST">
+		<form action="${pageContext.servletContext.contextPath}/SlideShow" method="POST">
  		 <input type="submit" value="Slideshow" name="slideshow">                 
 		</form>
-		<form action="${pageContext.servletContext.contextPath}/View" method="POST">
+		<form action="${pageContext.servletContext.contextPath}/Video" method="POST">
  		 <input type="submit" value="Video" name="video">                 
 		</form>
 		<br> <br> <br>

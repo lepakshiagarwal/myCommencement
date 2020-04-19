@@ -23,7 +23,7 @@ public class StudentsByAdvisorId
 		
 		// get the DB instance and execute transaction
 		IDatabase db = DatabaseProvider.getInstance();
-		List<Student> Students = db.StudentByAdvisorId(AdvisorId);
+		List<Student> Students = db.findStudentUsernameByAdvisorUsername(AdvisorId);
 		
 		// check if anything was returned and output the list
 		if (Students.isEmpty()) {
