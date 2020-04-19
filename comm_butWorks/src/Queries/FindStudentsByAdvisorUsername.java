@@ -8,7 +8,7 @@ import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
 import edu.ycp.cs320.ycpdb.persist.IDatabase;
 import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
 
-public class FindStudentByAdvisorUsername
+public class FindStudentsByAdvisorUsername
 {
 	public static void main(String args[])
 	{
@@ -21,7 +21,7 @@ public class FindStudentByAdvisorUsername
 		// get the DB instance and execute transaction
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		DerbyDatabase db = (DerbyDatabase) DatabaseProvider.getInstance();
-		List<Student> students = db.findStudentUsernameByAdvisorUsername(AdvUsername);
+		List<Student> students = db.findStudentsByAdvisorUsername(AdvUsername);
 		
 		// check if anything was returned and output the list
 		if (students.isEmpty()) 
