@@ -45,7 +45,7 @@ public class StudentTest {
 	{
 		assertTrue(4.0==(model.getGpa()));
 		assertFalse(3.5==(model.getGpa()));
-		model.setGpa(3.5);
+		model.setGpa((float) 3.5);
 		assertTrue(3.5==(model.getGpa()));
 		assertFalse(4.0==(model.getGpa()));
 	}

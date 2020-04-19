@@ -20,31 +20,38 @@ public class DerbyDatabase implements IDatabase {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
+			System.out.print(e.getStackTrace());
 			throw new IllegalStateException("Could not load Derby driver");
+			
 		}
 	}
 
-	private interface Transaction<ResultType> {
+	public interface Transaction<ResultType> {
 		public ResultType execute(Connection connycp) throws SQLException;
 	}
 
 	private static final int MAX_ATTEMPTS = 10;
 
 	@Override
-	public List<Pair<Advisor, Student>> findStudentUsernameByAdvisorUsername(final String aUsername) {
-		return executeTransaction(new Transaction<List<Pair<Advisor, Student>>>() {
-			@Override
-			public List<Pair<Advisor, Student>> execute(Connection connycp) throws SQLException {
+
+	public List<Student> findStudentsByAdvisorUsername(final String aUsername) {
+		return executeTransaction(new Transaction<List<Student>>() {
+
+			public List<Student> execute(Connection connycp) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-					stmt = connycp.prepareStatement("select students.username " + "  from advisors, students "
-							+ " where advisors.advisorId = students.advisorId " + "   and advisors.username = ?");
+
+					stmt = connycp.prepareStatement("select students.* " 
+							+ "  from advisors, students "
+							+ " where advisors.advisorId = students.advisorId " 
+							+ "   and advisors.username = ?");
 					stmt.setString(1, aUsername);
 
-					List<Pair<Advisor, Student>> result = new ArrayList<Pair<Advisor, Student>>();
+					List<Student> result = new ArrayList<Student>();
+
 
 					resultSet = stmt.executeQuery();
 
@@ -61,10 +68,13 @@ public class DerbyDatabase implements IDatabase {
 
 						// create new Book object
 						// retrieve attributes from resultSet starting at index 4
+						//why 4? -Shea
 						Student student = new Student();
 						loadStudent(student, resultSet, 4);
 
-						result.add(new Pair<Advisor, Student>(advisor, student));
+
+						result.add(student);
+
 					}
 
 					// check if the title was found
@@ -257,7 +267,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	private Connection connect() throws SQLException {
-		Connection connycp = DriverManager.getConnection("jdbc:derby:test.db;create=true");
+		Connection connycp = DriverManager.getConnection("jdbc:derby:C:/CS320-myComm-datbase/ycp.db;create=true");
 
 		// Set autocommit to false to allow execution of
 		// multiple queries/statements as part of the same transaction.
@@ -280,7 +290,7 @@ public class DerbyDatabase implements IDatabase {
 		student.setLastname(resultSet.getString(index++));
 		student.setUsername(resultSet.getString(index++));
 		student.setMajor(resultSet.getString(index++));
-		student.setGpa(resultSet.getDouble(index++));
+		student.setGpa(resultSet.getFloat(index++));
 		student.setMinor(resultSet.getString(index++));
 	}
 
@@ -292,18 +302,29 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt2 = null;
 
 				try {
-					stmt1 = connycp.prepareStatement("create table advisors (" + "	advisorId integer primary key "
-							+ "		generated always as identity (start with 1, increment by 1), "
-							+ "	firstname varchar(40)," + "	lastname varchar(40)" + "	username varchar(40)" + ")");
+					stmt1 = connycp.prepareStatement("create table advisors (" 
+							+ "	advisorId integer primary key "
+							+ "	generated always as identity (start with 1, increment by 1), "
+							+ "	firstname varchar(40)," 
+							+ "	lastname varchar(40)," 
+							+ " username varchar(40)" 
+							+ " ) ");
 					stmt1.executeUpdate();
-
-					stmt2 = connycp.prepareStatement("create table students (" + "	studentId integer primary key "
-							+ "		generated always as identity (start with 1, increment by 1), "
+					
+					System.out.println("stmt1 executed");
+					stmt2 = connycp.prepareStatement("create table students (" 
+							+ "	studentId integer primary key "
+							+ "	generated always as identity (start with 1, increment by 1), "
 							+ "	advisorId integer constraint advisorId references advisors, "
-							+ "	firstname varchar(40)," + "	lastname varchar(40)" + "	username varchar(40)"
-							+ "	major varchar(70)," + "   gpa double " + "	minor varchar(15)," + ")");
+							+ "	firstname varchar(40)," 
+							+ "	lastname varchar(40)," 
+							+ "	username varchar(40),"
+							+ "	major varchar(70)," 
+							+ " gpa  float(40), " 
+							+ "	minor varchar(15)" 
+							+ ")");
 					stmt2.executeUpdate();
-
+					System.out.println("stmt2 executed");
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
@@ -343,23 +364,24 @@ public class DerbyDatabase implements IDatabase {
 						insertAdvisor.addBatch();
 					}
 					insertAdvisor.executeBatch();
-
+					System.out.println("Advisor data loaded");
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connycp.prepareStatement(
-							"insert into students (authorId, firstname, lastname, major, gpa, minor) values (?, ?, ?, ?, ?, ?)");
+							"insert into students (advisorId, firstname, lastname, Username, major, gpa, minor) values (?, ?, ?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setInt(1, student.getAdvisorId());
 						insertStudent.setString(2, student.getFirstname());
 						insertStudent.setString(3, student.getLastname());
-						insertStudent.setString(4, student.getMajor());
-						insertStudent.setDouble(5, student.getGpa());
-						insertStudent.setString(4, student.getMinor());
+						insertStudent.setString(4, student.getUsername());
+						insertStudent.setString(5, student.getMajor());
+						insertStudent.setFloat(	6, student.getGpa());
+						insertStudent.setString(7, student.getMinor());
 						insertStudent.addBatch();
 					}
 					insertStudent.executeBatch();
-
+					System.out.println("student data loaded");
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertStudent);

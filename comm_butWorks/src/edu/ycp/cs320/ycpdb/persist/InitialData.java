@@ -48,12 +48,13 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				Student student = new Student();
 				student.setStudentId(studentId++);
+				i.next();
 				student.setAdvisorId(Integer.parseInt(i.next()));
 				student.setFirstname(i.next());
 				student.setLastname(i.next());
 				student.setUsername(i.next());
 				student.setMajor(i.next());
-				student.setGpa(Double.parseDouble(i.next()));
+				student.setGpa(Float.parseFloat(i.next()));
 				student.setMinor(i.next());
 				studentList.add(student);
 			}
