@@ -20,11 +20,13 @@ public class DerbyDatabase implements IDatabase {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
+			System.out.print(e.getStackTrace());
 			throw new IllegalStateException("Could not load Derby driver");
+			
 		}
 	}
 
-	private interface Transaction<ResultType> {
+	public interface Transaction<ResultType> {
 		public ResultType execute(Connection connycp) throws SQLException;
 	}
 
@@ -32,7 +34,7 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 
-	public List<Student> findStudentUsernameByAdvisorUsername(final String aUsername) {
+	public List<Student> findStudentsByAdvisorUsername(final String aUsername) {
 		return executeTransaction(new Transaction<List<Student>>() {
 
 			public List<Student> execute(Connection connycp) throws SQLException {
@@ -42,8 +44,10 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					// retreive all attributes from both Books and Authors tables
 
-					stmt = connycp.prepareStatement("select students.* " + "  from advisors, students "
-							+ " where advisors.advisorId = students.advisorId " + "   and advisors.username = ?");
+					stmt = connycp.prepareStatement("select students.* " 
+							+ "  from advisors, students "
+							+ " where advisors.advisorId = students.advisorId " 
+							+ "   and advisors.username = ?");
 					stmt.setString(1, aUsername);
 
 					List<Student> result = new ArrayList<Student>();
