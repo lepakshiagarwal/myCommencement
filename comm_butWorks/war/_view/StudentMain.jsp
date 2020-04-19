@@ -110,6 +110,14 @@
 			<input type="Submit" name="submithome" value="Update Content">
 
 		</form>		
+		
+		<form action="/lab02/StudentUpload" method="POST" enctype="multipart/form-data">
+			
+			<p>What file do you want to upload?</p>
+			<input type="file" name="fileToUpload">
+			<br/><br/>
+			<input type="submit" value="Submit">
+		</form>
 
 		<a href="http://localhost:8081/lab02/Static">  
  		<input type="button" value="Static view" />
