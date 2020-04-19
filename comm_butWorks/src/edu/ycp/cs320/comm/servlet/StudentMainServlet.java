@@ -1,15 +1,19 @@
 package edu.ycp.cs320.comm.servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-import edu.ycp.cs320.comm.controller.AdvisorController;
+import org.omg.CORBA.portable.InputStream;
+
 import edu.ycp.cs320.comm.controller.StudentController;
-import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Student;
 
 
@@ -55,7 +59,12 @@ public class StudentMainServlet extends HttpServlet {
 
 		// Add result objects as request attributes
 
+	    System.out.print("is it getting here");
 		
-		req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
-	}
-}
+		//req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
+		
+		
+	   
+	}//end dopost
+	
+}//end all

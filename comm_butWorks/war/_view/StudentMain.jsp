@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 	<head>
-		<title>CS320 Books</title>
+		<title>Student</title>
 		<style type="text/css">
 			.error {
 				color: red;
@@ -77,7 +77,7 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 	
-		<form action="${pageContext.servletContext.contextPath}/studentMain" method="post">
+		<form action="/StudentMain" method="post" enctype="multipart/form-data">
 			
 			<table>
 			    <tr>
@@ -101,9 +101,14 @@
 			    
 			</table>
 			
-			<form action="${pageContext.servletContext.contextPath}/index" method="post">
-			<input type="Submit" name="submithome" value="Upload Content">
-		</form>		
+			
+			
+			<a href="http://localhost:8081/lab02/StudentUpload">Upload Content!</a>
+		
+			
+			
+			
+			
 		</form>
 	</body>
 </html>
