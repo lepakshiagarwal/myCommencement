@@ -1,5 +1,7 @@
 package edu.ycp.cs320.ycpdb.persist;
 
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,15 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.comm.model.Advisor;
+import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.comm.model.Pair;
 import edu.ycp.cs320.sqldemo.DBUtil;
 
 public class DerbyDatabase implements IDatabase {
 	static {
+		
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
+			System.out.print(e.getMessage());
 			throw new IllegalStateException("Could not load Derby driver");
 		}
 	}
@@ -60,7 +65,7 @@ public class DerbyDatabase implements IDatabase {
 						// create new Author object
 						// retrieve attributes from resultSet starting with index 1
 						Advisor advisor = new Advisor();
-						loadAdvisor(advisor, resultSet, 1);
+						loadAdvisor(advisor, resultSet, 4);
 
 						// create new Book object
 						// retrieve attributes from resultSet starting at index 4
@@ -87,6 +92,56 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
+	
+	
+	public Content findContentByStudentUsername(String username) 
+	{
+		return executeTransaction(new Transaction<Content>() {
+
+			public Content execute(Connection connycp) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+
+					stmt = connycp.prepareStatement("select *" 
+							+ " from students "
+							+ " where students.username = ?");
+					stmt.setString(1, username);
+
+					Content result = new Content();
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					resultSet.next();
+					if(resultSet.next())
+					{
+						found=true;
+						loadContent(result, resultSet, 1);
+						
+						
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + username + "> was not found in the advisors table");
+					}
+
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+
+			
+		});
+	}
+	
 	/*
 	 * @Override public List<Pair<Author, Book>> findBooksByAuthorLastName(final
 	 * String lastName) { return executeTransaction(new
@@ -289,6 +344,18 @@ public class DerbyDatabase implements IDatabase {
 		student.setGpa(resultSet.getFloat(index++));
 		student.setMinor(resultSet.getString(index++));
 	}
+	
+	private void loadContent(Content content, ResultSet resultSet, int index) throws SQLException
+	{
+		
+		content.setVideoFile((File) resultSet.getObject(index++));
+		content.setSlideShowImgs((List<Image>) resultSet.getArray(index++));
+		content.setStaticImage((Image) resultSet.getObject(index++));
+	}
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -398,4 +465,7 @@ public class DerbyDatabase implements IDatabase {
 
 		System.out.println("Success!");
 	}
+
+
+	
 }

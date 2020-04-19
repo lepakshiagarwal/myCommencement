@@ -15,7 +15,7 @@ public class FindStudentByAdvisorUsername
 		Scanner keyboard = new Scanner(System.in);
 	
 		// Create the default IDatabase instance
-		System.out.print("Enter advisor last name");
+		System.out.print("Enter advisor username");
 		String AdvUsername = keyboard.nextLine();
 		
 		// get the DB instance and execute transaction
