@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>CS320 Books</title>
+		<title>Student</title>
 		<style type="text/css">
 			.error {
 				color: red;
@@ -104,10 +104,13 @@
 			    
 			</table>
 			
+			
+
 			<form action="${pageContext.servletContext.contextPath}/StudentMain" method="post">
 			<input type="Submit" name="submithome" value="Update Content">
+
 		</form>		
-		</form>
+
 		<a href="http://localhost:8081/lab02/Static">  
  		<input type="button" value="Static view" />
 		</a>
