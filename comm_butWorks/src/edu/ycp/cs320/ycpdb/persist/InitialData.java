@@ -56,6 +56,7 @@ public class InitialData {
 				student.setMajor(i.next());
 				student.setGpa(Float.parseFloat(i.next()));
 				student.setMinor(i.next());
+				student.setPassword(i.next());
 				studentList.add(student);
 			}
 			return studentList;
