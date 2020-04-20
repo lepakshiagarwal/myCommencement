@@ -2,6 +2,7 @@ package edu.ycp.cs320.comm.model;
 
 import java.awt.Image;
 import java.io.File;
+import java.sql.Blob;
 import java.util.List;
 
 public class Student extends User {
@@ -13,7 +14,9 @@ public class Student extends User {
 	private String firstname;
 	private int advisorId;
 	private int studentId;
-	private Content studentContent;
+	private Blob studentContent;
+	private String comment;
+	private String status;
 	
 	public Student(String username, String password)
 	{
@@ -85,22 +88,37 @@ public class Student extends User {
 		
 	}
 	
-	public void setContent(Content newContent)
+	public void setContent(Blob newContent)
 	{
 		this.studentContent=newContent;
 	}
 	
-	public Content getContent()
+	public Blob getContent()
 	{
 		return studentContent;
 		
 	}
 	
-	public void setContent(Image img, List<Image> imgs, File Video)
-	{
-		studentContent.setStaticImage(img);
-		studentContent.setSlideShowImgs(imgs);
-		studentContent.setVideoFile(Video);
+//	public void setContent(Image img, List<Image> imgs, File Video)
+//	{
+//		studentContent.setStaticImage(img);
+//		studentContent.setSlideShowImgs(imgs);
+//		studentContent.setVideoFile(Video);
+//	}
+
+	public void setComment(String next) {
+		this.comment=next;	
 	}
-	
+
+	public void setStatus(String next) {
+		this.status=next;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public String getComment() {
+		return comment;
+	}
 }
