@@ -114,8 +114,8 @@ public class DerbyDatabase implements IDatabase {
 					stmt.setString(1, username);
 					stmt.setString(2, password);
 
-					Student result = new Student();
-
+					
+					Student result = null;
 
 					resultSet = stmt.executeQuery();
 
@@ -124,13 +124,8 @@ public class DerbyDatabase implements IDatabase {
 
 					while (resultSet.next()) {
 						found = true;
-
-						// create new Author object
-						// retrieve attributes from resultSet starting with index 1
-					
-						// create new Book object
-						// retrieve attributes from resultSet starting at index 4
-						//why 4? -Shea
+						result = new Student();
+						// create new student
 						loadStudent(result, resultSet, 1);
 
 					}
@@ -148,6 +143,59 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	public Advisor findAdvisorByLogin(final String username, final String password) {
+		return executeTransaction(new Transaction<Advisor>() {
+
+			public Advisor execute(Connection connycp) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					
+					
+					
+					//If I want this to work, I need to create a table studentspro that would be in the 
+					stmt = connycp.prepareStatement("select * " 
+							+ " from advisors "
+							+ " where advisors.username= ? " 
+							+ " and advisors.password = ?"
+							);
+					stmt.setString(1, username);
+					stmt.setString(2, password);
+
+					Advisor result=null;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+
+					while (resultSet.next()) {
+						found = true;
+
+						result = new Advisor();
+						loadAdvisor(result, resultSet, 0);
+
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<User> was not found in the advisors table");
+					}
+
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	
 	
 	
 	public Content findContentByStudentUsername(String username) 
