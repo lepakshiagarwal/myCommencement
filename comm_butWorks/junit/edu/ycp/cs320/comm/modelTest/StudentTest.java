@@ -14,10 +14,12 @@ import edu.ycp.cs320.comm.model.Student;
 
 public class StudentTest {
 	public Student model;
+	public String major;
 	
 	@Before
 	public void setUp() {
 		model = new Student("Lagarwal", "gitIsAwesome");
+		major="Bussiness";
 	}
 	
 	@Test 
@@ -30,36 +32,80 @@ public class StudentTest {
 		assertFalse("gitIsAwesome".equals(model.getPassword()));
 	}
 	
-	@Test 
+	@Test
+	public void testGetAndSetAdvisorId()
+	{
+		model.setAdvisorId(2);
+		assertTrue(2==(model.getAdvisorId()));
+		assertFalse(1==(model.getAdvisorId()));
+		}
+	
+	@Test
+	public void testGetAndSetGpa()
+	{
+		model.setGpa((float)3.32);
+		assertTrue(3.32==(model.getGpa()));
+		assertFalse(3.28==(model.getGpa()));
+		}
+	
+	@Test
 	public void testGetAndSetMajor()
 	{
-		assertTrue("Computer Science".equals(model.getMajor()));
-		assertFalse("Business".equals(model.getMajor()));
-		model.setMajor("Business");
-		assertTrue("Business".equals(model.getMajor()));
-		assertFalse("Computer Science".equals(model.getMajor()));
-	}
+		model.setMajor(major);
+		assertTrue(major.equals(model.getMajor()));
+		assertFalse("economics".equals(model.getMajor()));
+		}
 	
-	@Test 
-	public void testGetAndSetGPA()
+	@Test
+	public void testGetAndFirstName()
 	{
-		assertTrue(4.0==(model.getGpa()));
-		assertFalse(3.5==(model.getGpa()));
-		model.setGpa((float) 3.5);
-		assertTrue(3.5==(model.getGpa()));
-		assertFalse(4.0==(model.getGpa()));
-	}
+		model.setFirstname("lepakshi");
+		assertTrue("lepakshi".equals(model.getFirstname()));
+		assertFalse("shae".equals(model.getFirstname()));
+		}
 	
-	@Test 
-	public void testGetAndSetAdvisor()
+	@Test
+	public void testGetAndFLastName()
 	{
-		/*
-		 * assertTrue("Hake".equals(model.getAdvisor()));
-		 * assertFalse("Babcock".equals(model.getAdvisor()));
-		 * model.setAdvisorName("Babcock");
-		 * assertTrue("Babcock".equals(model.getAdvisor()));
-		 * assertFalse("Hake".equals(model.getAdvisor()));
-		 */
-	}
+		model.setLastname("lepakshi");
+		assertTrue("lepakshi".equals(model.getLastname()));
+		assertFalse("shae".equals(model.getLastname()));
+		}
 	
+	@Test
+	public void testGetAndMinor()
+	{
+		model.setMinor(major);
+		assertTrue(major.equals(model.getMinor()));
+		assertFalse("shae".equals(model.getMinor()));
+		}
+	
+	@Test
+	public void testGetAndComment()
+	{
+		model.setComment("content is acceptable");
+		assertTrue("content is acceptable".equals(model.getComment()));
+		assertFalse("Content needs to be improved".equals(model.getComment()));
+		}
+	
+	@Test
+	public void testGetAndStatus()
+	{
+		model.setStatus("approved");
+		assertTrue("approved".equals(model.getStatus()));
+		assertFalse("rejected".equals(model.getStatus()));
+		}
+	
+	@Test
+	public void testGetAndSetContent()
+	{
+		model.setContent(null);
+		assertTrue(null==model.getContent());
+	}
+	@Test
+	public void testGetAndStudentId() {
+		model.setStudentId(3);
+		assertTrue(3==model.getStudentId());
+		assertFalse(4==model.getStudentId());
+	}
 }
