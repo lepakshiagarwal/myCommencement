@@ -362,13 +362,14 @@ public class ProjectDatabse implements IDatabase2 {
 					stmt1.executeUpdate();
 					
 					System.out.println("stmt1 executed");
+					System.out.println("please");
 					stmt2 = connycp.prepareStatement("create table studentspro (" 
 							+ "	username varchar(40),"
-							+ "	password varchar(70)," 
-							+ "	comment varchar(15),"
+							+ "	password varchar(40)," 
+							+ " comment varchar(40),"
 							+ " status varchar(40),"
-							+ "content varbinary(max)"
-							+ ")");
+							+ " content blob"
+							+ " ) ");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
 					return true;
@@ -420,7 +421,7 @@ public class ProjectDatabse implements IDatabase2 {
 						insertStudent.setString(2, student.getPassword());
 						insertStudent.setString(3, student.getComment());
 						insertStudent.setString(4, student.getStatus());
-						insertStudent.setBlob(8, student.getContent());
+						insertStudent.setBlob(5, student.getContent());
 						insertStudent.addBatch();
 					}
 					insertStudent.executeBatch();
