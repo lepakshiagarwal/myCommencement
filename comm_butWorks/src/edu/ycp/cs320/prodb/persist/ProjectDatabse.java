@@ -1,4 +1,4 @@
-package edu.ycp.cs320.ycpdb.persist;
+package edu.ycp.cs320.prodb.persist;
 
 import java.awt.Image;
 import java.io.File;
@@ -18,7 +18,7 @@ import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.comm.model.Pair;
 import edu.ycp.cs320.sqldemo.DBUtil;
 
-public class DerbyDatabase implements IDatabase {
+public class ProjectDatabse implements IDatabase2 {
 	static {
 		
 		try {
@@ -26,78 +26,20 @@ public class DerbyDatabase implements IDatabase {
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
 			throw new IllegalStateException("Could not load Derby driver");
-			
 		}
 	}
 
 	public interface Transaction<ResultType> {
-		public ResultType execute(Connection connycp) throws SQLException;
+		public ResultType execute(Connection connpro) throws SQLException;
 	}
 
 	private static final int MAX_ATTEMPTS = 10;
 
 	@Override
-
-	public List<Student> findStudentsByAdvisorId(final int advId) {
-		return executeTransaction(new Transaction<List<Student>>() {
-
-			public List<Student> execute(Connection connycp) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-
-				try {
-					// retreive all attributes from both Books and Authors tables
-
-					stmt = connycp.prepareStatement("select students.* " 
-							+ " from advisors, students "
-							+ " where advisors.advisorId = students.advisorId " 
-							+ " and advisors.advisorId = ?");
-					stmt.setInt(1, advId);
-
-					List<Student> result = new ArrayList<Student>();
-
-
-					resultSet = stmt.executeQuery();
-
-					// for testing that a result was returned
-					Boolean found = false;
-
-					while (resultSet.next()) {
-						found = true;
-
-						// create new Author object
-						// retrieve attributes from resultSet starting with index 1
-					
-						// create new Book object
-						// retrieve attributes from resultSet starting at index 4
-						//why 4? -Shea
-						Student student = new Student();
-						loadStudent(student, resultSet, 1);
-
-
-						result.add(student);
-
-					}
-
-					// check if the title was found
-					if (!found) {
-						System.out.println("<" + advId + "> was not found in the advisors table");
-					}
-
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
-	}
-
-	@Override
 	public Student findStudentByLogin(final String username, final String password) {
 		return executeTransaction(new Transaction<Student>() {
 
-			public Student execute(Connection connycp) throws SQLException {
+			public Student execute(Connection connpro) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
@@ -107,10 +49,10 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					//If I want this to work, I need to create a table studentspro that would be in the 
-					stmt = connycp.prepareStatement("select * " 
-							+ " from students "
-							+ " where students.username= ? " 
-							+ " and students.password = ?"
+					stmt = connpro.prepareStatement("select * " 
+							+ " from studentspro "
+							+ " where studentspro.username= ? " 
+							+ " and studentspro.password = ?"
 							);
 					stmt.setString(1, username);
 					stmt.setString(2, password);
@@ -132,13 +74,13 @@ public class DerbyDatabase implements IDatabase {
 						// create new Book object
 						// retrieve attributes from resultSet starting at index 4
 						//why 4? -Shea
-						loadStudent(result, resultSet, 1);
+						loadStudentPro(result, resultSet, 1);
 
 					}
 
 					// check if the title was found
 					if (!found) {
-						System.out.println("<User> was not found in the advisors table");
+						System.out.println("<User> was not found in the advisorspro table");
 					}
 
 					return result;
@@ -155,16 +97,16 @@ public class DerbyDatabase implements IDatabase {
 	{
 		return executeTransaction(new Transaction<Content>() {
 
-			public Content execute(Connection connycp) throws SQLException {
+			public Content execute(Connection connpro) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
 				try {
 					// retreive all attributes from both Books and Authors tables
 
-					stmt = connycp.prepareStatement("select *" 
-							+ " from students "
-							+ " where students.username = ?");
+					stmt = connpro.prepareStatement("select *" 
+							+ " from studentspro "
+							+ " where studentspro.username = ?");
 					stmt.setString(1, username);
 
 					Content result = new Content();
@@ -178,7 +120,7 @@ public class DerbyDatabase implements IDatabase {
 					if(resultSet.next())
 					{
 						found=true;
-						loadContent(result, resultSet, 1);
+				//		loadContent(result, resultSet, 1);
 						
 						
 					}
@@ -340,7 +282,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	public <ResultType> ResultType doExecuteTransaction(Transaction<ResultType> txn) throws SQLException {
-		Connection connycp = connect();
+		Connection connpro = connect();
 
 		try {
 			int numAttempts = 0;
@@ -349,8 +291,8 @@ public class DerbyDatabase implements IDatabase {
 
 			while (!success && numAttempts < MAX_ATTEMPTS) {
 				try {
-					result = txn.execute(connycp);
-					connycp.commit();
+					result = txn.execute(connpro);
+					connpro.commit();
 					success = true;
 				} catch (SQLException e) {
 					if (e.getSQLState() != null && e.getSQLState().equals("41000")) {
@@ -370,51 +312,40 @@ public class DerbyDatabase implements IDatabase {
 			// Success!
 			return result;
 		} finally {
-			DBUtil.closeQuietly(connycp);
+			DBUtil.closeQuietly(connpro);
 		}
 	}
 
 	private Connection connect() throws SQLException {
-		Connection connycp = DriverManager.getConnection("jdbc:derby:C:/CS320-myComm-datbase/ycp.db;create=true");
+		Connection connpro = DriverManager.getConnection("jdbc:derby:C:/CS320-myComm-datbase/pro.db;create=true");
 
 		// Set autocommit to false to allow execution of
 		// multiple queries/statements as part of the same transaction.
-		connycp.setAutoCommit(false);
+		connpro.setAutoCommit(false);
 
-		return connycp;
+		return connpro;
 	}
 
-	private void loadAdvisor(Advisor advisor, ResultSet resultSet, int index) throws SQLException {
-		advisor.setAdvisorId(resultSet.getInt(index++));
-		advisor.setFirstname(resultSet.getString(index++));
-		advisor.setLastname(resultSet.getString(index++));
+	private void loadAdvisorPro(Advisor advisor, ResultSet resultSet, int index) throws SQLException {
 		advisor.setUsername(resultSet.getString(index++));
 		advisor.setPassword(resultSet.getString(index++));
 	}
 
-	private void loadStudent(Student student, ResultSet resultSet, int index) throws SQLException {
-		student.setStudentId(resultSet.getInt(index++));
-		student.setAdvisorId(resultSet.getInt(index++));
-		student.setFirstname(resultSet.getString(index++));
-		student.setLastname(resultSet.getString(index++));
+	private void loadStudentPro(Student student, ResultSet resultSet, int index) throws SQLException {
 		student.setUsername(resultSet.getString(index++));
-		student.setMajor(resultSet.getString(index++));
-		student.setGpa(resultSet.getFloat(index++));
-		student.setMinor(resultSet.getString(index++));
 		student.setPassword(resultSet.getString(index++));
+		student.setComment(resultSet.getString(index++));
+		student.setStatus(resultSet.getString(index++));
+		student.setContent(resultSet.getBlob(index++));
 	}
 	
-	private void loadContent(Content content, ResultSet resultSet, int index) throws SQLException
-	{
-		
-		content.setVideoFile((File) resultSet.getObject(index++));
-		content.setSlideShowImgs((List<Image>) resultSet.getArray(index++));
-		content.setStaticImage((Image) resultSet.getObject(index++));
-	}
-	{
-		// TODO Auto-generated method stub
-		
-	}
+//	private void loadContent(Content content, ResultSet resultSet, int index) throws SQLException
+//	{
+//		
+//		content.setVideoFile((File) resultSet.getObject(index++));
+//		content.setSlideShowImgs((List<Image>) resultSet.getArray(index++));
+//		content.setStaticImage((Image) resultSet.getObject(index++));
+//	}
 
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -424,28 +355,19 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt2 = null;
 
 				try {
-					stmt1 = connycp.prepareStatement("create table advisors (" 
-							+ "	advisorId integer primary key "
-							+ "	generated always as identity (start with 1, increment by 1), "
-							+ "	firstname varchar(40)," 
-							+ "	lastname varchar(40)," 
+					stmt1 = connycp.prepareStatement("create table advisorspro ("
 							+ " username varchar(40),"
 							+ " password varchar(40)"
 							+ " ) ");
 					stmt1.executeUpdate();
 					
 					System.out.println("stmt1 executed");
-					stmt2 = connycp.prepareStatement("create table students (" 
-							+ "	studentId integer primary key "
-							+ "	generated always as identity (start with 1, increment by 1), "
-							+ "	advisorId integer constraint advisorId references advisors, "
-							+ "	firstname varchar(40)," 
-							+ "	lastname varchar(40)," 
+					stmt2 = connycp.prepareStatement("create table studentspro (" 
 							+ "	username varchar(40),"
-							+ "	major varchar(70)," 
-							+ " gpa  float(40), " 
-							+ "	minor varchar(15),"
-							+ " password varchar(40)"
+							+ "	password varchar(70)," 
+							+ "	comment varchar(15),"
+							+ " status varchar(40),"
+							+ "content varbinary(max)"
 							+ ")");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
@@ -458,16 +380,16 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	public void loadInitialData() {
+	public void loadInitialData2() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
-			public Boolean execute(Connection connycp) throws SQLException {
+			public Boolean execute(Connection connpro) throws SQLException {
 				List<Advisor> advisorList;
 				List<Student> studentList;
 
 				try {
-					advisorList = InitialData.getAdvisors();
-					studentList = InitialData.getStudents();
+					advisorList = InitialData2.getAdvisors();
+					studentList = InitialData2.getStudents();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
@@ -478,32 +400,27 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					// populate authors table (do authors first, since author_id is foreign key in
 					// books table)
-					insertAdvisor = connycp
-							.prepareStatement("insert into advisors (firstname, lastname, username, password) values (?, ?, ?, ?)");
+					insertAdvisor = connpro
+							.prepareStatement("insert into advisorspro (username, password) values (?, ?)");
 					for (Advisor advisor : advisorList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						insertAdvisor.setString(1, advisor.getFirstname());
-						insertAdvisor.setString(2, advisor.getLastname());
-						insertAdvisor.setString(3, advisor.getUsername());
-						insertAdvisor.setString(4, advisor.getPassword());
+						insertAdvisor.setString(1, advisor.getUsername());
+						insertAdvisor.setString(2, advisor.getPassword());
 						insertAdvisor.addBatch();
 					}
 					insertAdvisor.executeBatch();
 					System.out.println("Advisor data loaded");
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
-					insertStudent = connycp.prepareStatement(
-							"insert into students (advisorId, firstname, lastname, Username, major, gpa, minor, password) values (?, ?, ?, ?, ?, ?, ?, ?)");
+					insertStudent = connpro.prepareStatement(
+							"insert into studentspro (Username, password, comment, status, content) values (?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
-						insertStudent.setInt(1, student.getAdvisorId());
-						insertStudent.setString(2, student.getFirstname());
-						insertStudent.setString(3, student.getLastname());
-						insertStudent.setString(4, student.getUsername());
-						insertStudent.setString(5, student.getMajor());
-						insertStudent.setFloat(	6, student.getGpa());
-						insertStudent.setString(7, student.getMinor());
-						insertStudent.setString(8, student.getPassword());
+						insertStudent.setString(1, student.getUsername());
+						insertStudent.setString(2, student.getPassword());
+						insertStudent.setString(3, student.getComment());
+						insertStudent.setString(4, student.getStatus());
+						insertStudent.setBlob(8, student.getContent());
 						insertStudent.addBatch();
 					}
 					insertStudent.executeBatch();
@@ -520,21 +437,12 @@ public class DerbyDatabase implements IDatabase {
 	// The main method creates the database tables and loads the initial data.
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
-		DerbyDatabase db = new DerbyDatabase();
+		ProjectDatabse db = new ProjectDatabse();
 		db.createTables();
 
 		System.out.println("Loading initial data...");
-		db.loadInitialData();
+		db.loadInitialData2();
 
 		System.out.println("Success!");
-	}
-
-	@Override
-	public List<Student> findStudentsByAdvisorUsername(int aUsername) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	
+	}	
 }
