@@ -529,6 +529,12 @@ public class DerbyDatabase implements IDatabase {
 		System.out.println("Success!");
 	}
 
+	@Override
+	public List<Student> findStudentsByAdvisorUsername(int aUsername) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 }
