@@ -62,9 +62,9 @@
     <url-pattern>/Video</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-		<servlet-name>FileUploadServlet</servlet-name>
-		<url-pattern>/StudentUpload</url-pattern>
-	</servlet-mapping>
+	<servlet-name>FileUploadServlet</servlet-name>
+	<url-pattern>/StudentUpload</url-pattern>
+</servlet-mapping>
 
    
 
