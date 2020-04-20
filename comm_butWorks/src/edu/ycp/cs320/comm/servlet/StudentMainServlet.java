@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.omg.CORBA.portable.InputStream;
-
 import edu.ycp.cs320.comm.controller.StudentController;
 import edu.ycp.cs320.comm.model.Student;
 
@@ -37,6 +35,7 @@ public class StudentMainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
+		
 
 		System.out.println("student Servlet: doPost");
 		model = new Student("Smelendez", "42");
@@ -46,7 +45,6 @@ public class StudentMainServlet extends HttpServlet {
 		double GPA = model.getGpa();
 		String Major = model.getMajor();
 		int AdvisorID = model.getAdvisorId();
-
 		// Decode form parameters and dispatch to controller
 		
 
@@ -58,10 +56,31 @@ public class StudentMainServlet extends HttpServlet {
 	    req.setAttribute("AdvisorID", AdvisorID);
 
 		// Add result objects as request attributes
+	    req.setAttribute("AdvisorID", AdvisorID);
 
-	    System.out.print("is it getting here");
+		//req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
+		//req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
+		//req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
+	
+	    String but = req.getParameter("button");
+		System.out.println(but);
+
+		if(but .equals("Static")){
+			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
+		}
+		else if(but .equals("SlideShow"))
+		{
+			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
+		}
+		else if(but .equals("Video"))
+		{
+			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
+		}
 		
-		//req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
+		
+		
+		
+		
 		
 		
 	   

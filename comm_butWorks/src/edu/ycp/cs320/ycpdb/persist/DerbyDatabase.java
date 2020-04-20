@@ -38,7 +38,7 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 
-	public List<Student> findStudentsByAdvisorUsername(final int advId) {
+	public List<Student> findStudentsByAdvisorId(final int advId) {
 		return executeTransaction(new Transaction<List<Student>>() {
 
 			public List<Student> execute(Connection connycp) throws SQLException {
@@ -93,6 +93,61 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
+	public Student findStudentByLogin(final String username, final String password) {
+		return executeTransaction(new Transaction<Student>() {
+
+			public Student execute(Connection connycp) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					
+					
+					
+					//If I want this to work, I need to create a table studentspro that would be in the 
+					stmt = connycp.prepareStatement("select * " 
+							+ " from students "
+							+ " where students.username= ? " 
+							+ " and students.password = ?"
+							);
+					stmt.setString(1, username);
+					stmt.setString(2, password);
+
+					Student result = new Student();
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+
+					while (resultSet.next()) {
+						found = true;
+
+						// create new Author object
+						// retrieve attributes from resultSet starting with index 1
+					
+						// create new Book object
+						// retrieve attributes from resultSet starting at index 4
+						//why 4? -Shea
+						loadStudent(result, resultSet, 1);
+
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<User> was not found in the advisors table");
+					}
+
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 	
 	
 	public Content findContentByStudentUsername(String username) 
@@ -333,6 +388,7 @@ public class DerbyDatabase implements IDatabase {
 		advisor.setFirstname(resultSet.getString(index++));
 		advisor.setLastname(resultSet.getString(index++));
 		advisor.setUsername(resultSet.getString(index++));
+		advisor.setPassword(resultSet.getString(index++));
 	}
 
 	private void loadStudent(Student student, ResultSet resultSet, int index) throws SQLException {
@@ -344,6 +400,7 @@ public class DerbyDatabase implements IDatabase {
 		student.setMajor(resultSet.getString(index++));
 		student.setGpa(resultSet.getFloat(index++));
 		student.setMinor(resultSet.getString(index++));
+		student.setPassword(resultSet.getString(index++));
 	}
 	
 	private void loadContent(Content content, ResultSet resultSet, int index) throws SQLException
@@ -371,7 +428,8 @@ public class DerbyDatabase implements IDatabase {
 							+ "	generated always as identity (start with 1, increment by 1), "
 							+ "	firstname varchar(40)," 
 							+ "	lastname varchar(40)," 
-							+ " username varchar(40)" 
+							+ " username varchar(40),"
+							+ " password varchar(40)"
 							+ " ) ");
 					stmt1.executeUpdate();
 					
@@ -385,7 +443,8 @@ public class DerbyDatabase implements IDatabase {
 							+ "	username varchar(40),"
 							+ "	major varchar(70)," 
 							+ " gpa  float(40), " 
-							+ "	minor varchar(15)" 
+							+ "	minor varchar(15),"
+							+ " password varchar(40)"
 							+ ")");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
@@ -419,12 +478,13 @@ public class DerbyDatabase implements IDatabase {
 					// populate authors table (do authors first, since author_id is foreign key in
 					// books table)
 					insertAdvisor = connycp
-							.prepareStatement("insert into advisors (firstname, lastname, username) values (?, ?, ?)");
+							.prepareStatement("insert into advisors (firstname, lastname, username, password) values (?, ?, ?, ?)");
 					for (Advisor advisor : advisorList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertAdvisor.setString(1, advisor.getFirstname());
 						insertAdvisor.setString(2, advisor.getLastname());
 						insertAdvisor.setString(3, advisor.getUsername());
+						insertAdvisor.setString(4, advisor.getPassword());
 						insertAdvisor.addBatch();
 					}
 					insertAdvisor.executeBatch();
@@ -432,7 +492,7 @@ public class DerbyDatabase implements IDatabase {
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connycp.prepareStatement(
-							"insert into students (advisorId, firstname, lastname, Username, major, gpa, minor) values (?, ?, ?, ?, ?, ?, ?)");
+							"insert into students (advisorId, firstname, lastname, Username, major, gpa, minor, password) values (?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setInt(1, student.getAdvisorId());
@@ -442,6 +502,7 @@ public class DerbyDatabase implements IDatabase {
 						insertStudent.setString(5, student.getMajor());
 						insertStudent.setFloat(	6, student.getGpa());
 						insertStudent.setString(7, student.getMinor());
+						insertStudent.setString(8, student.getPassword());
 						insertStudent.addBatch();
 					}
 					insertStudent.executeBatch();
