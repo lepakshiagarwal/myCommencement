@@ -106,7 +106,7 @@
 			
 
 			<form action="${pageContext.servletContext.contextPath}/StudentMain" method="post">
-			<input type="Submit" name="submithome" value="Update Content">
+			<input type="Submit" name="button" value="Update Content">
 
 		</form>		
 		
