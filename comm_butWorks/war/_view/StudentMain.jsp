@@ -118,13 +118,9 @@
 			<input type="submit" value="Submit">
 		</form>
 		<form action="${pageContext.servletContext.contextPath}/Static" method="POST">
- 		 <input type="submit" value="Static" name="static">                 
-		</form>
-		<form action="${pageContext.servletContext.contextPath}/SlideShow" method="POST">
- 		 <input type="submit" value="Slideshow" name="slideshow">                 
-		</form>
-		<form action="${pageContext.servletContext.contextPath}/Video" method="POST">
- 		 <input type="submit" value="Video" name="video">                 
+ 		 <input type="submit" value="Static" name="button">                 
+ 		 <input type="submit" value="Slideshow" name="button">                 
+ 		 <input type="submit" value="Video" name="button">                 
 		</form>
 		<br> <br> <br>
 	</body>
