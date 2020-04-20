@@ -14,24 +14,26 @@ public class StudentsByAdvisorId
 	public static void main(String[] args) throws SQLException 
 	{
 		Scanner keyboard = new Scanner(System.in);
-
-		// Create the default IDatabase instance
-		DatabaseProvider.setInstance(new DerbyDatabase());
 		
-		System.out.print("Enter the Advisor Id of the author: ");
-		String AdvisorId = keyboard.nextLine();
+		// Create the default IDatabase instance
+		System.out.print("Enter advisor Id");
+		int AdvId = keyboard.nextInt();
 		
 		// get the DB instance and execute transaction
-		IDatabase db = DatabaseProvider.getInstance();
-		List<Student> Students = db.findStudentUsernameByAdvisorUsername(AdvisorId);
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		DerbyDatabase db = (DerbyDatabase) DatabaseProvider.getInstance();
+		List<Student> students = db.findStudentsByAdvisorId(AdvId);
 		
 		// check if anything was returned and output the list
-		if (Students.isEmpty()) {
-			System.out.println("No students found with with advisorId <" + AdvisorId + ">");
+		if (students.isEmpty()) 
+		{
+			System.out.println("No students found with advisor: <" + AdvId + ">");
 		}
-		else {
-			for (Student s : Students) {
-				System.out.println(s.getFirstname()+", "+s.getLastname()+": "+s.getMajor()+" Major");
+		else 
+		{
+			for (Student s : students) 
+			{
+				System.out.println(s.getLastname() + ", " + s.getFirstname() + ", " + s.getMajor());
 			}
 		}
 	}
