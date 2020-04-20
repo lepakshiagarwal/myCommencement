@@ -31,10 +31,7 @@
     <servlet-name>FileUploadServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.comm.servlet.FileUploadServlet</servlet-class>
   </servlet>
-<servlet>
-    <servlet-name>StaticUploadServlet</servlet-name>
-    <servlet-class>edu.ycp.cs320.comm.servlet.StaticUploadServlet</servlet-class>
-  </servlet>
+
  
 
   
