@@ -37,8 +37,7 @@ public class AdvisorMainServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 
-		System.out.println("advisor Servlet: doPost");
-		
+		System.out.println("advisor Servlet: doPost");	
 		
 		
 		
