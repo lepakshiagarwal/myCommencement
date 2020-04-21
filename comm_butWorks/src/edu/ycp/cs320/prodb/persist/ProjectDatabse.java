@@ -104,7 +104,7 @@ public class ProjectDatabse implements IDatabase2 {
 				try {
 					// retreive all attributes from both Books and Authors tables
 
-					stmt = connpro.prepareStatement("select *" 
+					stmt = connpro.prepareStatement("select studentspro.content" 
 							+ " from studentspro "
 							+ " where studentspro.username = ?");
 					stmt.setString(1, username);

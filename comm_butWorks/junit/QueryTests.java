@@ -35,8 +35,8 @@ public class QueryTests
 		
 		assertTrue(newton.getLastname().equals("Newton"));
 		assertTrue(scott.getLastname().equals("Scott"));
-		assertTrue(badPassword.equals(null));
-		assertTrue(badUsername.equals(null));
+		assertTrue(badPassword==null);
+		assertTrue(badUsername==null);
 		
 	}
 	
