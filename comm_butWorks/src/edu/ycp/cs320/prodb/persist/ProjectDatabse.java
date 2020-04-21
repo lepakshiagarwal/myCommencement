@@ -2,6 +2,8 @@ package edu.ycp.cs320.prodb.persist;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +17,6 @@ import java.util.List;
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
-import edu.ycp.cs320.comm.model.Pair;
 import edu.ycp.cs320.sqldemo.DBUtil;
 
 public class ProjectDatabse implements IDatabase2 {
@@ -127,7 +128,7 @@ public class ProjectDatabse implements IDatabase2 {
 
 					// check if the title was found
 					if (!found) {
-						System.out.println("<" + username + "> was not found in the advisors table");
+						System.out.println("<" + username + "> was not found in the studentspro table");
 					}
 
 					return result;
@@ -140,138 +141,61 @@ public class ProjectDatabse implements IDatabase2 {
 			
 		});
 	}
-	
-	/*
-	 * @Override public List<Pair<Author, Book>> findBooksByAuthorLastName(final
-	 * String lastName) { return executeTransaction(new
-	 * Transaction<List<Pair<Author,Book>>>() {
-	 * 
-	 * @Override public List<Pair<Author, Book>> execute(Connection conn) throws
-	 * SQLException { PreparedStatement stmt = null; ResultSet resultSet = null;
-	 * 
-	 * try { // retreive all attributes from both Books and Authors tables stmt =
-	 * conn.prepareStatement( "select authors.*, books.* " +
-	 * "  from authors, books " + " where authors.author_id = books.author_id " +
-	 * "   and authors.lastname = ?" + "  order by title ASC" ); stmt.setString(1,
-	 * lastName);
-	 * 
-	 * List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
-	 * 
-	 * resultSet = stmt.executeQuery();
-	 * 
-	 * // for testing that a result was returned Boolean found = false;
-	 * 
-	 * while (resultSet.next()) { found = true;
-	 * 
-	 * // create new Author object // retrieve attributes from resultSet starting
-	 * with index 1 Author author = new Author(); loadAuthor(author, resultSet, 1);
-	 * 
-	 * // create new Book object // retrieve attributes from resultSet starting at
-	 * index 4 Book book = new Book(); loadBook(book, resultSet, 4);
-	 * 
-	 * result.add(new Pair<Author, Book>(author, book)); }
-	 * 
-	 * // check if the title was found if (!found) { System.out.println("<" +
-	 * lastName + "> was not found in the books table"); }
-	 * 
-	 * return result; } finally { DBUtil.closeQuietly(resultSet);
-	 * DBUtil.closeQuietly(stmt); } } }); }
-	 * 
-	 * @Override public List<Pair<Author, Book>> insertNewBookWithAuthor(String
-	 * firstName, String lastName, String title, String isbn, int published) {
-	 * return executeTransaction(new Transaction<List<Pair<Author,Book>>>() {
-	 * 
-	 * @Override public List<Pair<Author, Book>> execute(Connection conn) throws
-	 * SQLException { // PreparedStatement references - one for each of the queries
-	 * / inserts PreparedStatement stmtAuthorID1 = null; PreparedStatement
-	 * stmtAuthorID2 = null; PreparedStatement stmtInsertAuthor = null;
-	 * PreparedStatement stmtInsertBook = null; PreparedStatement stmtgetResults =
-	 * null;
-	 * 
-	 * // ResultSet references - one for each query ResultSet resultSetAuthorID1 =
-	 * null; ResultSet resultSetAuthorID2 = null; ResultSet resultSetgetResults =
-	 * null;
-	 * 
-	 * try { stmtAuthorID1 = conn.prepareStatement( "select authors.author_id " +
-	 * "  from authors " + "  where authors.firstname = ? and authors.lastname = ? "
-	 * );
-	 * 
-	 * 
-	 * stmtAuthorID1.setString(1, firstName); stmtAuthorID1.setString(2, lastName);
-	 * resultSetAuthorID1 = stmtAuthorID1.executeQuery(); ResultSetMetaData
-	 * resultSchema = stmtAuthorID1.getMetaData();
-	 * 
-	 * 
-	 * int authorID = -1;
-	 * 
-	 * if (resultSetAuthorID1.next()) { authorID = resultSetAuthorID1.getInt(1);
-	 * System.out.println("Existing author found in AUTHORS table\n"); } else {
-	 * System.out.println("Inserting new author into AUTHORS table\n");
-	 * stmtInsertAuthor = conn.prepareStatement(
-	 * "insert into authors (lastname, firstname) " + "values (?, ?)" );
-	 * stmtInsertAuthor.setString(1, lastName); stmtInsertAuthor.setString(2,
-	 * firstName); stmtInsertAuthor.executeUpdate();
-	 * 
-	 * stmtAuthorID2 = conn.prepareStatement( "select authors.author_id " +
-	 * "  from authors " + "  where authors.firstname = ? and authors.lastname = ? "
-	 * ); stmtAuthorID2.setString(1, firstName); stmtAuthorID2.setString(2,
-	 * lastName); resultSetAuthorID2 = stmtAuthorID2.executeQuery(); resultSchema =
-	 * stmtAuthorID2.getMetaData();
-	 * 
-	 * if (resultSetAuthorID2.next()) { authorID = resultSetAuthorID2.getInt(1);
-	 * 
-	 * System.out.println("New author inserted into AUTHORS table with author_ID: "
-	 * + authorID + "\n"); } else { System.out.
-	 * println("Something very bad has happened - the new author was not found in the AUTHORS table"
-	 * ); } }
-	 * 
-	 * stmtInsertBook = conn.prepareStatement(
-	 * "insert into books (author_id, title, ISBN, published) " +
-	 * "  values (?, ?, ?, ?)" );
-	 * 
-	 * stmtInsertBook.setInt(1, authorID); stmtInsertBook.setString(2, title);
-	 * stmtInsertBook.setString(3, isbn); stmtInsertBook.setInt(4, published);
-	 * 
-	 * stmtInsertBook.executeUpdate();
-	 * 
-	 * System.out.println("New book inserted into BOOKS table with title <" + title
-	 * + "> for author " + firstName + " " + lastName + "\n");
-	 * 
-	 * 
-	 * stmtgetResults = conn.prepareStatement( "select * " +
-	 * "  from authors, books " + "  where authors.author_id = books.author_id" );
-	 * 
-	 * 
-	 * List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
-	 * 
-	 * resultSetgetResults = stmtgetResults.executeQuery();
-	 * 
-	 * // for testing that a result was returned Boolean found = false;
-	 * 
-	 * while (resultSetgetResults.next()) { found = true;
-	 * 
-	 * // create new Author object // retrieve attributes from resultSet starting
-	 * with index 1 Author author = new Author(); loadAuthor(author,
-	 * resultSetgetResults, 1);
-	 * 
-	 * // create new Book object // retrieve attributes from resultSet starting at
-	 * index 4 Book book = new Book(); loadBook(book, resultSetgetResults, 4);
-	 * 
-	 * result.add(new Pair<Author, Book>(author, book)); }
-	 * 
-	 * return result;
-	 * 
-	 * } finally {
-	 * 
-	 * // close ResultSets DBUtil.closeQuietly(resultSetAuthorID1);
-	 * DBUtil.closeQuietly(resultSetAuthorID2); DBUtil.closeQuietly(stmtgetResults);
-	 * 
-	 * // close PreparedStatements DBUtil.closeQuietly(stmtAuthorID1);
-	 * DBUtil.closeQuietly(stmtAuthorID2); DBUtil.closeQuietly(stmtInsertAuthor);
-	 * DBUtil.closeQuietly(stmtInsertBook); DBUtil.closeQuietly(stmtgetResults); } }
-	 * }); }
-	 * 
-	 */
+	public void insertContentByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
+	{
+		//set up
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		// connect to the database
+		conn = DriverManager.getConnection("jdbc:derby:C:/CS320-myComm-datbase/pro.db;create=true");
+		
+		try
+		{
+			//query to see if student exists in database first
+			conn.setAutoCommit(true);
+			stmt = conn.prepareStatement(
+					"select * " +
+					" from studentpro" +
+					" where studentpro.username = ?"
+			);
+		
+			stmt.setString(1, username);
+			
+			resultSet = stmt.executeQuery();
+			//if the student exists, insert content
+			if(resultSet.getMetaData().getColumnCount()>1)
+			{
+				resultSet.next();
+				String student_id = resultSet.getObject(1).toString();
+				PreparedStatement insertContent = null;
+				insertContent = conn.prepareStatement(
+						 "update studentspro"
+						+"set content= ? "
+						+"where sudentspro.username = ?");
+				File content = new File(fileNameOfContent);
+				FileInputStream input = new FileInputStream(content);
+
+				// set parameters
+				insertContent.setBinaryStream(1, input);
+				insertContent.setString(2, username);
+				insertContent.execute();
+			
+			}
+			else
+			{
+				System.out.print("Insertion error");
+			}
+		}
+			finally
+			{
+				DBUtil.closeQuietly(conn);
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+			}
+			
+		
+	}
 
 	public <ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
