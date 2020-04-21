@@ -5,8 +5,10 @@ import java.util.Scanner;
 
 import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
 import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
+import edu.ycp.cs320.ycpdb.persist.IDatabase;
 
 public class findContentByStudentUsername
 {
@@ -19,8 +21,8 @@ public class findContentByStudentUsername
 		String username = keyboard.nextLine();
 		
 		// get the DB instance and execute transaction
-		DatabaseProvider.setInstance(new DerbyDatabase());
-		DerbyDatabase db = (DerbyDatabase) DatabaseProvider.getInstance();
+		DatabaseProvider.setInstance((IDatabase) new ProjectDatabse());
+		ProjectDatabse db = (ProjectDatabse) DatabaseProvider.getInstance();
 		Content studentContent = db.findContentByStudentUsername(username);
 		
 		// check if anything was returned and output the list
