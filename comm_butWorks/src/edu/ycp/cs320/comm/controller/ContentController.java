@@ -1,22 +1,18 @@
 package edu.ycp.cs320.comm.controller;
 
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.ycp.cs320.comm.model.Content;
-import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
-import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
-import edu.ycp.cs320.ycpdb.persist.IDatabase;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.IDatabase2;
+import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
 public class ContentController {
 
-	private IDatabase db    = null;
+	private IDatabase2 db    = null;
 
 	public ContentController() {
 		
 		// creating DB instance here
-		DatabaseProvider.setInstance(new DerbyDatabase());
+		DatabaseProvider.setInstance(new ProjectDatabse());
 		db = DatabaseProvider.getInstance();		
 	}
 
