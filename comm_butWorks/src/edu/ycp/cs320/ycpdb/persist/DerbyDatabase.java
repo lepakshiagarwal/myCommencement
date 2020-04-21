@@ -106,7 +106,6 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					
-					//If I want this to work, I need to create a table studentspro that would be in the 
 					stmt = connycp.prepareStatement("select * " 
 							+ " from students "
 							+ " where students.username= ? " 
