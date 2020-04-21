@@ -38,9 +38,9 @@ public class StudentMainServlet extends HttpServlet {
 	    
 	    
 		
-		double GPA = model.getGpa();
-		String Major = model.getMajor();
-		int AdvisorID = model.getAdvisorId();
+		//double GPA = model.getGpa();
+		//String Major = model.getMajor();
+		//int AdvisorID = model.getAdvisorId();
 		// Decode form parameters and dispatch to controller
 		
 
@@ -53,7 +53,7 @@ public class StudentMainServlet extends HttpServlet {
 		//req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 		//req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
 		ContentController concontroller = new ContentController();
-		Content cont = concontroller.getCont(model.getUsername());
+		Content cont = concontroller.getCont("acanzano");
 	    String but = req.getParameter("button");
 		if(but .equals("Static")){
 		    req.setAttribute("img", cont);
@@ -69,12 +69,12 @@ public class StudentMainServlet extends HttpServlet {
 		    req.setAttribute("video", cont);
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
 		}else if(but .equals("Update Content")) {
-			  req.setAttribute("GPA", GPA);
-			    req.setAttribute("Major", Major);
-			    req.setAttribute("AdvisorID", AdvisorID);
+			 // req.setAttribute("GPA", GPA);
+			   // req.setAttribute("Major", Major);
+			   // req.setAttribute("AdvisorID", AdvisorID);
 
 				// Add result objects as request attributes
-			    req.setAttribute("AdvisorID", AdvisorID);
+			   // req.setAttribute("AdvisorID", AdvisorID);
 				req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
 
 		}
