@@ -26,6 +26,7 @@ public class InitialData {
 				Advisor.setFirstname(i.next());
 				Advisor.setLastname(i.next());
 				Advisor.setUsername(i.next());
+				Advisor.setPassword(i.next());
 				advisorList.add(Advisor);
 			}
 			return advisorList;
