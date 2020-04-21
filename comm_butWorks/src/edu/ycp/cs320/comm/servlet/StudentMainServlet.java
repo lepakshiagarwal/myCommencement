@@ -1,26 +1,22 @@
 package edu.ycp.cs320.comm.servlet;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
+import edu.ycp.cs320.comm.controller.ContentController;
 import edu.ycp.cs320.comm.controller.StudentController;
+import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
+import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
 
 
 public class StudentMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//for validate method
 	private Student model;
-	private StudentController controller;
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -37,10 +33,10 @@ public class StudentMainServlet extends HttpServlet {
 		
 		
 
-		System.out.println("student Servlet: doPost");
-		model = new Student("Smelendez", "42");
 		
-	    controller = new StudentController(model);
+		
+	    
+	    
 		
 		double GPA = model.getGpa();
 		String Major = model.getMajor();
@@ -56,19 +52,21 @@ public class StudentMainServlet extends HttpServlet {
 		//req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
 		//req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 		//req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
-	
+		ContentController concontroller = new ContentController();
+		Content cont = concontroller.getCont(model.getUsername());
 	    String but = req.getParameter("button");
-		System.out.println(but);
-
 		if(but .equals("Static")){
+		    req.setAttribute("img", cont);
 			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
 		}
 		else if(but .equals("SlideShow"))
 		{
+		    req.setAttribute("slideshow", cont);
 			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 		}
 		else if(but .equals("Video"))
 		{
+		    req.setAttribute("video", cont);
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
 		}else if(but .equals("Update Content")) {
 			  req.setAttribute("GPA", GPA);
