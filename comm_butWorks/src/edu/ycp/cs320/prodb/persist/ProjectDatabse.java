@@ -141,6 +141,59 @@ public class ProjectDatabse implements IDatabase2 {
 			
 		});
 	}
+	
+	@Override
+	public void insertCommentByUsername(String username, String comment ) throws SQLException {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		// connect to the database
+		conn = DriverManager.getConnection("jdbc:derby:C:/CS320-myComm-datbase/pro.db;create=true");
+		
+		try
+		{
+			//query to see if student exists in database first
+			conn.setAutoCommit(true);
+			stmt = conn.prepareStatement(
+					"select * " +
+					" from studentpro" +
+					" where studentpro.username = ?"
+			);
+		
+			stmt.setString(1, username);
+			
+			resultSet = stmt.executeQuery();
+			//if the student exists, insert content
+			if(resultSet.getMetaData().getColumnCount()>1)
+			{
+				resultSet.next();
+				String student_id = resultSet.getObject(1).toString();
+				PreparedStatement insertContent = null;
+				insertContent = conn.prepareStatement(
+						 "update studentspro"
+						+"set comment= ? "
+						+"where sudentspro.username = ?");
+		
+				// set parameters
+				insertContent.setString(1, comment);
+				insertContent.setString(2, username);
+				insertContent.execute();
+			
+			}
+			else
+			{
+				System.out.print("Insertion error");
+			}
+		}
+			finally
+			{
+				DBUtil.closeQuietly(conn);
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+			}
+			
+	}
+	@Override
 	public void insertContentByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
 	{
 		//set up
@@ -173,7 +226,7 @@ public class ProjectDatabse implements IDatabase2 {
 						 "update studentspro"
 						+"set content= ? "
 						+"where sudentspro.username = ?");
-				File content = new File(fileNameOfContent);
+				File content = new File(fileNameOfContentover);
 				FileInputStream input = new FileInputStream(content);
 
 				// set parameters
