@@ -23,7 +23,6 @@ public class StudentController {
 
 		 Student log = db.findStudentByLogin(username, password);
 			System.out.println("makes it here");
-			System.out.println(log.getFirstname());
 
 			return log;
 
