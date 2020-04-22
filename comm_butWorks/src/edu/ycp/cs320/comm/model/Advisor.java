@@ -19,6 +19,7 @@ public class Advisor extends User
 	public Advisor() 
 	{
 		super(null, null);
+		advisees = new ArrayList<Student>();
 	}
 
 
@@ -64,6 +65,11 @@ public class Advisor extends User
 
 	public void setAdvisorId(int int1) {
 		this.advisorId=int1;	
+	}
+	
+	public int getAdvisorId()
+	{
+		return advisorId;
 	}
 
 
