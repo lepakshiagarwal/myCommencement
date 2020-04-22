@@ -1,46 +1,35 @@
 package edu.ycp.cs320.comm.controller;
 
-import java.util.ArrayList;
-
-import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
+import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
+import edu.ycp.cs320.ycpdb.persist.IDatabase;
 
 /**
  * Controller for the Advisor
  */
 public class StudentController {
 	private Student model;
+	private IDatabase db    = null;
 
-	 //Set the model.
-	public StudentController(Student model) {
-		this.model = model;
+	//Set the model.
+	public StudentController() {
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
 	}
-	
+
+
+	public Student getLog(String username,String password) {
+
+		 Student log = db.findStudentByLogin(username, password);
+			System.out.println("makes it here");
+
+			return log;
+
+
+		// return list of book,author pairs
+	}
 	//method to check username
-	public boolean checkUserName(String name)
-	{
-		if(name.equals(model.getUsername()))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	//method to validate password
-	public boolean validateCredentials(String name, String password) 
-	{
-		if(checkUserName(name) && password.equals(model.getPassword()))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	
+
+
 }

@@ -71,7 +71,7 @@
 	</head>
 
 	<body>
-		<h1>Student Name</h1>
+		<h1>Student Main</h1>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
@@ -80,34 +80,30 @@
 			
 			<table>
 			    <tr>
-					<td class="major">Major:   </td>
+					<td class="major">Major: <td class="Major">${Major}</td>  </td>
 				</tr>
 				 <tr>
-					<td class="GPA">GPA:   </td>
+					<td class="GPA">GPA: <td class="GPA">${GPA}</td>	
+					  </td>
 				</tr>	
 				 <tr>
-					<td class="AdvisorName">Advisor Name:   </td>      				
+					<td class="AdvisorID">Advisor ID: <td class="AdvisorID">${AdvisorID}</td>  </td>      				
 			    </tr>
 			    <tr>
 					<td class="studentContent">Upload:   </td>      				
 			    </tr>
 			        
-			    <c:forEach items="${students}" var="student">
-			        <tr class="studentRow">
-			           
-			            <td class="major">${student.major}</td>
-			            <td class="GPA">${student.GPA}</td>	
-			            <td class="AdvisorName">${student.advisorName}</td>		
-			        </tr>
-			    </c:forEach>
+			   
 			    
 			</table>
 			
 			
 
 			<form action="${pageContext.servletContext.contextPath}/StudentMain" method="post">
-			<input type="Submit" name="submithome" value="Update Content">
-			
+
+			<input type="Submit" name="button" value="Update Content">
+
+
 		</form>		
 		
 		<form action="/lab02/StudentUpload" method="POST" enctype="multipart/form-data">
