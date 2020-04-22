@@ -54,6 +54,8 @@ public class StudentMainServlet extends HttpServlet {
 		//req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
 		ContentController concontroller = new ContentController();
 		Content cont = concontroller.getCont("acanzano");
+		System.out.println(cont);	
+
 	    String but = req.getParameter("button");
 		if(but .equals("Static")){
 		    req.setAttribute("img", cont);
