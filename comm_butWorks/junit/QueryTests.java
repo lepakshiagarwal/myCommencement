@@ -35,8 +35,9 @@ public class QueryTests
 		
 		assertTrue(newton.getLastname().equals("Newton"));
 		assertTrue(scott.getLastname().equals("Scott"));
-		assertTrue(badPassword==null);
-		assertTrue(badUsername==null);
+		
+		assertTrue((badPassword==null));
+		assertTrue((badUsername==null));
 		
 	}
 	
@@ -66,10 +67,6 @@ public class QueryTests
 		assertFalse(advisees.get(2).getFirstname().equals("Shea"));
 	}
 	
-	@Test
-	public void testfindContentByStudentUsername()
-	{
-		
-	}
+	
 	
 }

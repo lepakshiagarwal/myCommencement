@@ -226,7 +226,7 @@ public class ProjectDatabse implements IDatabase2 {
 						 "update studentspro"
 						+"set content= ? "
 						+"where sudentspro.username = ?");
-				File content = new File(fileNameOfContentover);
+				File content = new File(fileNameOfContent);
 				FileInputStream input = new FileInputStream(content);
 
 				// set parameters
