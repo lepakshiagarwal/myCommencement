@@ -22,20 +22,20 @@ public class StudentServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+
 		System.out.println("Student Servlet: doGet");	
-		
+
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/Studentlogin.jsp").forward(req, resp);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+
 
 		System.out.println("student Servlet: doPost");
-		
+
 		String errorMessage = null;
 		String name         = null;
 		String pw           = null;
@@ -51,20 +51,23 @@ public class StudentServlet extends HttpServlet {
 		} else {
 			controller = new StudentController();
 			Student stud = controller.getLog(name, pw);
-			if(!stud.equals(null)) {
-			validLogin  = true;
-			System.out.println(stud.getGpa());
-			// if login is valid, start a session
+			if(stud != null) {
+				validLogin  = true;
+				System.out.println(stud.getGpa());
+				// if login is valid, start a session
 
-			// store user object in session
-			req.getSession().setAttribute("user", stud);
+				// store user object in session
+				req.getSession().setAttribute("user", stud);
 
-			// redirect to /index page
-			resp.sendRedirect(req.getContextPath() + "/StudentMain");
+				// redirect to /index page
+				resp.sendRedirect(req.getContextPath() + "/StudentMain");
 
-			return;
+				return;
+			}else {
+				errorMessage = "Please specify both user name and password";
+
 			}
-			
+
 		}
 
 		// Add parameters as request attributes
@@ -75,12 +78,12 @@ public class StudentServlet extends HttpServlet {
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("login",        validLogin);
 
-		
-			
-		
+
+
+
 
 		System.out.println("   Invalid login - returning to /Login");
-		
+
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/Studentlogin.jsp").forward(req, resp);
 	}
