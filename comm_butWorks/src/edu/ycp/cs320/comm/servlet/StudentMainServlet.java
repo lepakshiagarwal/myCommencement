@@ -17,6 +17,8 @@ public class StudentMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//for validate method
 	private Student model;
+	private StudentController controller;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -31,20 +33,19 @@ public class StudentMainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		
-
-		
-		
-	    
-	    
-		
-		//double GPA = model.getGpa();
-		//String Major = model.getMajor();
-		//int AdvisorID = model.getAdvisorId();
-		// Decode form parameters and dispatch to controller
-		
-
 	
+      Object stud = req.getSession().getAttribute("user");
+
+		
+		
+	    
+	    
+		
+		double GPA = ((Student) stud).getGpa();
+		String Major = ((Student) stud).getMajor();
+		int AdvisorID = ((Student) stud).getAdvisorId();
+		
+
 
 		// Add parameters as request attributes
 	  
@@ -52,28 +53,35 @@ public class StudentMainServlet extends HttpServlet {
 		//req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
 		//req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 		//req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
-		ContentController concontroller = new ContentController();
-		Content cont = concontroller.getCont("acanzano");
-		System.out.println(cont);	
+			
 
 	    String but = req.getParameter("button");
 		if(but .equals("Static")){
+			ContentController concontroller = new ContentController();
+			Content cont = concontroller.getCont("acanzano");
+			System.out.println(cont);
 		    req.setAttribute("img", cont);
 			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
 		}
 		else if(but .equals("SlideShow"))
 		{
+			ContentController concontroller = new ContentController();
+			Content cont = concontroller.getCont("acanzano");
+			System.out.println(cont);
 		    req.setAttribute("slideshow", cont);
 			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 		}
 		else if(but .equals("Video"))
 		{
+			ContentController concontroller = new ContentController();
+			Content cont = concontroller.getCont("acanzano");
+			System.out.println(cont);
 		    req.setAttribute("video", cont);
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
 		}else if(but .equals("Update Content")) {
-			 // req.setAttribute("GPA", GPA);
-			   // req.setAttribute("Major", Major);
-			   // req.setAttribute("AdvisorID", AdvisorID);
+			 req.setAttribute("GPA", GPA);
+			 req.setAttribute("Major", Major);
+			 req.setAttribute("AdvisorID", AdvisorID);
 
 				// Add result objects as request attributes
 			   // req.setAttribute("AdvisorID", AdvisorID);

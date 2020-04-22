@@ -54,7 +54,8 @@ public class StudentServlet extends HttpServlet {
 			if(!stud.equals(null)) {
 			validLogin  = true;
 			System.out.println(stud.getGpa());
-			
+			// if login is valid, start a session
+
 			// store user object in session
 			req.getSession().setAttribute("user", stud);
 
@@ -74,7 +75,6 @@ public class StudentServlet extends HttpServlet {
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("login",        validLogin);
 
-		// if login is valid, start a session
 		
 			
 		
