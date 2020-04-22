@@ -25,7 +25,7 @@ public class StudentController {
 			System.out.println("makes it here");
 			System.out.println(log.getFirstname());
 
-		return log;
+			return log;
 
 
 		// return list of book,author pairs
