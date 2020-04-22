@@ -38,17 +38,17 @@ public class StudentMainServlet extends HttpServlet {
 
 		
 		
-	    
-	    
+
 		
 		double GPA = ((Student) stud).getGpa();
 		String Major = ((Student) stud).getMajor();
 		int AdvisorID = ((Student) stud).getAdvisorId();
-		
+
 
 
 		// Add parameters as request attributes
-	  
+ 
+
 
 		//req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
 		//req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
@@ -57,10 +57,14 @@ public class StudentMainServlet extends HttpServlet {
 
 	    String but = req.getParameter("button");
 		if(but .equals("Static")){
+
+			
+
 			ContentController concontroller = new ContentController();
 			Content cont = concontroller.getCont("acanzano");
 			System.out.println(cont);
 		    req.setAttribute("img", cont);
+
 			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
 		}
 		else if(but .equals("SlideShow"))

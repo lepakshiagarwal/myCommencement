@@ -100,7 +100,9 @@
 			
 
 			<form action="${pageContext.servletContext.contextPath}/StudentMain" method="post">
+
 			<input type="Submit" name="button" value="Update Content">
+
 
 		</form>		
 		
@@ -109,10 +111,10 @@
 			<p>What file do you want to upload?</p>
 			<input type="file" name="fileToUpload">
 			<br/><br/>
-			<input type="submit" value="Submit">
+			<input type="submit" value="Static">
 		</form>
 		<form action="${pageContext.servletContext.contextPath}/Static" method="POST">
- 		 <input type="submit" value="Static" name="button">                 
+ 		          
  		 <input type="submit" value="Slideshow" name="button">                 
  		 <input type="submit" value="Video" name="button">                 
 		</form>
