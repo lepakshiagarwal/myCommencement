@@ -80,26 +80,20 @@
 			
 			<table>
 			    <tr>
-					<td class="major">Major:   </td>
+					<td class="major">Major: <td class="Major">${Major}</td>  </td>
 				</tr>
 				 <tr>
-					<td class="GPA">GPA:   </td>
+					<td class="GPA">GPA: <td class="GPA">${GPA}</td>	
+					  </td>
 				</tr>	
 				 <tr>
-					<td class="AdvisorName">Advisor Name:   </td>      				
+					<td class="AdvisorID">Advisor ID: <td class="AdvisorID">${AdvisorID}</td>  </td>      				
 			    </tr>
 			    <tr>
 					<td class="studentContent">Upload:   </td>      				
 			    </tr>
 			        
-			    <c:forEach items="${students}" var="student">
-			        <tr class="studentRow">
-			           
-			            <td class="major">${student.major}</td>
-			            <td class="GPA">${student.GPA}</td>	
-			            <td class="AdvisorName">${student.advisorName}</td>		
-			        </tr>
-			    </c:forEach>
+			   
 			    
 			</table>
 			
