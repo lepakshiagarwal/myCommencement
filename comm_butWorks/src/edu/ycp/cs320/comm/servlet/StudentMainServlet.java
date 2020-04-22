@@ -42,6 +42,7 @@ public class StudentMainServlet extends HttpServlet {
 		
 	    controller = new StudentController(model);
 		
+	   
 		double GPA = model.getGpa();
 		String Major = model.getMajor();
 		int AdvisorID = model.getAdvisorId();
@@ -54,7 +55,9 @@ public class StudentMainServlet extends HttpServlet {
 	    req.setAttribute("GPA", GPA);
 	    req.setAttribute("Major", Major);
 	    req.setAttribute("AdvisorID", AdvisorID);
-
+	    
+	    
+	    
 		// Add result objects as request attributes
 	    req.setAttribute("AdvisorID", AdvisorID);
 
@@ -66,6 +69,7 @@ public class StudentMainServlet extends HttpServlet {
 		System.out.println(but);
 
 		if(but .equals("Static")){
+			
 			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
 		}
 		else if(but .equals("SlideShow"))

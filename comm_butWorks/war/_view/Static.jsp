@@ -4,6 +4,12 @@
 		<title>Static Upload</title>
 	</head>
 <body>
-<img id="img" src="edu.ycp.cs320.comm.servlet.StaticUploadServlet">
+
+<form action="${pageContext.servletContext.contextPath}/file/*" method="post">
+			<img scr="FileServet?path=IMG_6269.JPG">
+</form>
+
+
+
 </body>
 </html>
