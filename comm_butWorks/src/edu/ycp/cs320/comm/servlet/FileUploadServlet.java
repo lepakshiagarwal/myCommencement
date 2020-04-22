@@ -39,7 +39,7 @@ public class FileUploadServlet extends HttpServlet {
 	    //for example, you can copy the uploaded file to the server
 	    //note that you probably don't want to do this in real life!
 	    //upload it to a file host like S3 or GCS instead
-	    File fileToSave = new File("C:\\Users\\lego_\\OneDrive\\Desktop\\github\\comm_butWorks\\war\\uploaded-files\\" + filePart.getSubmittedFileName());
+	    File fileToSave = new File("C:/users/melen/git/myCommencement/comm_butWorks/war/uploaded-files/" + filePart.getSubmittedFileName());
 		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//get the URL of the uploaded file
@@ -50,9 +50,11 @@ public class FileUploadServlet extends HttpServlet {
 		//response.getOutputStream().println("<p><img src= filePart.getSubmittedFileName()></p>");
 
 		
+		
+		response.sendRedirect(fileUrl);
 		//create output HTML that uses the 
-		response.getOutputStream().println("<p>Here's a link to your uploaded file:</p>");
-		response.getOutputStream().println("<p><a href=\"" + fileUrl + "\">" + fileUrl + "</a></p>");
+		//response.getOutputStream().println("<p>Here's a link to your uploaded file:</p>");
+		//response.getOutputStream().println("<p><a href=\"" + fileUrl + "\">" + fileUrl + "</a></p>");
 		//response.getOutputStream().println("<p>Upload another file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");	
 	}
 }
