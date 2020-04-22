@@ -128,7 +128,7 @@ public class ProjectDatabse implements IDatabase2 {
 
 					// check if the title was found
 					if (!found) {
-						System.out.println("<" + username + "> was not found in the studentspro table");
+						System.out.println("<" + username + "> has not content.");
 					}
 
 					return result;

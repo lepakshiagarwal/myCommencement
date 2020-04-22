@@ -45,18 +45,25 @@ public class StudentServlet extends HttpServlet {
 		name = req.getParameter("username");
 		pw   = req.getParameter("password");
 
-		System.out.println("   Name: <" + name + "> PW: <" + pw + ">");			
 
 		if (name.equals(null) || pw.equals(null) || name.equals("") || pw.equals("")) {
 			errorMessage = "Please specify both user name and password";
 		} else {
-			model      = new Student("Smelendez", "42");
-			controller = new StudentController(model);
-			validLogin = controller.validateCredentials(name, pw);
+			controller = new StudentController();
+			Student stud = controller.getLog(name, pw);
+			if(!stud.equals(null)) {
+			validLogin  = true;
+			System.out.println(stud.getGpa());
+			
+			// store user object in session
+			req.getSession().setAttribute("user", stud);
 
-			if (!validLogin) {
-				errorMessage = "Username and/or password invalid";
+			// redirect to /index page
+			resp.sendRedirect(req.getContextPath() + "/StudentMain");
+
+			return;
 			}
+			
 		}
 
 		// Add parameters as request attributes
@@ -68,17 +75,9 @@ public class StudentServlet extends HttpServlet {
 		req.setAttribute("login",        validLogin);
 
 		// if login is valid, start a session
-		if (validLogin) {
-			System.out.println("   Valid login - starting session, redirecting to /index");
-
-			// store user object in session
-			req.getSession().setAttribute("user", model);
-
-			// redirect to /index page
-			resp.sendRedirect(req.getContextPath() + "/StudentMain");
-
-			return;
-		}
+		
+			
+		
 
 		System.out.println("   Invalid login - returning to /Login");
 		
