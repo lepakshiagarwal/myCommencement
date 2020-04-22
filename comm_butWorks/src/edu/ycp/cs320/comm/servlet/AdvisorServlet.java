@@ -83,14 +83,11 @@ public class AdvisorServlet extends HttpServlet {
 			List<Student> students = db.findStudentsByAdvisorId(model.getAdvisorId());
 			for(Student s: students)
 			{
-				if(s!=null)
-				{
-					model.addAdvisee(s);
-				}
+				model.addAdvisee(s);
 			}
 			// store user object in session
 			req.getSession().setAttribute("user", model);
-			
+			System.out.print(model.adviseeList().get(1).getFirstname());
 			// redirect to /index page
 			resp.sendRedirect(req.getContextPath() + "/AdvisorMain");
 
