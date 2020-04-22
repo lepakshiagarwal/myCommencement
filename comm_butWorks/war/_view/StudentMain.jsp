@@ -71,7 +71,7 @@
 	</head>
 
 	<body>
-		<h1>Student Name</h1>
+		<h1>Student Main</h1>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
