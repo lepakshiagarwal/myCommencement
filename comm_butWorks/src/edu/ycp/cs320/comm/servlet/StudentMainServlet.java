@@ -45,8 +45,7 @@ public class StudentMainServlet extends HttpServlet {
 		String Major = ((Student) stud).getMajor();
 		int AdvisorID = ((Student) stud).getAdvisorId();
 		String user = ((Student) stud).getUsername();
-
-
+		GPA = Math.round(GPA*100)/100.0;
 		// Add parameters as request attributes
 	  
 

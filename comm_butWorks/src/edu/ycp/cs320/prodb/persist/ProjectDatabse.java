@@ -128,7 +128,7 @@ public class ProjectDatabse implements IDatabase2 {
 
 					// check if the title was found
 					if (!found) {
-						System.out.println("<" + username + "> has not content.");
+						System.out.println("<" + username + "> has no content.");
 					}
 
 					return result;
@@ -141,7 +141,53 @@ public class ProjectDatabse implements IDatabase2 {
 			
 		});
 	}
-	
+	public Content findContentByQR(int qr) 
+	{
+		return executeTransaction(new Transaction<Content>() {
+
+			public Content execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+
+					stmt = connpro.prepareStatement("select studentspro.content" 
+							+ " from studentspro "
+							+ " where studentspro.QR = ?");
+					stmt.setInt(1, qr);
+
+					Content result = new Content();
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					resultSet.next();
+					if(resultSet.next())
+					{
+						found=true;
+			
+						
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + qr + "> has no content.");
+					}
+
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+
+			
+		});
+		
+	}
 	@Override
 	public void insertCommentByUsername(String username, String comment ) throws SQLException {
 		Connection conn = null;
@@ -314,6 +360,7 @@ public class ProjectDatabse implements IDatabase2 {
 		student.setComment(resultSet.getString(index++));
 		student.setStatus(resultSet.getString(index++));
 		student.setContent(resultSet.getBlob(index++));
+		student.setQR(resultSet.getInt(index++));
 	}
 	
 //	private void loadContent(Content content, ResultSet resultSet, int index) throws SQLException
@@ -345,7 +392,8 @@ public class ProjectDatabse implements IDatabase2 {
 							+ "	password varchar(40)," 
 							+ " comment varchar(40),"
 							+ " status varchar(40),"
-							+ " content blob"
+							+ " content blob,"
+							+ " QR varchar(40)"
 							+ " ) ");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
@@ -391,7 +439,7 @@ public class ProjectDatabse implements IDatabase2 {
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connpro.prepareStatement(
-							"insert into studentspro (Username, password, comment, status, content) values (?, ?, ?, ?, ?)");
+							"insert into studentspro (Username, password, comment, status, content, QR) values (?, ?, ?, ?, ?,?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setString(1, student.getUsername());
@@ -399,6 +447,7 @@ public class ProjectDatabse implements IDatabase2 {
 						insertStudent.setString(3, student.getComment());
 						insertStudent.setString(4, student.getStatus());
 						insertStudent.setBlob(5, student.getContent());
+						insertStudent.setInt(6, student.getQR());
 						insertStudent.addBatch();
 					}
 					insertStudent.executeBatch();

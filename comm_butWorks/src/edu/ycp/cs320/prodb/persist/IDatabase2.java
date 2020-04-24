@@ -13,6 +13,8 @@ public interface IDatabase2 {
 	Student findStudentByLogin(String username, String password);
 
 	Content findContentByStudentUsername(String username);
+	
+	Content findContentByQR(int qr);
 
 	void insertContentByStudentUsername(String username, String fileNameOfContent)
 			throws SQLException, FileNotFoundException;

@@ -64,6 +64,7 @@ public class InitialData2 {
 					e.printStackTrace();
 				}
 				student.setContent(blob);
+				student.setQR(Integer.parseInt(i.next()));
 				studentList.add(student);
 			}
 			return studentList;
