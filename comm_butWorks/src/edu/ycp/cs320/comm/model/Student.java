@@ -18,6 +18,7 @@ public class Student extends User {
 	private Blob studentContent;
 	private String comment;
 	private String status;
+	private int QR;
 	
 	public Student(String username, String password)
 	{
@@ -122,4 +123,14 @@ public class Student extends User {
 	public String getComment() {
 		return comment;
 	}
+	public void setQR(int QR) {
+		this.QR=QR;
+		
+	}
+	public int getQR()
+	{
+		return studentId;
+	}
+
+
 }
