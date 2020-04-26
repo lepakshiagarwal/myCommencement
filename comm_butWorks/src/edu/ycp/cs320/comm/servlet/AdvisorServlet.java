@@ -81,10 +81,6 @@ public class AdvisorServlet extends HttpServlet {
 		if (validLogin) {
 			System.out.println("   Valid login - starting session, redirecting to /AdvisorMain");
 			List<Student> students = db.findStudentsByAdvisorId(model.getAdvisorId());
-			for(Student s: students)
-			{
-				model.addAdvisee(s);
-			}
 			// store user object in session
 			req.getSession().setAttribute("user", model);
 			System.out.print(model.adviseeList().get(1).getFirstname());
