@@ -4,6 +4,6 @@
 		<title>Static Upload</title>
 	</head>
 <body>
-<img id="img" src="edu.ycp.cs320.comm.servlet.StudentMainServlet">
+<img src="http://localhost:8081/lab02/uploaded-files/IMG_6269.JPG">
 </body>
 </html>

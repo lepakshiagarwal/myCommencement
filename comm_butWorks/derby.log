@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Mon Apr 27 13:58:56 EDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-bcca-bdc2-00000172b000 
-on database directory C:\CS320-myComm-datbase\ycp.db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44 
-Loaded from file:/C:/Users/DELL/Downloads/CS320_Derby/CS320_Derby/lib/derby.jar
+Mon Apr 27 17:49:44 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-bd9e-0cf9-000002a0cf10 
+on database directory C:\CS320-myComm-datbase\ycp.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/melen/git/myCommencement/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=13+33
-user.dir=C:\Users\DELL\Documents\GitHub\myCommencement\comm_butWorks
+java.runtime.version=1.8.0_251-b08
+user.dir=C:\Users\melen\git\myCommencement\comm_butWorks
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

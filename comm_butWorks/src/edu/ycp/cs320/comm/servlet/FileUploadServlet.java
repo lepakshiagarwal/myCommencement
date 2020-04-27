@@ -38,8 +38,9 @@ public class FileUploadServlet extends HttpServlet {
 	    
 	    //for example, you can copy the uploaded file to the server
 	    //note that you probably don't want to do this in real life!
-	    //upload it to a file host like S3 or GCS instead
-	    File fileToSave = new File("C:\\Users\\lego_\\OneDrive\\Desktop\\github\\comm_butWorks\\war\\uploaded-files\\" + filePart.getSubmittedFileName());
+	    //upload it to a file host like S3 or GCS instead/
+	    //C:/Users/melen/git/myCommencement/comm_butWorks/war/uploaded-files/
+	    File fileToSave = new File("C:/Users/melen/git/myCommencement/comm_butWorks/war/uploaded-files/" + filePart.getSubmittedFileName());
 		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//get the URL of the uploaded file
