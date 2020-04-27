@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <meta charset="ISO-8859-1">
 <title>Advisor Home</title>
 </head>
@@ -18,6 +19,8 @@
 	<ul>
 		<c:forEach var="student" items="${studentList}">
 			<li> > <c:out value="${student.username}"/> </li>
+			<input type="checkbox"> View Content
+			<input type="checkbox"> Approve
 		</c:forEach>
 	</ul>
 	

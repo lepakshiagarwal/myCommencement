@@ -25,8 +25,6 @@ public class AdvisorMainServlet extends HttpServlet {
 		System.out.println("AdvisorMain Servlet: doGet");
 		
 		//set list of students as attribute'
-
-		System.out.print(model.adviseeList().get(1).getFirstname());
 		req.setAttribute("studentList", model.adviseeList());
 		req.setAttribute("user", model);
 		// add result objects as attributes

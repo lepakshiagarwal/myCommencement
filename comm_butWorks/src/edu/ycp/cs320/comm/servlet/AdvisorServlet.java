@@ -2,6 +2,7 @@ package edu.ycp.cs320.comm.servlet;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -80,10 +81,11 @@ public class AdvisorServlet extends HttpServlet {
 		// if login is valid, start a session
 		if (validLogin) {
 			System.out.println("   Valid login - starting session, redirecting to /AdvisorMain");
-			List<Student> students = db.findStudentsByAdvisorId(model.getAdvisorId());
+			ArrayList<Student> students = db.findStudentsByAdvisorId(model.getAdvisorId());
+			model.setAdviseeList(students);
 			// store user object in session
 			req.getSession().setAttribute("user", model);
-			System.out.print(model.adviseeList().get(1).getFirstname());
+			System.out.print(model.adviseeList().get(0).getFirstname());
 			// redirect to /index page
 			resp.sendRedirect(req.getContextPath() + "/AdvisorMain");
 

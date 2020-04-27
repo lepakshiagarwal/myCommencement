@@ -37,10 +37,10 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 
-	public List<Student> findStudentsByAdvisorId(final int advId) {
-		return executeTransaction(new Transaction<List<Student>>() {
+	public ArrayList<Student> findStudentsByAdvisorId(final int advId) {
+		return executeTransaction(new Transaction<ArrayList<Student>>() {
 
-			public List<Student> execute(Connection connycp) throws SQLException {
+			public ArrayList<Student> execute(Connection connycp) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
@@ -53,7 +53,7 @@ public class DerbyDatabase implements IDatabase {
 							+ " and advisors.advisorId = ?");
 					stmt.setInt(1, advId);
 
-					List<Student> result = new ArrayList<Student>();
+					ArrayList<Student> result = new ArrayList<Student>();
 
 
 					resultSet = stmt.executeQuery();
