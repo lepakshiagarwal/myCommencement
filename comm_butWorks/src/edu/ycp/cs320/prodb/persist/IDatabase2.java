@@ -16,10 +16,10 @@ public interface IDatabase2 {
 	
 	Content findContentByQR(int qr);
 
-	void insertContentURLByStudentUsername(String username, String fileNameOfContent)
+	boolean insertContentURLByStudentUsername(String username, String fileNameOfContent)
 			throws SQLException, FileNotFoundException;
 
-	void insertCommentByUsername(String username, String comment) throws SQLException;
+	boolean insertCommentByUsername(String username, String comment) throws SQLException;
 
 	
 }

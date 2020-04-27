@@ -17,6 +17,10 @@ public class StudentController {
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		db = DatabaseProvider.getInstance();
 	}
+	public StudentController(Student model)
+	{
+		this.model = model;
+	}
 
 
 	public Student getLog(String username,String password) {

@@ -26,24 +26,5 @@ public class StudentControllerTest {
 		controller=new StudentController(model);
 	}
 	
-	@Test
-	public void testValidateUsername() {
-		assertFalse(controller.checkUserName("lepakshi"));
-		assertTrue(controller.checkUserName("Acanzano"));
-	}
-
-	@Test
-	public void testValidatePassword() 
-	{
-		//correct username and password
-		assertTrue(controller.validateCredentials("Acanzano", "TeslaTruck"));
-		//correct password, wrong username
-		assertFalse(controller.validateCredentials("Lagarwal", "TeslaTruck"));
-		//correct username, wrong password
-		assertFalse(controller.validateCredentials("Acanzano", "Deer"));
-		//both password  and username or invalid
-		assertFalse(controller.validateCredentials("Lagarwal", "Deer"));
-		
-	}
 	
 }
