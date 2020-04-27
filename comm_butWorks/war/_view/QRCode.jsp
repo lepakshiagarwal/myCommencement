@@ -20,14 +20,14 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 	
-		<form action="${pageContext.servletContext.contextPath}/QRServlet" method="post">
+		<form action="${pageContext.servletContext.contextPath}/QRCode" method="post">
 			<table>
 				<tr>
 					<td class="label">Student's QR:</td>
 					<td><input type="text" name="QR" size="12" value="${QR}" /></td>
 				</tr>
 			</table>
-			<form action="${pageContext.servletContext.contextPath}/QRSewrwrwerwrrvlet" method="get">
+			<form action="${pageContext.servletContext.contextPath}/QRCode" method="get">
 			<input type="Submit" name="studentMain" value="Find Content!">
 			<a href="http://localhost:8081/lab02/index">Back!</a>
 		</form>	

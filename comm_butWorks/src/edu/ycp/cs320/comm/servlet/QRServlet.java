@@ -41,7 +41,6 @@ public class QRServlet extends HttpServlet {
 
 
 
-		System.out.println("   Invalid login - returning to /Login");
 
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
