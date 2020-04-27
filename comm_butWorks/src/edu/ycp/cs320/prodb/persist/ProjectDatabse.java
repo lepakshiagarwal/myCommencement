@@ -1,6 +1,7 @@
 package edu.ycp.cs320.prodb.persist;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Content;
@@ -110,18 +113,27 @@ public class ProjectDatabse implements IDatabase2 {
 							+ " where studentspro.username = ?");
 					stmt.setString(1, username);
 
-					Content result = new Content();
+					String contentURL = new String();
 
 
 					resultSet = stmt.executeQuery();
-
+					Content result = new Content();
 					// for testing that a result was returned
 					Boolean found = false;
-					resultSet.next();
 					if(resultSet.next())
 					{
 						found=true;
-				//		loadContent(result, resultSet, 1);
+						File Content = new File(contentURL);
+						try 
+						{
+							
+							BufferedImage image = ImageIO.read(Content);
+							result.setStaticImage(image);
+						} 
+						catch (IOException e) 
+						{
+							e.printStackTrace();
+						}
 						
 						
 					}
@@ -189,7 +201,7 @@ public class ProjectDatabse implements IDatabase2 {
 		
 	}
 	@Override
-	public void insertCommentByUsername(String username, String comment ) throws SQLException {
+	public boolean insertCommentByUsername(String username, String comment ) throws SQLException {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet resultSet = null;
@@ -229,7 +241,9 @@ public class ProjectDatabse implements IDatabase2 {
 			else
 			{
 				System.out.print("Insertion error");
+				return false;
 			}
+			return true;
 		}
 			finally
 			{
@@ -239,8 +253,11 @@ public class ProjectDatabse implements IDatabase2 {
 			}
 			
 	}
+	
+	
+	
 	@Override
-	public void insertContentByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
+	public boolean insertContentURLByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
 	{
 		//set up
 		Connection conn = null;
@@ -253,45 +270,30 @@ public class ProjectDatabse implements IDatabase2 {
 		{
 			//query to see if student exists in database first
 			conn.setAutoCommit(true);
-			stmt = conn.prepareStatement(
-					"select * " +
-					" from studentpro" +
-					" where studentpro.username = ?"
-			);
-		
-			stmt.setString(1, username);
 			
-			resultSet = stmt.executeQuery();
-			//if the student exists, insert content
-			if(resultSet.getMetaData().getColumnCount()>1)
-			{
-				resultSet.next();
-				String student_id = resultSet.getObject(1).toString();
-				PreparedStatement insertContent = null;
-				insertContent = conn.prepareStatement(
-						 "update studentspro"
-						+"set content= ? "
-						+"where sudentspro.username = ?");
-				File content = new File(fileNameOfContent);
-				FileInputStream input = new FileInputStream(content);
-
-				// set parameters
-				insertContent.setBinaryStream(1, input);
-				insertContent.setString(2, username);
-				insertContent.execute();
+			PreparedStatement insertContent = null;
+			insertContent = conn.prepareStatement(
+					 "update studentspro"
+					+"set content= ? "
+					+"where sudentspro.username = ?");
+			String filePath = "C:/CS320-myComm-datbase/studentContent/"+username+"/"+fileNameOfContent;
+			insertContent.setString(1, filePath);
+			insertContent.setString(2, username);
 			
-			}
-			else
-			{
-				System.out.print("Insertion error");
-			}
+			return true;
 		}
-			finally
-			{
-				DBUtil.closeQuietly(conn);
-				DBUtil.closeQuietly(resultSet);
-				DBUtil.closeQuietly(stmt);
-			}
+		catch(Exception e)
+		{
+			System.out.print(e.getStackTrace());
+			System.out.print("Insertion error");
+			return false;
+		}
+		finally
+		{
+			DBUtil.closeQuietly(conn);
+			DBUtil.closeQuietly(resultSet);
+			DBUtil.closeQuietly(stmt);
+		}
 			
 		
 	}
@@ -392,7 +394,7 @@ public class ProjectDatabse implements IDatabase2 {
 							+ "	password varchar(40)," 
 							+ " comment varchar(40),"
 							+ " status varchar(40),"
-							+ " content blob,"
+							+ " content varchar(40),"
 							+ " QR varchar(40)"
 							+ " ) ");
 					stmt2.executeUpdate();
@@ -446,7 +448,7 @@ public class ProjectDatabse implements IDatabase2 {
 						insertStudent.setString(2, student.getPassword());
 						insertStudent.setString(3, student.getComment());
 						insertStudent.setString(4, student.getStatus());
-						insertStudent.setBlob(5, student.getContent());
+						insertStudent.setString(5, student.getContentURL());
 						insertStudent.setInt(6, student.getQR());
 						insertStudent.addBatch();
 					}

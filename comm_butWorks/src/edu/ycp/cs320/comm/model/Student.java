@@ -19,6 +19,7 @@ public class Student extends User {
 	private String comment;
 	private String status;
 	private int QR;
+	private String contentURL;
 	
 	public Student(String username, String password)
 	{
@@ -63,6 +64,15 @@ public class Student extends User {
 	public void setStudentId(int studentId) {
 		this.studentId=studentId;;
 		
+	}
+	public String getContentURL()
+	{
+		return contentURL;
+	}
+	
+	public void setContentURL(String URL)
+	{
+		this.contentURL = URL;
 	}
 	public int getStudentId()
 	{

@@ -71,6 +71,11 @@ public class Advisor extends User
 	{
 		return advisorId;
 	}
+	
+	public void setAdviseeList(ArrayList<Student> students)
+	{
+		this.advisees=students;
+	}
 
 
 	public void setFirstname(String firstname) {
