@@ -87,13 +87,7 @@ public class StudentMainServlet extends HttpServlet {
 				req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
 
 		}
-		
-		
-		
-		
-		
-		
-		
+			
 	   
 	}//end dopost
 	
