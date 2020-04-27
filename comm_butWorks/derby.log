@@ -1,19 +1,6 @@
 ----------------------------------------------------------------
-Sun Apr 26 17:30:44 EDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-b866-4eae-000003a5b238 
-on database directory C:\CS320-myComm-datbase\ycp.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
-Loaded from file:/C:/Users/johnb/Desktop/School%20Projects/Cs320/Lab%20Zips/CS320_Derby/CS320_Derby/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_241-b07
-user.dir=C:\Users\johnb\Desktop\School Projects\Cs320\myCommencement\comm_butWorks
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Sun Apr 26 17:31:16 EDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance b8450018-0171-b866-4eae-000003a5b238 
+Sun Apr 26 20:16:44 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-b8fe-4652-000006a06060 
 on database directory C:\CS320-myComm-datbase\pro.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/johnb/Desktop/School%20Projects/Cs320/Lab%20Zips/CS320_Derby/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation

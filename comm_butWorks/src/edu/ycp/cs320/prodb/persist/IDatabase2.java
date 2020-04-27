@@ -16,7 +16,7 @@ public interface IDatabase2 {
 	
 	Content findContentByQR(int qr);
 
-	void insertContentByStudentUsername(String username, String fileNameOfContent)
+	void insertContentURLByStudentUsername(String username, String fileNameOfContent)
 			throws SQLException, FileNotFoundException;
 
 	void insertCommentByUsername(String username, String comment) throws SQLException;

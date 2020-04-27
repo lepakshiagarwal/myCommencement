@@ -1,6 +1,7 @@
 package edu.ycp.cs320.prodb.persist;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Content;
@@ -110,18 +113,27 @@ public class ProjectDatabse implements IDatabase2 {
 							+ " where studentspro.username = ?");
 					stmt.setString(1, username);
 
-					Content result = new Content();
+					String contentURL = new String();
 
 
 					resultSet = stmt.executeQuery();
-
+					Content result = new Content();
 					// for testing that a result was returned
 					Boolean found = false;
-					resultSet.next();
 					if(resultSet.next())
 					{
 						found=true;
-				//		loadContent(result, resultSet, 1);
+						File Content = new File("C:/CS320-myComm-datbase/studentContent/"+username+"/HelpfulSchools.png");
+						try 
+						{
+							
+							BufferedImage image = ImageIO.read(Content);
+							result.setStaticImage(image);
+						} 
+						catch (IOException e) 
+						{
+							e.printStackTrace();
+						}
 						
 						
 					}
@@ -239,8 +251,11 @@ public class ProjectDatabse implements IDatabase2 {
 			}
 			
 	}
+	
+	
+	
 	@Override
-	public void insertContentByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
+	public void insertContentURLByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
 	{
 		//set up
 		Connection conn = null;
