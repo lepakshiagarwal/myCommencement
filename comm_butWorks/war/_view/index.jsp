@@ -14,5 +14,8 @@
 		<a href="http://localhost:8081/lab02/Advisorlogin">Advisor Login</a>
 		<br> <br> <br>
 	</body>
-	
+	<body>
+		<a href="http://localhost:8081/lab02/QRCode">QR code</a>
+		<br> <br> <br>
+	</body>
 </html>
