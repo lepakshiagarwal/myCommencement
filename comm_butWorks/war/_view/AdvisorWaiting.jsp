@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>Index view</title>
+	<title>Waiting for  Advisor Approval </title>
 	</head>
 
 	<body>
