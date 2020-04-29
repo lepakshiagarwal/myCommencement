@@ -22,6 +22,12 @@ import javax.servlet.http.Part;
 public class StaticServlet extends HttpServlet {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3223385844681294829L;
+
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
