@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import edu.ycp.cs320.comm.model.Student;
+
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
 
@@ -36,14 +38,15 @@ public class FileUploadServlet extends HttpServlet {
 		//get the InputStream to store the file somewhere
 	    InputStream fileInputStream = filePart.getInputStream();
 	    
+	    Student user =(Student)request.getSession().getAttribute("user");
 	    //for example, you can copy the uploaded file to the server
 	    //note that you probably don't want to do this in real life!
 	    //upload it to a file host like S3 or GCS instead
-	    File fileToSave = new File("C:\\Users\\lego_\\OneDrive\\Desktop\\github\\comm_butWorks\\war\\uploaded-files\\" + filePart.getSubmittedFileName());
+	    File fileToSave = new File("C:/CS320-myComm-datbase/studentContent/" +user.getUsername()+"/"+ filePart.getSubmittedFileName());
 		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//get the URL of the uploaded file
-		String fileUrl = "http://localhost:8081/lab02/uploaded-files/" + filePart.getSubmittedFileName();
+		String fileUrl = "C:/CS320-mycomm-datbase/studentCntent/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
 		
 		//You can get other form data too
 	

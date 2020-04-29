@@ -274,7 +274,7 @@ public class ProjectDatabse implements IDatabase2 {
 			PreparedStatement insertContent = null;
 			insertContent = conn.prepareStatement(
 					 "update studentspro"
-					+"set content= ? "
+					+"set content = ? "
 					+"where sudentspro.username = ?");
 			String filePath = "C:/CS320-myComm-datbase/studentContent/"+username+"/"+fileNameOfContent;
 			insertContent.setString(1, filePath);
@@ -394,7 +394,7 @@ public class ProjectDatabse implements IDatabase2 {
 							+ "	password varchar(40)," 
 							+ " comment varchar(40),"
 							+ " status varchar(40),"
-							+ " content varchar(40),"
+							+ " content varchar(80),"
 							+ " QR varchar(40)"
 							+ " ) ");
 					stmt2.executeUpdate();
