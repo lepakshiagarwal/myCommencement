@@ -1,11 +1,17 @@
 package edu.ycp.cs320.comm.servlet;
+import java.awt.Image;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,14 +35,31 @@ public class StaticServlet extends HttpServlet {
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-		
-		//get the URL of the uploaded file
-		String fileUrl = "http://localhost:8081/lab02/uploaded-files/IMG_6269.JPG";
-		
-	
-		response.getOutputStream();
-		response.getOutputStream().println("<p><a href=\"" + fileUrl + "\">" + fileUrl + "</a></p>");
-		//response.getOutputStream().println("<p>Upload another file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");	
+/*
+			File f = new File("C:/Users/melen/git/myCommencement/comm_butWorks/war/uploaded-files/IMG_6269.JPG");
+			Image i = ImageIO.read(f);
+			
+			request.setAttribute("image", i);
+	*/		
+			response.setContentType("image/jpeg");  
+		    
+			
+			ServletOutputStream out;  
+		    out = response.getOutputStream();   
+		    FileInputStream fin = new FileInputStream("C:/Users/melen/git/myCommencement/comm_butWorks/war/uploaded-files/IMG_6269.JPG");
+		      
+		    BufferedInputStream bin = new BufferedInputStream(fin);  
+		    BufferedOutputStream bout = new BufferedOutputStream(out);  
+		    int ch = 0; ;  
+		    while((ch=bin.read())!=-1)  
+		    {  
+		    bout.write(ch);  
+		    }  
+		      
+		    bin.close();  
+		    fin.close();  
+		    bout.close();  
+		    out.close();  
+		   
+		}
 	}
-}

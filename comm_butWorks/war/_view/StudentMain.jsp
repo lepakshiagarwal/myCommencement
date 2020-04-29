@@ -112,6 +112,7 @@
 			<input type="submit" value="Submit">
 		</form>
 		<form action="${pageContext.servletContext.contextPath}/Static" method="POST">
+ 		        
  		 <input type="Submit" name="Static" value="Static">         
  		 <input type="submit" value="Slideshow" name="button">                 
  		 <input type="submit" value="Video" name="button">                 
