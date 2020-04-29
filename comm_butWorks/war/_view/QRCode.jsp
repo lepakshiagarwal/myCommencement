@@ -27,7 +27,7 @@
 					<td><input type="text" name="QR" size="12" value="${QR}" /></td>
 				</tr>
 			</table>
-			<form action="${pageContext.servletContext.contextPath}/QRCode" method="get">
+			<form action="${pageContext.servletContext.contextPath}/QRCode" method="post">
 			<input type="Submit" name="studentMain" value="Find Content!">
 			<a href="http://localhost:8081/lab02/index">Back!</a>
 		</form>	

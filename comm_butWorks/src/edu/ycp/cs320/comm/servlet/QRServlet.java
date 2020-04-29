@@ -7,16 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.comm.controller.AdvisorController;
-import edu.ycp.cs320.comm.controller.StudentController;
-import edu.ycp.cs320.comm.model.Advisor;
-import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.comm.controller.ContentController;
+import edu.ycp.cs320.comm.model.Content;
 
 
 public class QRServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//for validate method
-	
+	private Content model;
+	private ContentController controller;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -33,16 +33,21 @@ public class QRServlet extends HttpServlet {
 
 
 		System.out.println("QR Servlet: doPost");
+		String errorMessage = null;
 
-	
-
-
-
+		int QR = req.getIntHeader("QR");
 
 
+		controller = new ContentController();
+		model = controller.ContentbyQR(QR);
+		if (model.equals(null)) {
+			errorMessage = "QR you have entered is not valid.";
+		} else {
+			
+		}
 
 
-		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
+			// Forward to view to render the result HTML document
+			req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
+		}
 	}
-}
