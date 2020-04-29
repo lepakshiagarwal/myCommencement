@@ -3,11 +3,14 @@
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ycp.cs320.prodb.persist.*;
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
@@ -16,7 +19,7 @@ import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
 public class QueryTests 
 {
 	public DerbyDatabase db;
-	
+	public ProjectDatabse pdb;
 	
 	@Before
 	public void setUp()
@@ -67,6 +70,19 @@ public class QueryTests
 		assertFalse(advisees.get(2).getFirstname().equals("Shea"));
 	}
 	
+	@Test
+	public void testInsertContentURLByUsername() throws FileNotFoundException, SQLException
+	{
+		String filename = "B~A~S~S";
+		String username1 = "sriordan3";
+		String username2 = "acanzano";
+		//check that insert returns positive values he functional, no sql insertion error
+		assertTrue(pdb.insertContentURLByStudentUsername(username1, filename));
+		assertTrue(pdb.insertContentURLByStudentUsername(username2, filename));
+		String URL = pdb.findContentURLByStudentUsername(username1);
+		
+		
+	}
 	
 	
 }
