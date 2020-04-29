@@ -46,7 +46,7 @@ public class FileUploadServlet extends HttpServlet {
 		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//get the URL of the uploaded file
-		String fileUrl = "C:/CS320-mycomm-datbase/studentCntent/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
+		String fileUrl = "C:/CS320-mycomm-datbase/studentContent/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
 		
 		//You can get other form data too
 	
