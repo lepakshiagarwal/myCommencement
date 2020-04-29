@@ -12,7 +12,7 @@ public interface IDatabase2 {
 
 	Student findStudentByLogin(String username, String password);
 
-	Content findContentByStudentUsername(String username);
+	String findContentURLByStudentUsername(String username);
 	
 	Content findContentByQR(int qr);
 
@@ -20,6 +20,8 @@ public interface IDatabase2 {
 			throws SQLException, FileNotFoundException;
 
 	boolean insertCommentByUsername(String username, String comment) throws SQLException;
+
+	Content findContentByStudentUsername(String username);
 
 	
 }
