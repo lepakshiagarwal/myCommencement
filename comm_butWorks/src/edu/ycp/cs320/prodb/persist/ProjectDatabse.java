@@ -153,6 +153,43 @@ public class ProjectDatabse implements IDatabase2 {
 			
 		});
 	}
+	
+	@Override
+	public String findContentURLByStudentUsername(String username) 
+	{
+		return executeTransaction(new Transaction<String>() {
+
+			public String execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+
+					stmt = connpro.prepareStatement("select studentspro.content" 
+							+ " from studentspro "
+							+ " where studentspro.username = ?");
+					stmt.setString(1, username);
+
+					String contentURL = new String();
+
+
+					resultSet = stmt.executeQuery();
+					if(resultSet.next())
+					{
+						contentURL = resultSet.getString(0);
+					}
+					return contentURL;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+
+			
+		});
+	}
+	
 	public Content findContentByQR(int qr) 
 	{
 		return executeTransaction(new Transaction<Content>() {
@@ -272,10 +309,9 @@ public class ProjectDatabse implements IDatabase2 {
 			conn.setAutoCommit(true);
 			
 			PreparedStatement insertContent = null;
-			insertContent = conn.prepareStatement(
-					 "update studentspro"
+			insertContent = conn.prepareStatement("update studentspro "
 					+"set content = ? "
-					+"where sudentspro.username = ?");
+					+"where username = ?");
 			String filePath = "C:/CS320-myComm-datbase/studentContent/"+username+"/"+fileNameOfContent;
 			insertContent.setString(1, filePath);
 			insertContent.setString(2, username);
