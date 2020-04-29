@@ -17,15 +17,15 @@ public class insertContentURLbyStudentUsername
 		Scanner keyboard = new Scanner(System.in);
 	
 		// Create the default IDatabase instance
-		System.out.print("Enter studentusername");
+		System.out.print("Enter Student Username");
 		String username = keyboard.nextLine();
-		System.out.print("Enter filePath");
-		String filePath = keyboard.nextLine();
+		System.out.print("Enter File Name");
+		String fileName = keyboard.nextLine();
 		// get the DB instance and execute transaction
 		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
 		ProjectDatabse db = (ProjectDatabse) DatabaseProvider.getInstance();
 		
-		boolean inserted = db.insertContentURLByStudentUsername(username, filePath);
+		boolean inserted = db.insertContentURLByStudentUsername(username, fileName);
 		
 		// check if anything was returned and output the list
 		if (inserted==false) 
