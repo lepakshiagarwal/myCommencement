@@ -12,7 +12,7 @@ public interface IDatabase2 {
 
 	Student findStudentByLogin(String username, String password);
 
-	Content findContentByStudentUsername(String username);
+	String findContentURLByStudentUsername(String username);
 	
 	Content findContentByQR(int qr);
 
@@ -21,11 +21,12 @@ public interface IDatabase2 {
 
 	boolean insertCommentByUsername(String username, String comment) throws SQLException;
 
+
 	String findCommentByUsername(String username);
 
 	boolean insertStatusByUsername(String username, String status) throws SQLException;
 
 	String findStatusByUsername(String username);
 
-	
+	Content findContentByStudentUsername(String username);	
 }
