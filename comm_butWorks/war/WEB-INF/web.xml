@@ -34,7 +34,11 @@
     <servlet-name>QRServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.comm.servlet.QRServlet</servlet-class>
   </servlet>
- 
+ <servlet>
+    <servlet-name>StaticServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.comm.servlet.StaticServlet</servlet-class>
+  </servlet>
+
 
   
  
@@ -59,10 +63,11 @@
   <servlet-mapping>
     <servlet-name>StudentMainServlet</servlet-name>
     <url-pattern>/StudentMain</url-pattern>
-      <url-pattern>/Static</url-pattern>
+      
     <url-pattern>/SlideShow</url-pattern>
     <url-pattern>/Video</url-pattern>
   </servlet-mapping>
+  
   <servlet-mapping>
 	<servlet-name>FileUploadServlet</servlet-name>
 	<url-pattern>/StudentUpload</url-pattern>
@@ -72,7 +77,10 @@
 	<url-pattern>/QRCode</url-pattern>
 </servlet-mapping>
 
-
+ <servlet-mapping>
+	<servlet-name>StaticServlet</servlet-name>
+	<url-pattern>/Static</url-pattern>
+</servlet-mapping>
   
 
   <welcome-file-list>
