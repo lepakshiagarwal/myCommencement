@@ -21,5 +21,11 @@ public interface IDatabase2 {
 
 	boolean insertCommentByUsername(String username, String comment) throws SQLException;
 
+	String findCommentByUsername(String username);
+
+	boolean insertStatusByUsername(String username, String status) throws SQLException;
+
+	String findStatusByUsername(String username);
+
 	
 }

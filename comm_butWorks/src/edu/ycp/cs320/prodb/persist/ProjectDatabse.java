@@ -153,6 +153,8 @@ public class ProjectDatabse implements IDatabase2 {
 			
 		});
 	}
+	
+	@Override
 	public Content findContentByQR(int qr) 
 	{
 		return executeTransaction(new Transaction<Content>() {
@@ -200,61 +202,152 @@ public class ProjectDatabse implements IDatabase2 {
 		});
 		
 	}
+	
 	@Override
-	public boolean insertCommentByUsername(String username, String comment ) throws SQLException {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet resultSet = null;
-		// connect to the database
-		conn = DriverManager.getConnection("jdbc:derby:C:/CS320-myComm-datbase/pro.db;create=true");
-		
-		try
-		{
-			//query to see if student exists in database first
-			conn.setAutoCommit(true);
-			stmt = conn.prepareStatement(
-					"select * " +
-					" from studentpro" +
-					" where studentpro.username = ?"
-			);
-		
-			stmt.setString(1, username);
-			
-			resultSet = stmt.executeQuery();
-			//if the student exists, insert content
-			if(resultSet.getMetaData().getColumnCount()>1)
-			{
-				resultSet.next();
-				String student_id = resultSet.getObject(1).toString();
-				PreparedStatement insertContent = null;
-				insertContent = conn.prepareStatement(
-						 "update studentspro"
-						+"set comment= ? "
-						+"where sudentspro.username = ?");
-		
-				// set parameters
-				insertContent.setString(1, comment);
-				insertContent.setString(2, username);
-				insertContent.execute();
-			
-			}
-			else
-			{
-				System.out.print("Insertion error");
-				return false;
-			}
-			return true;
-		}
-			finally
-			{
-				DBUtil.closeQuietly(conn);
-				DBUtil.closeQuietly(resultSet);
-				DBUtil.closeQuietly(stmt);
+	public String findCommentByUsername(String username) 
+	{
+		return executeTransaction(new Transaction<String>() {
+
+			public String execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+
+					stmt = connpro.prepareStatement("select studentspro.comment" 
+							+ " from studentspro "
+							+ " where studentspro.username = ?");
+					stmt.setString(1, username);
+
+					String result = null;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					if(resultSet.next())
+					{
+						found=true;
+						result=resultSet.getString(1);
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + username + "> is not found.");
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
 			}
 			
+		});
+		
 	}
 	
+	@Override
+	public boolean insertCommentByUsername(String username, String comment ) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			public Boolean execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+
+					stmt = connpro.prepareStatement("update studentspro" 
+							+ " set studentspro.comment= ? "
+							+ " where studentspro.username = ?");
+					
+					stmt.setString(1, comment);
+					stmt.setString(2, username);
+					
+					stmt.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	public String findStatusByUsername(String username) 
+	{
+		return executeTransaction(new Transaction<String>() {
+
+			public String execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+
+					stmt = connpro.prepareStatement("select studentspro.status" 
+							+ " from studentspro "
+							+ " where studentspro.username = ?");
+					stmt.setString(1, username);
+
+					String result = null;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					if(resultSet.next())
+					{
+						found=true;
+						result=resultSet.getString(1);
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + username + "> is not found.");
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
+		
+	}
 	
+	public boolean insertStatusByUsername(String username, String status ) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			public Boolean execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+
+					stmt = connpro.prepareStatement("update studentspro" 
+							+ " set studentspro.status= ? "
+							+ " where studentspro.username = ?");
+					
+					stmt.setString(1, status);
+					stmt.setString(2, username);
+					
+					stmt.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 	
 	@Override
 	public boolean insertContentURLByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
