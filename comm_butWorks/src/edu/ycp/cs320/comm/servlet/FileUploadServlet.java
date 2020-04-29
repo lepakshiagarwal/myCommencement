@@ -41,8 +41,10 @@ public class FileUploadServlet extends HttpServlet {
 	    Student user =(Student)request.getSession().getAttribute("user");
 	    //for example, you can copy the uploaded file to the server
 	    //note that you probably don't want to do this in real life!
+
 	    //upload it to a file host like S3 or GCS instead
 	    File fileToSave = new File("C:/CS320-myComm-datbase/studentContent/" +user.getUsername()+"/"+ filePart.getSubmittedFileName());
+
 		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//get the URL of the uploaded file
