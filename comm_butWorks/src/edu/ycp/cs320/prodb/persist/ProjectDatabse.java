@@ -303,7 +303,14 @@ public class ProjectDatabse implements IDatabase2 {
 					stmt.setString(2, username);
 					
 					stmt.executeUpdate();
-					
+					String comment = new String();
+
+
+					resultSet = stmt2.executeQuery();
+					if(resultSet.next())
+					{
+						contentURL = resultSet.getString(0);
+					}
 					return true;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
@@ -350,6 +357,7 @@ public class ProjectDatabse implements IDatabase2 {
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+					
 				}
 			}
 			
@@ -362,6 +370,7 @@ public class ProjectDatabse implements IDatabase2 {
 
 			public Boolean execute(Connection connpro) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
 				ResultSet resultSet = null;
 
 				try {
@@ -373,13 +382,30 @@ public class ProjectDatabse implements IDatabase2 {
 					
 					stmt.setString(1, status);
 					stmt.setString(2, username);
-					
+					stmt2 = connpro.prepareStatement("select studentspro.status "
+							+ "from studentspro "
+							+ "where studentspro.username= ?"
+							);
+					stmt2.setString(1,  username);
 					stmt.executeUpdate();
+					System.out.println("updated");
+					String statusCheck = new String();
+					resultSet = stmt2.executeQuery();
+					if(resultSet.next())
+					{
+						statusCheck = resultSet.getString(0);
+					}
+					if(statusCheck.equals(status)) {
 					
-					return true;
+							return true;
+					}
+					else {
+						return false;
+					}
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(stmt2);
 				}
 			}
 		});

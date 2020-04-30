@@ -17,5 +17,7 @@
 	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/CS320_Jetty9"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/CS320_Derby"/>
+	<classpathentry exported="true" kind="lib" path="/CS320_Jetty9/lib/apache-jstl/org.apache.taglibs.taglibs-standard-impl-1.2.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="/CS320_Jetty9/lib/apache-jstl/org.apache.taglibs.taglibs-standard-spec-1.2.5.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
