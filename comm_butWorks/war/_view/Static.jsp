@@ -6,7 +6,7 @@
 	</head>
 <body>
 <p>What file do you want to upload?</p>
-<img src="StaticServlet"/>
+<img src="http://localhost:8081${pageContext.request.contextPath}/${Url}"/>
 
 </body>
 </html>

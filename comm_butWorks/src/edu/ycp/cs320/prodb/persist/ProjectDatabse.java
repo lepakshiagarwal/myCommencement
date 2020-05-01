@@ -177,7 +177,7 @@ public class ProjectDatabse implements IDatabase2 {
 					resultSet = stmt.executeQuery();
 					if(resultSet.next())
 					{
-						contentURL = resultSet.getString(0);
+						contentURL = resultSet.getString(1);
 					}
 					return contentURL;
 				} finally {
@@ -404,10 +404,9 @@ public class ProjectDatabse implements IDatabase2 {
 			insertContent = conn.prepareStatement("update studentspro "
 					+"set content = ? "
 					+"where username = ?");
-			String filePath = "C:/CS320-myComm-datbase/studentContent/"+username+"/"+fileNameOfContent;
-			insertContent.setString(1, filePath);
+			insertContent.setString(1, fileNameOfContent);
 			insertContent.setString(2, username);
-			
+			insertContent.execute();
 			return true;
 		}
 		catch(Exception e)

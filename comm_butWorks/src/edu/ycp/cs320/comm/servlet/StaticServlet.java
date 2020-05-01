@@ -18,9 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-@MultipartConfig
-public class StaticServlet extends HttpServlet {
+import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
+@MultipartConfig
+public class StaticServlet extends HttpServlet 
+{
+	DatabaseProvider dbp;
+	ProjectDatabse db;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -41,14 +47,25 @@ public class StaticServlet extends HttpServlet {
 			
 			request.setAttribute("image", i);
 	*/		
+			dbp.setInstance(new ProjectDatabse());
+			db = (ProjectDatabse) dbp.getInstance();
+			Student user = (Student) request.getSession().getAttribute("user");
+			System.out.print(user.getUsername());
+			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
+			request.setAttribute("Url", contentUrl);
+			request.getRequestDispatcher("/_view/Static.jsp").forward(request, response);;
+		
+		
+		/*
 			response.setContentType("image/jpeg");  
 		    
 			
 			ServletOutputStream out;  
 		    out = response.getOutputStream();   
-		    FileInputStream fin = new FileInputStream("C:/Users/melen/git/myCommencement/comm_butWorks/war/uploaded-files/IMG_6269.JPG");
-		      
-		    BufferedInputStream bin = new BufferedInputStream(fin);  
+		    FileInputStream fin = new FileInputStream(request.getContextPath()+"/uploaded-files/IMG_6269.JPG");
+		    /*
+		  /*  BufferedInputStream bin = new BufferedInputStream(fin);  
 		    BufferedOutputStream bout = new BufferedOutputStream(out);  
 		    int ch = 0; ;  
 		    while((ch=bin.read())!=-1)  
@@ -59,7 +76,8 @@ public class StaticServlet extends HttpServlet {
 		    bin.close();  
 		    fin.close();  
 		    bout.close();  
+		    
 		    out.close();  
-		   
+		   */
 		}
 	}
