@@ -60,7 +60,7 @@ public class StaticServlet extends HttpServlet
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			request.setAttribute("Url", contentUrl);
-			request.getRequestDispatcher("/_view/Static.jsp").forward(request, response);;
+			request.getRequestDispatcher("/_view/Video.jsp").forward(request, response);;
 		
 		
 		/*

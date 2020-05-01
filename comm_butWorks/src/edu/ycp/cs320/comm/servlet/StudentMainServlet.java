@@ -9,11 +9,14 @@ import edu.ycp.cs320.comm.controller.ContentController;
 import edu.ycp.cs320.comm.controller.StudentController;
 import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
-import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
-import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.ProjectDatabse;
+
 
 
 public class StudentMainServlet extends HttpServlet {
+	DatabaseProvider dbp;
+	ProjectDatabse db;
 	private static final long serialVersionUID = 1L;
 	//for validate method
 	private Student model;
@@ -44,7 +47,7 @@ public class StudentMainServlet extends HttpServlet {
 		double GPA = ((Student) stud).getGpa();
 		String Major = ((Student) stud).getMajor();
 		int AdvisorID = ((Student) stud).getAdvisorId();
-		String user = ((Student) stud).getUsername();
+		//String user = ((Student) stud).getUsername();
 		GPA = Math.round(GPA*100)/100.0;
 		// Add parameters as request attributes
 	  
@@ -55,28 +58,39 @@ public class StudentMainServlet extends HttpServlet {
 			
 
 	    String but = req.getParameter("button");
+		System.out.println(but);	
+
 		if(but .equals("Static")){
-			ContentController concontroller = new ContentController();
-			Content cont = concontroller.getCont(user);
-			System.out.println(cont);
-		    req.setAttribute("img", cont);
-			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);
+			dbp.setInstance(new ProjectDatabse());
+			db = (ProjectDatabse) dbp.getInstance();
+			Student user = (Student) req.getSession().getAttribute("user");
+			System.out.print(user.getUsername());
+			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
+			req.setAttribute("Url", contentUrl);
+			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);;
 		}
 		else if(but .equals("SlideShow"))
 		{
-			ContentController concontroller = new ContentController();
-			Content cont = concontroller.getCont("acanzano");
-			System.out.println(cont);
-		    req.setAttribute("slideshow", cont);
-			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
+			dbp.setInstance(new ProjectDatabse());
+			db = (ProjectDatabse) dbp.getInstance();
+			Student user = (Student) req.getSession().getAttribute("user");
+			System.out.print(user.getUsername());
+			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
+			req.setAttribute("Url", contentUrl);
+			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);;
 		}
 		else if(but .equals("Video"))
 		{
-			ContentController concontroller = new ContentController();
-			Content cont = concontroller.getCont("acanzano");
-			System.out.println(cont);
-		    req.setAttribute("video", cont);
-			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);	
+			dbp.setInstance(new ProjectDatabse());
+			db = (ProjectDatabse) dbp.getInstance();
+			Student user = (Student) req.getSession().getAttribute("user");
+			System.out.print(user.getUsername());
+			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
+			req.setAttribute("Url", contentUrl);
+			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);;
 		}else if(but .equals("Update Content")) {
 			 req.setAttribute("GPA", GPA);
 			 req.setAttribute("Major", Major);

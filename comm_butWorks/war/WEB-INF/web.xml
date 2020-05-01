@@ -63,7 +63,8 @@
   <servlet-mapping>
     <servlet-name>StudentMainServlet</servlet-name>
     <url-pattern>/StudentMain</url-pattern>
-    <url-pattern>/SlideShow</url-pattern>
+    <url-pattern>/Static</url-pattern>
+	 <url-pattern>/SlideShow</url-pattern>
     <url-pattern>/Video</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -74,10 +75,7 @@
 	<servlet-name>QRServlet</servlet-name>
 	<url-pattern>/QRCode</url-pattern>
 </servlet-mapping>
- <servlet-mapping>
-	<servlet-name>StaticServlet</servlet-name>
-	<url-pattern>/Static</url-pattern>
-</servlet-mapping>
+
   
 
   <welcome-file-list>
