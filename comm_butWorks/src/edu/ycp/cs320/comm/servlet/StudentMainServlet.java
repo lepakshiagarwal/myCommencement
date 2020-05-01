@@ -47,7 +47,6 @@ public class StudentMainServlet extends HttpServlet {
 		double GPA = ((Student) stud).getGpa();
 		String Major = ((Student) stud).getMajor();
 		int AdvisorID = ((Student) stud).getAdvisorId();
-		//String user = ((Student) stud).getUsername();
 		GPA = Math.round(GPA*100)/100.0;
 		// Add parameters as request attributes
 	  
@@ -92,9 +91,17 @@ public class StudentMainServlet extends HttpServlet {
 			req.setAttribute("Url", contentUrl);
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);;
 		}else if(but .equals("Update Content")) {
+			dbp.setInstance(new ProjectDatabse());
+			db = (ProjectDatabse) dbp.getInstance();
+			Student user = (Student) req.getSession().getAttribute("user");
+			System.out.print(user.getUsername());
+			String Comment = db.findCommentByUsername(user.getUsername());
+			String Status = db.findStatusByUsername(user.getUsername());
 			 req.setAttribute("GPA", GPA);
 			 req.setAttribute("Major", Major);
 			 req.setAttribute("AdvisorID", AdvisorID);
+			 req.setAttribute("Comment", Comment);
+			 req.setAttribute("Status", Status);
 
 				// Add result objects as request attributes
 			   // req.setAttribute("AdvisorID", AdvisorID);

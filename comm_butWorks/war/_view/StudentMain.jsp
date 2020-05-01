@@ -83,12 +83,18 @@
 					<td class="major">Major: <td class="Major">${Major}</td>  </td>
 				</tr>
 				 <tr>
-					<td class="GPA">GPA: <td class="GPA">${GPA}</td>	
-					  </td>
+					<td class="GPA">GPA: <td class="GPA">${GPA}</td> </td>
 				</tr>	
 				 <tr>
 					<td class="AdvisorID">Advisor ID: <td class="AdvisorID">${AdvisorID}</td>  </td>      				
 			    </tr>
+			    <tr>
+					<td class="Status">Status: <td class="Status">${Status}</td>  </td>      				
+			    </tr>
+			    <tr>
+					<td class="Comment">Advisor Comment: <td class="Comment">${Comment}</td>  </td>      				
+			    </tr>
+			    
 			    <tr>
 					<td class="studentContent">Upload:   </td>      				
 			    </tr>
