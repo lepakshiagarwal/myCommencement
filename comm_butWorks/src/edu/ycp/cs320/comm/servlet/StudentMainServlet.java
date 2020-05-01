@@ -99,10 +99,7 @@ public class StudentMainServlet extends HttpServlet {
 				// Add result objects as request attributes
 			   // req.setAttribute("AdvisorID", AdvisorID);
 				req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
-
-		}
-			
-	   
+		}	   
 	}//end dopost
 	
 }//end all

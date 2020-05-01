@@ -243,8 +243,8 @@ public class ProjectDatabse implements IDatabase2 {
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
-					stmt = connpro.prepareStatement("select studentspro.comment" 
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select comment" 
 							+ " from studentspro "
 							+ " where studentspro.username = ?");
 					stmt.setString(1, username);
@@ -287,9 +287,9 @@ public class ProjectDatabse implements IDatabase2 {
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
+					connpro.setAutoCommit(true);
 					stmt = connpro.prepareStatement("update studentspro" 
-							+ " set studentspro.comment= ? "
+							+ " set comment= ? "
 							+ " where studentspro.username = ?");
 					
 					stmt.setString(1, comment);
@@ -298,6 +298,7 @@ public class ProjectDatabse implements IDatabase2 {
 					stmt.executeUpdate();
 					
 					return true;
+					
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
@@ -316,8 +317,8 @@ public class ProjectDatabse implements IDatabase2 {
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
-					stmt = connpro.prepareStatement("select studentspro.status" 
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select status" 
 							+ " from studentspro "
 							+ " where studentspro.username = ?");
 					stmt.setString(1, username);
@@ -343,6 +344,7 @@ public class ProjectDatabse implements IDatabase2 {
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+					
 				}
 			}
 			
@@ -355,11 +357,12 @@ public class ProjectDatabse implements IDatabase2 {
 
 			public Boolean execute(Connection connpro) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
 				ResultSet resultSet = null;
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
+					connpro.setAutoCommit(true);
 					stmt = connpro.prepareStatement("update studentspro" 
 							+ " set studentspro.status= ? "
 							+ " where studentspro.username = ?");
@@ -368,8 +371,9 @@ public class ProjectDatabse implements IDatabase2 {
 					stmt.setString(2, username);
 					
 					stmt.executeUpdate();
-					
+					System.out.println("updated");
 					return true;
+					
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);

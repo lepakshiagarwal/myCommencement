@@ -16,9 +16,15 @@
 	<ul>
 		<c:forEach var="student" items="${studentList}">
 			<li> > <c:out value="${student.username}"/> </li>
-			<input type="checkbox"> View Content
+		</c:forEach>
+	</ul>	
+	<form action="${pageContext.request.contextPath}/AdvisorMainServlet" method="post">
+		Student Username: <input type="text" name="name"> 
+		<br>
+		<br>
+		<input type="checkbox" name="content"> View Content
             <br>
-            
+            <br>
           <textarea name="comment" cols="40" rows="6" placeholder="write comment here"></textarea><br>
             <br>
             <br>
@@ -30,9 +36,10 @@
   		</select>
         <br>
         <br>
-  		<input type="submit">
-		</c:forEach>
-	</ul>
+  		<input type="submit" name="submit value="submit">
+	<br>
+	<br>
+	</form>
 	<!--Button for log out-->
 	<button ><a href=" http://localhost:8081/lab02/index">Log out!</a></button>
 </body>
