@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,11 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
 
-	
+	DatabaseProvider dbp;
+	ProjectDatabse db;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -43,13 +47,20 @@ public class FileUploadServlet extends HttpServlet {
 	    //note that you probably don't want to do this in real life!
 
 	    //upload it to a file host like S3 or GCS instead
-	    File fileToSave = new File("C:/CS320-myComm-datbase/studentContent/" +user.getUsername()+"/"+ filePart.getSubmittedFileName());
+	    File fileToSave = new File("war/uploaded-files/" +user.getUsername()+"/"+ filePart.getSubmittedFileName());
 
 		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//get the URL of the uploaded file
-		String fileUrl = "C:/CS320-mycomm-datbase/studentContent/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
-		
+		String fileUrl = "war/uploaded-files/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
+		try {
+			dbp.setInstance(new ProjectDatabse());
+			db = (ProjectDatabse) dbp.getInstance();
+			db.insertContentURLByStudentUsername(user.getUsername(), filePart.getSubmittedFileName());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//You can get other form data too
 	
 		//response.getOutputStream().println("<p><img src= filePart.getSubmittedFileName()></p>");

@@ -33,6 +33,7 @@ public class findContentByStudentUsername
 		else 
 		{
 			System.out.print("Success!");
+			System.out.print(studentContent);
 			
 		
 		}
