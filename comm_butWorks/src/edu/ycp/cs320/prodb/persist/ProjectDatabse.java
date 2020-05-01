@@ -190,12 +190,11 @@ public class ProjectDatabse implements IDatabase2 {
 		});
 	}
 	
-
-	public Content findContentByQR(int qr) 
+	public String findContentByQR(int qr) 
 	{
-		return executeTransaction(new Transaction<Content>() {
+		return executeTransaction(new Transaction<String>() {
 
-			public Content execute(Connection connpro) throws SQLException {
+			public String execute(Connection connpro) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
@@ -207,27 +206,15 @@ public class ProjectDatabse implements IDatabase2 {
 							+ " where studentspro.QR = ?");
 					stmt.setInt(1, qr);
 
-					Content result = new Content();
+					String contentURL = new String();
 
 
 					resultSet = stmt.executeQuery();
-
-					// for testing that a result was returned
-					Boolean found = false;
-					resultSet.next();
 					if(resultSet.next())
 					{
-						found=true;
-			
-						
+						contentURL = resultSet.getString(0);
 					}
-
-					// check if the title was found
-					if (!found) {
-						System.out.println("<" + qr + "> has no content.");
-					}
-
-					return result;
+					return contentURL;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
@@ -236,8 +223,14 @@ public class ProjectDatabse implements IDatabase2 {
 
 			
 		});
-		
 	}
+
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public String findCommentByUsername(String username) 

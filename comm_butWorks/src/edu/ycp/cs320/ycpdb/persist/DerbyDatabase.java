@@ -436,6 +436,55 @@ public class DerbyDatabase implements IDatabase {
 		System.out.println("Success!");
 	}
 
+	public Student findStudentByStudentUsername(String username) {
+		return executeTransaction(new Transaction<Student>() {
+
+			public Student execute(Connection connycp) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					
+					
+					
+					stmt = connycp.prepareStatement("select * " 
+							+ " from students "
+							+ " where students.username= ? " 
+							);
+					stmt.setString(1, username);
+
+					Student result = null;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+
+					while (resultSet.next()) {
+						found = true;
+
+						result = new Student();
+						
+						loadStudent(result, resultSet, 1);
+
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<User> was not found in the student table");
+					}
+
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
 	
 
 

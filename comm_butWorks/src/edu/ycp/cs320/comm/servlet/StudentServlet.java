@@ -34,8 +34,6 @@ public class StudentServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 
-		System.out.println("student Servlet: doPost");
-
 		String errorMessage = null;
 		String name         = null;
 		String pw           = null;
