@@ -2,6 +2,7 @@
 
 <html>
 	<head>
+		<link rel="stylesheet" href="_view/PCA.css">
 		<title>Advisor Login</title>
 		<style type="text/css">
 		.error {
