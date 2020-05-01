@@ -14,7 +14,7 @@ import edu.ycp.cs320.comm.model.Content;
 public class QRServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//for validate method
-	private Content model;
+	private String model;
 	private ContentController controller;
 
 	@Override

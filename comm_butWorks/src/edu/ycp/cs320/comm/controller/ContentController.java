@@ -28,9 +28,9 @@ public class ContentController {
 			return cont;
 		}
 	}
-		public Content ContentbyQR(int QR) {
+		public String ContentbyQR(int QR) {
 			
-			Content cont = db.findContentByQR(QR);
+			String cont = db.findContentByQR(QR);
 			
 			if (cont == null) {
 				System.out.println("No content in database");
