@@ -19,7 +19,7 @@
 		</c:forEach>
 	</ul>	
 	<form action="${pageContext.request.contextPath}/AdvisorMainServlet" method="post">
-		<input type="text" name="name"> Student Name
+		Student Username: <input type="text" name="name"> 
 		<br>
 		<br>
 		<input type="checkbox" name="content"> View Content

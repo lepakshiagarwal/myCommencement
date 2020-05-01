@@ -250,8 +250,8 @@ public class ProjectDatabse implements IDatabase2 {
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
-					stmt = connpro.prepareStatement("select studentspro.comment" 
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select comment" 
 							+ " from studentspro "
 							+ " where studentspro.username = ?");
 					stmt.setString(1, username);
@@ -294,24 +294,18 @@ public class ProjectDatabse implements IDatabase2 {
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
+					connpro.setAutoCommit(true);
 					stmt = connpro.prepareStatement("update studentspro" 
-							+ " set studentspro.comment= ? "
+							+ " set comment= ? "
 							+ " where studentspro.username = ?");
 					
 					stmt.setString(1, comment);
 					stmt.setString(2, username);
 					
 					stmt.executeUpdate();
-					String comment = new String();
-
-
-					resultSet = stmt2.executeQuery();
-					if(resultSet.next())
-					{
-						contentURL = resultSet.getString(0);
-					}
+					
 					return true;
+					
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
@@ -330,8 +324,8 @@ public class ProjectDatabse implements IDatabase2 {
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
-					stmt = connpro.prepareStatement("select studentspro.status" 
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select status" 
 							+ " from studentspro "
 							+ " where studentspro.username = ?");
 					stmt.setString(1, username);
@@ -375,37 +369,21 @@ public class ProjectDatabse implements IDatabase2 {
 
 				try {
 					// retreive all attributes from both Books and Authors tables
-
+					connpro.setAutoCommit(true);
 					stmt = connpro.prepareStatement("update studentspro" 
 							+ " set studentspro.status= ? "
 							+ " where studentspro.username = ?");
 					
 					stmt.setString(1, status);
 					stmt.setString(2, username);
-					stmt2 = connpro.prepareStatement("select studentspro.status "
-							+ "from studentspro "
-							+ "where studentspro.username= ?"
-							);
-					stmt2.setString(1,  username);
+					
 					stmt.executeUpdate();
 					System.out.println("updated");
-					String statusCheck = new String();
-					resultSet = stmt2.executeQuery();
-					if(resultSet.next())
-					{
-						statusCheck = resultSet.getString(0);
-					}
-					if(statusCheck.equals(status)) {
+					return true;
 					
-							return true;
-					}
-					else {
-						return false;
-					}
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
-					DBUtil.closeQuietly(stmt2);
 				}
 			}
 		});

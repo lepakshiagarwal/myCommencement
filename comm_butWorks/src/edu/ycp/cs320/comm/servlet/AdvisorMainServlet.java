@@ -14,13 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.comm.controller.AdvisorController;
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
 @WebServlet("/AdvisorMainServlet")
 public class AdvisorMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProjectDatabse prodb;
-
+	
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -43,6 +46,8 @@ public class AdvisorMainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
+		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
+		ProjectDatabse prodb = (ProjectDatabse) DatabaseProvider.getInstance();
 
 		System.out.println("advisor Servlet: doPost");	
 		String name = req.getParameter("name");
@@ -52,10 +57,11 @@ public class AdvisorMainServlet extends HttpServlet {
 	    System.out.print(status);
 	    String comment = req.getParameter("comment");
 	    System.out.print(comment);
-	    boolean submitButtonPressed = req.getParameter("submit") != null;
+	    boolean submitButtonPressed = true;
+	    
 	    try {
-	    	boolean inserted=	prodb.insertCommentByUsername(name, comment);
-	    	System.out.print(inserted);
+	    	prodb.insertCommentByUsername(name, comment);
+	    	System.out.print("done");
 			prodb.insertStatusByUsername(name, status);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,12 +89,7 @@ public class AdvisorMainServlet extends HttpServlet {
 		
 		// decode POSTed form parameters and dispatch to controller
 		
-		
-		
 	
-	
-		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/Advisorlogin.jsp").forward(req, resp);
 	}
 
 	// gets double from the request with attribute named s
