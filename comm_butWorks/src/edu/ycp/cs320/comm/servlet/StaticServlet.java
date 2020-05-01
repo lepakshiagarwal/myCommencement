@@ -28,6 +28,12 @@ public class StaticServlet extends HttpServlet
 	DatabaseProvider dbp;
 	ProjectDatabse db;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3223385844681294829L;
+
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -54,7 +60,7 @@ public class StaticServlet extends HttpServlet
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			request.setAttribute("Url", contentUrl);
-			request.getRequestDispatcher("/_view/Static.jsp").forward(request, response);;
+			request.getRequestDispatcher("/_view/Video.jsp").forward(request, response);;
 		
 		
 		/*

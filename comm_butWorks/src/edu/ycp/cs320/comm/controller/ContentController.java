@@ -27,6 +27,18 @@ public class ContentController {
 		else {
 			return cont;
 		}
+	}
+		public String ContentbyQR(int QR) {
+			
+			String cont = db.findContentByQR(QR);
+			
+			if (cont == null) {
+				System.out.println("No content in database");
+				return null;
+			}
+			else {
+				return cont;
+			}
 		
 		// return list of book,author pairs
 	}

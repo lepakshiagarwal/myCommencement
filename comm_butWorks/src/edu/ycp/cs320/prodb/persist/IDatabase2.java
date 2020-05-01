@@ -14,7 +14,7 @@ public interface IDatabase2 {
 
 	String findContentURLByStudentUsername(String username);
 	
-	Content findContentByQR(int qr);
+	String findContentByQR(int qr);
 
 	boolean insertContentURLByStudentUsername(String username, String fileNameOfContent)
 			throws SQLException, FileNotFoundException;

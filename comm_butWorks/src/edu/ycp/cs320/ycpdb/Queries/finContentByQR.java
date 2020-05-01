@@ -22,18 +22,19 @@ public class finContentByQR
 		// get the DB instance and execute transaction
 		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
 		ProjectDatabse db = (ProjectDatabse) DatabaseProvider.getInstance();
-		Content studentContent = db.findContentByQR(qr);
+		String studentContent = db.findContentByQR(qr);
 		
 		// check if anything was returned and output the list
-		if (studentContent==null) 
+		if (studentContent == "") 
 		{
 			System.out.println("No students found with QR: <" + qr + ">");
 		}
 		else 
 		{
+			System.out.print(studentContent);
 			System.out.print("Success!");
 			
-		
+
 		}
 	}
 }
