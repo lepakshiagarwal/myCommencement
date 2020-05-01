@@ -23,7 +23,7 @@ public class findContentByStudentUsername
 		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
 		ProjectDatabse db = (ProjectDatabse) DatabaseProvider.getInstance();
 		
-		Content studentContent = db.findContentByStudentUsername(username);
+		String studentContent = db.findContentURLByStudentUsername(username);
 		
 		// check if anything was returned and output the list
 		if (studentContent==null) 
@@ -33,6 +33,7 @@ public class findContentByStudentUsername
 		else 
 		{
 			System.out.print("Success!");
+			System.out.print(studentContent);
 			
 		
 		}
