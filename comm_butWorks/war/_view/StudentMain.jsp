@@ -120,8 +120,8 @@
 		<form action="${pageContext.servletContext.contextPath}/Static" method="POST">
  		        
  		 <input type="Submit" value="Static" name="button">         
- 		 <input type="submit" value="Slideshow" name="button">                 
- 		 <input type="submit" value="Video" name="button">                 
+ 		 <input type="Submit" value="SlideShow" name="button">                 
+ 		 <input type="Submit" value="Video" name="button">                 
 		</form>
 		<br> <br> <br>
 	</body>
