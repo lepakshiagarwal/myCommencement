@@ -60,6 +60,8 @@ public class StudentMainServlet extends HttpServlet {
 		System.out.println(but);	
 
 		if(but .equals("Static")){
+			System.out.println("gets static");	
+
 			dbp.setInstance(new ProjectDatabse());
 			db = (ProjectDatabse) dbp.getInstance();
 			Student user = (Student) req.getSession().getAttribute("user");
@@ -71,6 +73,8 @@ public class StudentMainServlet extends HttpServlet {
 		}
 		else if(but .equals("SlideShow"))
 		{
+			System.out.println("gets slide");	
+
 			dbp.setInstance(new ProjectDatabse());
 			db = (ProjectDatabse) dbp.getInstance();
 			Student user = (Student) req.getSession().getAttribute("user");
@@ -78,10 +82,11 @@ public class StudentMainServlet extends HttpServlet {
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			req.setAttribute("Url", contentUrl);
-			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);;
+			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);;
 		}
 		else if(but .equals("Video"))
 		{
+			System.out.println("gets video");	
 			dbp.setInstance(new ProjectDatabse());
 			db = (ProjectDatabse) dbp.getInstance();
 			Student user = (Student) req.getSession().getAttribute("user");
