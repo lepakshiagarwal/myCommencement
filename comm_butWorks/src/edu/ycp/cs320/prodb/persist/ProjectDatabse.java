@@ -193,7 +193,6 @@ public class ProjectDatabse implements IDatabase2 {
 	public String findContentByQR(int qr) 
 	{
 		return executeTransaction(new Transaction<String>() {
-
 			public String execute(Connection connpro) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
@@ -212,7 +211,7 @@ public class ProjectDatabse implements IDatabase2 {
 					resultSet = stmt.executeQuery();
 					if(resultSet.next())
 					{
-						contentURL = resultSet.getString(0);
+						contentURL = resultSet.getString(1);
 					}
 					return contentURL;
 				} finally {
@@ -226,7 +225,47 @@ public class ProjectDatabse implements IDatabase2 {
 	}
 
 	
-	
+	public String findUserbyQR(int QR) {
+		return executeTransaction(new Transaction<String>() {
+
+			public String execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select Username" 
+							+ " from studentspro "
+							+ " where studentspro.QR = ?");
+					stmt.setInt(1, QR);
+
+					String result = null;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					if(resultSet.next())
+					{
+						found=true;
+						result=resultSet.getString(1);
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + QR + "> is not found.");
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
+	}	
 	
 	
 	
@@ -519,7 +558,7 @@ public class ProjectDatabse implements IDatabase2 {
 							+ " comment varchar(40),"
 							+ " status varchar(40),"
 							+ " content varchar(80),"
-							+ " QR varchar(40)"
+							+ " QR INTEGER"
 							+ " ) ");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
@@ -565,7 +604,7 @@ public class ProjectDatabse implements IDatabase2 {
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connpro.prepareStatement(
-							"insert into studentspro (Username, password, comment, status, content, QR) values (?, ?, ?, ?, ?,?)");
+							"insert into studentspro (Username, password, comment, status, content, QR) values (?, ?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setString(1, student.getUsername());
@@ -597,5 +636,7 @@ public class ProjectDatabse implements IDatabase2 {
 		db.loadInitialData2();
 
 		System.out.println("Success!");
-	}	
+	}
+
+	
 }

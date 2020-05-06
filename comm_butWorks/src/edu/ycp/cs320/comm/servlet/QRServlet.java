@@ -9,9 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.comm.controller.ContentController;
 import edu.ycp.cs320.comm.model.Content;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
 
 public class QRServlet extends HttpServlet {
+	DatabaseProvider dbp;
+	ProjectDatabse db;
 	private static final long serialVersionUID = 1L;
 	//for validate method
 	private String model;
@@ -35,16 +39,21 @@ public class QRServlet extends HttpServlet {
 		System.out.println("QR Servlet: doPost");
 		String errorMessage = null;
 
-		int QR = req.getIntHeader("QR");
+		int QR = Integer.parseInt(req.getParameter("QR"));
 
+		System.out.println(QR);	
 
-		controller = new ContentController();
-		model = controller.ContentbyQR(QR);
-		if (model.equals(null)) {
-			errorMessage = "QR you have entered is not valid.";
-		} else {
-			
-		}
+		
+		dbp.setInstance(new ProjectDatabse());
+		db = (ProjectDatabse) dbp.getInstance();
+		String fileName = db.findContentByQR(QR);
+		String user = db.findUserbyQR(QR);
+		System.out.println(fileName);
+		System.out.println(user);	
+		String contentUrl = "uploaded-files/"+user+"/"+fileName;
+		req.setAttribute("Url", contentUrl);
+		
+	
 
 
 			// Forward to view to render the result HTML document
