@@ -139,7 +139,7 @@ public class Student extends User {
 	}
 	public int getQR()
 	{
-		return studentId;
+		return QR;
 	}
 
 
