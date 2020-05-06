@@ -89,11 +89,12 @@ public class StudentMainServlet extends HttpServlet {
 			
 			System.out.print(contentUrl);
 			
+
+			File f = new File("contentUrl");
 			
-			if(fileName.endsWith("/"))
+			if(f.isDirectory())
 			{
 				List<String> ImgUrls = new ArrayList<String>();
-				File f = new File("contentUrl");
 				for(File file : f.listFiles())
 				{
 					ImgUrls.add(file.getPath());
