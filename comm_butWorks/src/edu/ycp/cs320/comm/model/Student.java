@@ -20,6 +20,7 @@ public class Student extends User {
 	private String status;
 	private int QR;
 	private String contentURL;
+	private String ContentType;
 	
 	public Student(String username, String password)
 	{
@@ -142,5 +143,12 @@ public class Student extends User {
 		return QR;
 	}
 
+	public String getContentType() {
+		return ContentType;
+	}
+
+	public void setContentType(String ContentType) {
+		this.ContentType = ContentType;
+	}
 
 }

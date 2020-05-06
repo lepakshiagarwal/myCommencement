@@ -1,6 +1,6 @@
-lagarwal|abc|NULL|NULL|NULL|12345
-acanzano|xyz|NULL|NULL|NULL|54321
-smelndez|hello|NULL|NULL|NULL|13524
-sriordan3|yo|NULL|NULL|NULL|53142
-jadams|jadams|NULL|NULL|NULL|24135
-mterry|ehh|NULL|NULL|NULL|42531
+lagarwal|abc|NULL|NULL|NULL|12345|Static
+acanzano|xyz|NULL|NULL|NULL|54321|video
+smelndez|hello|NULL|NULL|NULL|13524|slideshow
+sriordan3|yo|NULL|NULL|NULL|53142|static
+jadams|jadams|NULL|NULL|NULL|24135|static
+mterry|ehh|NULL|NULL|NULL|42531|static

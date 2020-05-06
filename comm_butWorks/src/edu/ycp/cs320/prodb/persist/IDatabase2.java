@@ -29,5 +29,9 @@ public interface IDatabase2 {
 
 	String findStatusByUsername(String username);
 
-	Content findContentByStudentUsername(String username);	
+	Content findContentByStudentUsername(String username);
+
+	boolean insertContentTypeByUsername(String username, String contentType) throws SQLException;
+
+	String findContentTypeByUsername(String username);	
 }
