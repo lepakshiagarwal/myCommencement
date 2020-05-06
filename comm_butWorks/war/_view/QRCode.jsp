@@ -33,5 +33,6 @@
 		</form>	
 			
 		</form>
+		<img src="http://localhost:8081${pageContext.request.contextPath}/${Url}"/>
 	</body>
 </html>

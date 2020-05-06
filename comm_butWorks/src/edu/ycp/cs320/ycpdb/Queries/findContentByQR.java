@@ -1,15 +1,14 @@
 package edu.ycp.cs320.ycpdb.Queries;
 
-import java.util.List;
 import java.util.Scanner;
 
-import edu.ycp.cs320.comm.model.Content;
-import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider;
 import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
-import edu.ycp.cs320.prodb.persist.DatabaseProvider;
 
-public class finContentByQR
+
+
+public class findContentByQR
 {
 	public static void main(String[] args)
 	{
@@ -25,15 +24,14 @@ public class finContentByQR
 		String studentContent = db.findContentByQR(qr);
 		
 		// check if anything was returned and output the list
-		if (studentContent == "") 
+		if (studentContent == null) 
 		{
 			System.out.println("No students found with QR: <" + qr + ">");
 		}
 		else 
 		{
-			System.out.print(studentContent);
 			System.out.print("Success!");
-			
+			System.out.print(studentContent);
 
 		}
 	}
