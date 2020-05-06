@@ -422,6 +422,81 @@ public class ProjectDatabse implements IDatabase2 {
 	}
 	
 	@Override
+	public boolean insertContentTypeByUsername(String username, String contentType ) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			public Boolean execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("update studentspro" 
+							+ " set studentspro.contentType= ? "
+							+ " where studentspro.username = ?");
+					
+					stmt.setString(1, contentType);
+					stmt.setString(2, username);
+					
+					stmt.executeUpdate();
+					System.out.println("updated");
+					return true;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	public String findContentTypeByUsername(String username) 
+	{
+		return executeTransaction(new Transaction<String>() {
+
+			public String execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select contentType" 
+							+ " from studentspro "
+							+ " where studentspro.username = ?");
+					stmt.setString(1, username);
+
+					String result = null;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					if(resultSet.next())
+					{
+						found=true;
+						result=resultSet.getString(1);
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + username + "> is not found.");
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+				}
+			}
+			
+		});
+		
+	}
+	@Override
 	public boolean insertContentURLByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
 	{
 		//set up
@@ -526,6 +601,7 @@ public class ProjectDatabse implements IDatabase2 {
 		student.setStatus(resultSet.getString(index++));
 		student.setContent(resultSet.getBlob(index++));
 		student.setQR(resultSet.getInt(index++));
+		student.setContentType(resultSet.getString(index++));
 	}
 	
 //	private void loadContent(Content content, ResultSet resultSet, int index) throws SQLException
@@ -558,7 +634,8 @@ public class ProjectDatabse implements IDatabase2 {
 							+ " comment varchar(40),"
 							+ " status varchar(40),"
 							+ " content varchar(80),"
-							+ " QR INTEGER"
+							+ " QR INTEGER,"
+							+ " contentType varchar(40)"
 							+ " ) ");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
@@ -604,7 +681,7 @@ public class ProjectDatabse implements IDatabase2 {
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connpro.prepareStatement(
-							"insert into studentspro (Username, password, comment, status, content, QR) values (?, ?, ?, ?, ?, ?)");
+							"insert into studentspro (Username, password, comment, status, content, QR, contentType) values (?,?, ?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setString(1, student.getUsername());
@@ -613,6 +690,7 @@ public class ProjectDatabse implements IDatabase2 {
 						insertStudent.setString(4, student.getStatus());
 						insertStudent.setString(5, student.getContentURL());
 						insertStudent.setInt(6, student.getQR());
+						insertStudent.setString(7, student.getContentType());
 						insertStudent.addBatch();
 					}
 					insertStudent.executeBatch();
