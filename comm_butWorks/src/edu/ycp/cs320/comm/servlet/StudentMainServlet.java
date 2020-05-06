@@ -1,6 +1,10 @@
 package edu.ycp.cs320.comm.servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +85,31 @@ public class StudentMainServlet extends HttpServlet {
 			System.out.print(user.getUsername());
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
-			req.setAttribute("Url", contentUrl);
+			
+			
+			System.out.print(contentUrl);
+			
+			
+			if(fileName.endsWith("/"))
+			{
+				List<String> ImgUrls = new ArrayList<String>();
+				File f = new File("contentUrl");
+				for(File file : f.listFiles())
+				{
+					ImgUrls.add(file.getPath());
+				}
+				req.setAttribute("ImgUrls", ImgUrls);
+			}
+			else
+			{
+				req.setAttribute("Url", contentUrl);
+			}
+			
+			
+			
+			
+			
+			
 			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);;
 		}
 		else if(but .equals("Video"))
