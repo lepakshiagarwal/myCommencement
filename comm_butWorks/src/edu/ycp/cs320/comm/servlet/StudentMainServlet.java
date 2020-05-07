@@ -1,6 +1,8 @@
 package edu.ycp.cs320.comm.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +69,13 @@ public class StudentMainServlet extends HttpServlet {
 			Student user = (Student) req.getSession().getAttribute("user");
 			System.out.print(user.getUsername());
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String username = user.getUsername();
+			try {
+				db.insertContentTypeByUsername(username, but);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			req.setAttribute("Url", contentUrl);
 			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);;
@@ -80,6 +89,13 @@ public class StudentMainServlet extends HttpServlet {
 			Student user = (Student) req.getSession().getAttribute("user");
 			System.out.print(user.getUsername());
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String username = user.getUsername();
+			try {
+				db.insertContentTypeByUsername(username, but);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			req.setAttribute("Url", contentUrl);
 			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);;
@@ -92,6 +108,13 @@ public class StudentMainServlet extends HttpServlet {
 			Student user = (Student) req.getSession().getAttribute("user");
 			System.out.print(user.getUsername());
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String username = user.getUsername();
+			try {
+				db.insertContentTypeByUsername(username, but);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			req.setAttribute("Url", contentUrl);
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);;
