@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,6 +73,13 @@ public class StudentMainServlet extends HttpServlet {
 			Student user = (Student) req.getSession().getAttribute("user");
 			System.out.print(user.getUsername());
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String username = user.getUsername();
+			try {
+				db.insertContentTypeByUsername(username, but);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			req.setAttribute("Url", contentUrl);
 			req.getRequestDispatcher("/_view/Static.jsp").forward(req, resp);;
@@ -84,6 +93,13 @@ public class StudentMainServlet extends HttpServlet {
 			Student user = (Student) req.getSession().getAttribute("user");
 			System.out.print(user.getUsername());
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String username = user.getUsername();
+			try {
+				db.insertContentTypeByUsername(username, but);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			
 			
@@ -121,6 +137,13 @@ public class StudentMainServlet extends HttpServlet {
 			Student user = (Student) req.getSession().getAttribute("user");
 			System.out.print(user.getUsername());
 			String fileName = db.findContentURLByStudentUsername(user.getUsername());
+			String username = user.getUsername();
+			try {
+				db.insertContentTypeByUsername(username, but);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			req.setAttribute("Url", contentUrl);
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);;
