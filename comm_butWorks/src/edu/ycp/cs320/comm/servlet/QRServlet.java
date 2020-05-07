@@ -43,7 +43,7 @@ public class QRServlet extends HttpServlet {
 
 		System.out.println(QR);	
 
-		
+
 		dbp.setInstance(new ProjectDatabse());
 		db = (ProjectDatabse) dbp.getInstance();
 		String fileName = db.findContentByQR(QR);
@@ -52,11 +52,25 @@ public class QRServlet extends HttpServlet {
 		System.out.println(user);	
 		String contentUrl = "uploaded-files/"+user+"/"+fileName;
 		req.setAttribute("Url", contentUrl);
-		
-	
 
+		String cont = db.findContentTypeByUsername(user);
 
-			// Forward to view to render the result HTML document
+		System.out.println(cont);	
+
+		// Forward to view to render the result HTML document
+		if(cont == null) {
 			req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
+		}else {
+		if(cont.equals("Video")) {
+			System.out.println("video jsp");	
+			req.getRequestDispatcher("/_view/QRvideo.jsp").forward(req, resp);
+		}else if(cont.equals("Static")){
+			System.out.println("static jsp");	
+			req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
+		}else{
+			System.out.println("no jsp");	
+			req.getRequestDispatcher("/_view/QRvideo.jsp").forward(req, resp);
 		}
+	   }
 	}
+}
