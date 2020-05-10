@@ -1,7 +1,11 @@
 package edu.ycp.cs320.comm.servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.SQLException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -97,7 +101,25 @@ public class StudentMainServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
-			req.setAttribute("Url", contentUrl);
+			
+			
+			System.out.print(contentUrl);
+			File root = new File("./war/uploaded-files/"+user.getUsername());
+			String[] urls = root.list();
+			for(int i=1;i<4;i++)
+			{
+				try
+				{
+				req.setAttribute("Url"+i, "uploaded-files/"+user.getUsername()+"/"+urls[i-1]);
+				System.out.print(urls[i-1]);
+				}
+				catch(NullPointerException e)
+				{
+					e.printStackTrace();
+					System.out.print("root directory is returning no files");
+				}
+			}
+			
 			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);;
 		}
 		else if(but .equals("Video"))

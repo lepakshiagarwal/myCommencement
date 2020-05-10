@@ -54,13 +54,22 @@ public class FileUploadServlet extends HttpServlet {
 		//get the URL of the uploaded file
 		String fileUrl = "war/uploaded-files/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
 		try {
+			
+			
+			
 			dbp.setInstance(new ProjectDatabse());
 			db = (ProjectDatabse) dbp.getInstance();
+			
+			//save files into folder in project
 			db.insertContentURLByStudentUsername(user.getUsername(), filePart.getSubmittedFileName());
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		//You can get other form data too
 	
 		//response.getOutputStream().println("<p><img src= filePart.getSubmittedFileName()></p>");

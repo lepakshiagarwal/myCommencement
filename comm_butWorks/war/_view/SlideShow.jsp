@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <title>SlideShow View</title>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
@@ -10,18 +12,18 @@
 </style>
 <body>
 
-
-
 <div class="w3-content w3-display-container" style="max-width:800px">
-  <img id="myImg1" class="mySlides" src="http://localhost:8081${pageContext.request.contextPath}/${Url}" style="width:100%">
-  <img id="myImg2" class="mySlides" src="http://localhost:8081${pageContext.request.contextPath}/${Url}" style="width:100%">
-  <img id="myImg3" class="mySlides" src="http://localhost:8081${pageContext.request.contextPath}/${Url}" style="width:100%">
+
+  		<img id="myImg1" class="mySlides" src="http://localhost:8081${pageContext.request.contextPath}/${Url1}" style="width:100%">
+		<img id="myImg2" class="mySlides" src="http://localhost:8081${pageContext.request.contextPath}/${Url2}" style="width:100%">
+		<img id="myImg3" class="mySlides" src="http://localhost:8081${pageContext.request.contextPath}/${Url3}" style="width:100%">
+  	
+  	
   <div id="myImg" class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
     <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
     <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
   </div>
 </div>
-
 <script>
 var slideIndex = 1;
 showDivs(slideIndex);
