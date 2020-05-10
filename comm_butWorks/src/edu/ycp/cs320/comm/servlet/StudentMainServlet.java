@@ -104,28 +104,21 @@ public class StudentMainServlet extends HttpServlet {
 			
 			
 			System.out.print(contentUrl);
-			
-
-			File f = new File("contentUrl");
-			
-			if(f.isDirectory())
+			File root = new File("./war/uploaded-files/"+user.getUsername());
+			String[] urls = root.list();
+			for(int i=1;i<4;i++)
 			{
-				List<String> ImgUrls = new ArrayList<String>();
-				for(File file : f.listFiles())
+				try
 				{
-					ImgUrls.add(file.getPath());
+				req.setAttribute("Url"+i, "uploaded-files/"+user.getUsername()+"/"+urls[i-1]);
+				System.out.print(urls[i-1]);
 				}
-				req.setAttribute("ImgUrls", ImgUrls);
+				catch(NullPointerException e)
+				{
+					e.printStackTrace();
+					System.out.print("root directory is returning no files");
+				}
 			}
-			else
-			{
-				req.setAttribute("Url", contentUrl);
-			}
-			
-			
-			
-			
-			
 			
 			req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);;
 		}
