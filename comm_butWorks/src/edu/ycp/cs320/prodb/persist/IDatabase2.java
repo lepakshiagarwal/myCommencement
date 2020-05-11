@@ -15,6 +15,7 @@ public interface IDatabase2 {
 	String findContentURLByStudentUsername(String username);
 	
 	String findContentByQR(int qr);
+	
 	String findUserbyQR(int qr);
 
 	boolean insertContentURLByStudentUsername(String username, String fileNameOfContent)
@@ -33,5 +34,14 @@ public interface IDatabase2 {
 
 	boolean insertContentTypeByUsername(String username, String contentType) throws SQLException;
 
-	String findContentTypeByUsername(String username);	
+	String findContentTypeByUsername(String username);
+
+	boolean insertNotificationByUsername(String username, int notification) throws SQLException;
+
+
+	int findNotificationByUsername(String username);
+
+	boolean insertNotificationByUsernameAdvisor(String username, int notification) throws SQLException;
+
+	int findNotificationByUsernameAdvisor(String username);
 }

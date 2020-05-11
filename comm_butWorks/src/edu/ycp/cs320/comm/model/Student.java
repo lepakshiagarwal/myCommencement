@@ -21,6 +21,7 @@ public class Student extends User {
 	private int QR;
 	private String contentURL;
 	private String ContentType;
+	private int notification;
 	
 	public Student(String username, String password)
 	{
@@ -149,6 +150,15 @@ public class Student extends User {
 
 	public void setContentType(String ContentType) {
 		this.ContentType = ContentType;
+	}
+
+	public int getNotification() {
+		return notification;
+	}
+
+	public void setNotification(int notification) {
+		this.notification=notification;
+		
 	}
 
 }
