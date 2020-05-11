@@ -67,6 +67,7 @@ public class InitialData2 {
 				student.setQR(Integer.parseInt(i.next()));
 				studentList.add(student);
 				student.setContentType(i.next());
+				student.setNotification(Integer.parseInt(i.next()));
 			}
 			return studentList;
 		} finally {
