@@ -4,13 +4,22 @@
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="_view/PCA.css">
+<link rel="stylesheet" href="_view/Notification.css">
 <title>Advisor Home</title>
 </head>
 <body>
 
-	<c:out value="${user.username}"></c:out>
-	
+	<b> Hello <c:out value="${user.username}"></c:out>!</b>
+	<button id="myBtn" class="modalbutton" > Inbox</button>
+
+	<div id="myModal" class="modal">
+
+ 	 <div class="modal-content">
+    	<span class="close">&times;</span>
+   	 <p>No notification</p>
+  	</div>
+
+	</div>
 	<!-- this is going to be the list of students,
 	 retrieved from the student database. The servlet
 	  will have to create a list for this jsp to loop through-->
@@ -44,4 +53,27 @@
 	<!--Button for log out-->
 	<button ><a href=" http://localhost:8081/lab02/index">Log out!</a></button>
 </body>
+
+<script>
+
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 </html>

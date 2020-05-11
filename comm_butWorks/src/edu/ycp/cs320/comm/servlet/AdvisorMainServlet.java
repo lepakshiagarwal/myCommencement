@@ -87,9 +87,7 @@ public class AdvisorMainServlet extends HttpServlet {
 		// result of calculation goes here
 		boolean result = false;
 		
-		// decode POSTed form parameters and dispatch to controller
 		
-	
 	}
 
 	// gets double from the request with attribute named s

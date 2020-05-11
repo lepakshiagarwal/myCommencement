@@ -3,6 +3,7 @@
 <html>
 	<head>
 		<title>Student</title>
+		<link rel="stylesheet" href="_view/Notification.css">
 		<style type="text/css">
 			.error {
 				color: red;
@@ -72,6 +73,16 @@
 
 	<body>
 		<h1>Student Main</h1>
+<button id="myBtn" class="modalbutton" > Inbox</button>
+
+	<div id="myModal" class="modal">
+
+ 	 <div class="modal-content">
+    	<span class="close">&times;</span>
+   	 <p>No notification</p>
+  	</div>
+
+	</div>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
@@ -125,4 +136,27 @@
 		</form>
 		<br> <br> <br>
 	</body>
+
+<script>
+
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 </html>

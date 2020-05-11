@@ -27,6 +27,7 @@ public class InitialData2 {
 				Advisor Advisor = new Advisor();
 				Advisor.setUsername(i.next());
 				Advisor.setPassword(i.next());
+				Advisor.setNotification(Integer.parseInt(i.next()));
 				advisorList.add(Advisor);
 			}
 			return advisorList;
@@ -67,6 +68,7 @@ public class InitialData2 {
 				student.setQR(Integer.parseInt(i.next()));
 				studentList.add(student);
 				student.setContentType(i.next());
+				student.setNotification(Integer.parseInt(i.next()));
 			}
 			return studentList;
 		} finally {
