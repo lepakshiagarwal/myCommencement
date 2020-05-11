@@ -16,7 +16,11 @@
 
  	 <div class="modal-content">
     	<span class="close">&times;</span>
-   	 <p>No notification</p>
+	<ul>
+   	 <c:forEach items="${notification}">
+		<li><c:out value="${notification}"/> </li>
+		</c:forEach>
+	</ul>	
   	</div>
 
 	</div>

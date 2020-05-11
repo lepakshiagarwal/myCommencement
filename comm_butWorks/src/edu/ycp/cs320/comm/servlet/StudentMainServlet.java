@@ -13,10 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.comm.controller.ContentController;
 import edu.ycp.cs320.comm.controller.StudentController;
+import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
+import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
+import edu.ycp.cs320.ycpdb.persist.IDatabase;
 
 
 
@@ -31,9 +35,7 @@ public class StudentMainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
-		System.out.println("Student Servlet: doGet");	
-		
+
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
 	}
@@ -44,16 +46,13 @@ public class StudentMainServlet extends HttpServlet {
 		
 	
       Object stud = req.getSession().getAttribute("user");
-
-		
-		
-	    
-	    
 		
 		double GPA = ((Student) stud).getGpa();
 		String Major = ((Student) stud).getMajor();
 		int AdvisorID = ((Student) stud).getAdvisorId();
 		GPA = Math.round(GPA*100)/100.0;
+		
+	    
 		// Add parameters as request attributes
 	  
 
@@ -137,6 +136,7 @@ public class StudentMainServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			String contentUrl = "uploaded-files/"+user.getUsername()+"/"+fileName;
 			req.setAttribute("Url", contentUrl);
 			req.getRequestDispatcher("/_view/Video.jsp").forward(req, resp);;
@@ -147,12 +147,27 @@ public class StudentMainServlet extends HttpServlet {
 			System.out.print(user.getUsername());
 			String Comment = db.findCommentByUsername(user.getUsername());
 			String Status = db.findStatusByUsername(user.getUsername());
+			ArrayList<String> notification = new ArrayList<String>();
+			int notify= db.findNotificationByUsername(user.getUsername());
+			for(int j= 1; j<= notify; j++) {
+			notification.add("Advisor has submitted feedback");
+			}
+			req.setAttribute("notification", notification);
+			System.out.println(notification);
 			 req.setAttribute("GPA", GPA);
 			 req.setAttribute("Major", Major);
 			 req.setAttribute("AdvisorID", AdvisorID);
 			 req.setAttribute("Comment", Comment);
 			 req.setAttribute("Status", Status);
-
+			 
+			 DatabaseProvider.setInstance2((IDatabase) new DerbyDatabase());
+				DerbyDatabase ycpdb = (DerbyDatabase) DatabaseProvider.getInstance2();
+			String name=ycpdb.findnmaeByAdvisorId(user.getAdvisorId());
+				try {
+				db.insertNotificationByUsernameAdvisor(name, notify++);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 				// Add result objects as request attributes
 			   // req.setAttribute("AdvisorID", AdvisorID);
 				req.getRequestDispatcher("/_view/StudentMain.jsp").forward(req, resp);
