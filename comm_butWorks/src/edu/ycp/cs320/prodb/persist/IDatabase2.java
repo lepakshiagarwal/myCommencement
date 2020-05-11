@@ -40,4 +40,8 @@ public interface IDatabase2 {
 
 
 	int findNotificationByUsername(String username);
+
+	boolean insertNotificationByUsernameAdvisor(String username, int notification) throws SQLException;
+
+	int findNotificationByUsernameAdvisor(String username);
 }

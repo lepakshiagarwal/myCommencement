@@ -356,6 +356,7 @@ public class ProjectDatabse implements IDatabase2 {
 		
 	}
 	
+	
 	@Override
 	public boolean insertNotificationByUsername(String username, int notification ) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
@@ -370,6 +371,80 @@ public class ProjectDatabse implements IDatabase2 {
 					stmt = connpro.prepareStatement("update studentspro" 
 							+ " set notification= ? "
 							+ " where studentspro.username = ?");
+					
+					stmt.setInt(1, notification);
+					stmt.setString(2, username);
+					
+					stmt.executeUpdate();
+					
+					return true;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	@Override
+	public int findNotificationByUsernameAdvisor(String username) 
+	{
+		return executeTransaction(new Transaction<Integer>() {
+
+			public Integer execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select notification" 
+							+ " from advisorspro "
+							+ " where advisorspro.username = ?");
+					stmt.setString(1, username);
+
+					int result =0;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					if(resultSet.next())
+					{
+						found=true;
+						result=resultSet.getInt(1);
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + username + "> is not found.");
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
+		
+	}
+	
+	@Override
+	public boolean insertNotificationByUsernameAdvisor(String username, int notification ) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+
+			public Boolean execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("update advisorspro" 
+							+ " set notification= ? "
+							+ " where advisorspro.username = ?");
 					
 					stmt.setInt(1, notification);
 					stmt.setString(2, username);
@@ -692,7 +767,8 @@ public class ProjectDatabse implements IDatabase2 {
 				try {
 					stmt1 = connycp.prepareStatement("create table advisorspro ("
 							+ " username varchar(40),"
-							+ " password varchar(40)"
+							+ " password varchar(40),"
+							+ " notification Integer"
 							+ " ) ");
 					stmt1.executeUpdate();
 					
@@ -740,11 +816,12 @@ public class ProjectDatabse implements IDatabase2 {
 					// populate authors table (do authors first, since author_id is foreign key in
 					// books table)
 					insertAdvisor = connpro
-							.prepareStatement("insert into advisorspro (username, password) values (?, ?)");
+							.prepareStatement("insert into advisorspro (username, password, notification) values (?,?, ?)");
 					for (Advisor advisor : advisorList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertAdvisor.setString(1, advisor.getUsername());
 						insertAdvisor.setString(2, advisor.getPassword());
+						insertAdvisor.setInt(3,  advisor.getNotification());
 						insertAdvisor.addBatch();
 					}
 					insertAdvisor.executeBatch();
@@ -752,7 +829,7 @@ public class ProjectDatabse implements IDatabase2 {
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
 					insertStudent = connpro.prepareStatement(
-							"insert into studentspro (Username, password, comment, status, content, QR, contentType) values (?,?, ?, ?, ?, ?, ?)");
+							"insert into studentspro (Username, password, comment, status, content, QR, contentType, notification) values (?, ?,?, ?, ?, ?, ?, ?)");
 					for (Student student : studentList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertStudent.setString(1, student.getUsername());

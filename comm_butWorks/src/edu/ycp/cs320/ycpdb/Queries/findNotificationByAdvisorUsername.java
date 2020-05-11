@@ -9,20 +9,20 @@ import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 import edu.ycp.cs320.prodb.persist.DatabaseProvider;
 
-public class findNotificationByStudentUsername
+public class findNotificationByAdvisorUsername
 {
 	public static void main(String[] args)
 	{
 		Scanner keyboard = new Scanner(System.in);
 	
 		// Create the default IDatabase instance
-		System.out.print("Enter Student username");
+		System.out.print("Enter Advisor username");
 		String username = keyboard.next();
 		
 		// get the DB instance and execute transaction
 		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
 		ProjectDatabse db = (ProjectDatabse) DatabaseProvider.getInstance();
-		int notification = db.findNotificationByUsername(username);
+		int notification = db.findNotificationByUsernameAdvisor(username);
 		
 		// check if anything was returned and output the list
 		if (notification == -1) 

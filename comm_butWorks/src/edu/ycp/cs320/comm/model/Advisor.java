@@ -8,6 +8,7 @@ public class Advisor extends User
 	private String lastname;
 	private int advisorId;
 	private String firstname;
+	private int notification;
 	
 	public Advisor(String username, String password) 
 	{
@@ -91,5 +92,13 @@ public class Advisor extends User
 	public String getLastname() {
 		return lastname;
 	}
+
+
+	public void setNotification(int notification) {
+		this.notification=notification;		
+	}
 	
+	public int getNotification(){
+		return notification;
+	}
 }
