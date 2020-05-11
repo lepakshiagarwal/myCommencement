@@ -54,23 +54,35 @@ public class QRServlet extends HttpServlet {
 		req.setAttribute("Url", contentUrl);
 
 		String cont = db.findContentTypeByUsername(user);
-
+		String status = db.findStatusByUsername(user);
 		System.out.println(cont);	
+		System.out.println(status);	
 
 		// Forward to view to render the result HTML document
-		if(cont == null) {
-			req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
+		if(status.equals("Deny")) {
+			System.out.println("generic jsp");	
+
+			req.getRequestDispatcher("/_view/QRGeneric.jsp").forward(req, resp);
+
 		}else {
-		if(cont.equals("Video")) {
-			System.out.println("video jsp");	
-			req.getRequestDispatcher("/_view/QRvideo.jsp").forward(req, resp);
-		}else if(cont.equals("Static")){
-			System.out.println("static jsp");	
-			req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
-		}else{
-			System.out.println("no jsp");	
-			req.getRequestDispatcher("/_view/QRvideo.jsp").forward(req, resp);
+			if(status.equals("NULL")) {
+				System.out.println("generic jsp");	
+				req.getRequestDispatcher("/_view/QRGeneric.jsp").forward(req, resp);
+			}else {
+				if(cont.equals("Video")) {
+					System.out.println("video jsp");	
+					req.getRequestDispatcher("/_view/QRvideo.jsp").forward(req, resp);
+				}else if(cont.equals("Static")){
+					System.out.println("static jsp");	
+					req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
+				}else if(cont.equals("SlideShow")){
+					System.out.println("SlideShow jsp");	
+					req.getRequestDispatcher("/_view/QRSlide.jsp").forward(req, resp);
+				}else{
+					System.out.println("no jsp");	
+					req.getRequestDispatcher("/_view/QRGeneric.jsp").forward(req, resp);
+				}
+			}
 		}
-	   }
 	}
 }

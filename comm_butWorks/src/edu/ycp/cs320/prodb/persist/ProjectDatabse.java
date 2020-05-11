@@ -782,7 +782,7 @@ public class ProjectDatabse implements IDatabase2 {
 							+ " content varchar(80),"
 							+ " QR INTEGER,"
 							+ " contentType varchar(40),"
-							+ " notification Integer"
+							+ " notification INTEGER"
 							+ " ) ");
 					stmt2.executeUpdate();
 					System.out.println("stmt2 executed");
