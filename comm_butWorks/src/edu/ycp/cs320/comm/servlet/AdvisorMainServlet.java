@@ -100,7 +100,7 @@ public class AdvisorMainServlet extends HttpServlet {
 				}
 				req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 			}
-		}
+		}else {
 		String status = req.getParameter("Status") ;
 		System.out.print(status);
 		String comment = req.getParameter("comment");
@@ -126,7 +126,7 @@ public class AdvisorMainServlet extends HttpServlet {
 
 
 	}
-
+	}
 	// gets double from the request with attribute named s
 	private String getStringFromParameter(String s) {
 		if (s == null || s.equals("")) {
