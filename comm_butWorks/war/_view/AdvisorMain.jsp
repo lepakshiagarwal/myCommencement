@@ -36,7 +36,7 @@
 		Student Username: <input type="text" name="name"> 
 		<br>
 		<br>
-		<input type="submit" name="view content" value="viewContent">
+		<input type="submit" name="button" value="viewContent">
             <br>
             <br>
           <textarea name="comment" cols="40" rows="6" placeholder="write comment here"></textarea><br>
@@ -50,7 +50,7 @@
   		</select>
         <br>
         <br>
-  		<input type="submit" name="submit" value="submit">
+  		<input type="submit" name="button" value="submit">
 	<br>
 	<br>
 	</form>
