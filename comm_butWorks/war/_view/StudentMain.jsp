@@ -67,22 +67,28 @@
 				font-weight: bold;
 				max-width: 100px;
 				padding-left: 40px;
-			}				
+			}
+			
 		</style>
 	</head>
 
 	<body>
 		<h1>Student Main</h1>
-<button id="myBtn" class="modalbutton" > Inbox</button>
+			<button id="myBtn" class="modalbutton" > Inbox</button>
 
 	<div id="myModal" class="modal">
 
  	 <div class="modal-content">
     	<span class="close">&times;</span>
-   	 <p>No notification</p>
+   	 <ul>
+   	 <c:forEach items="${notification}">
+		<li><c:out value="${notification}"/> </li>
+<p>Advisor has submitted feedback</p>
+		</c:forEach>
+	</ul>	
+  	</div>
   	</div>
 
-	</div>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
@@ -114,7 +120,7 @@
 			    
 			</table>
 			
-			
+
 
 			<form action="${pageContext.servletContext.contextPath}/StudentMain" method="post">
 			<input type="Submit" name="button" value="Update Content">
@@ -135,6 +141,7 @@
  		 <input type="Submit" value="Video" name="button">                 
 		</form>
 		<br> <br> <br>
+<button ><a href=" http://localhost:8081/lab02/index">Log out!</a></button>
 	</body>
 
 <script>

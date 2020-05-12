@@ -12,5 +12,7 @@ public interface IDatabase {
 	Student findStudentByLogin(String username, String password);
 
 	Content findContentByStudentUsername(String username);
+
+	String findnmaeByAdvisorId(int id);
 	
 }
