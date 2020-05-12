@@ -15,6 +15,7 @@ import java.util.List;
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
+import edu.ycp.cs320.prodb.persist.ProjectDatabse.Transaction;
 import edu.ycp.cs320.sqldemo.DBUtil;
 
 public class DerbyDatabase implements IDatabase {
@@ -91,7 +92,50 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	@Override
+	public String findnmaeByAdvisorId(int id) 
+	{
+		return executeTransaction(new Transaction<String>() {
 
+			public String execute(Connection connpro) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive all attributes from both Books and Authors tables
+					connpro.setAutoCommit(true);
+					stmt = connpro.prepareStatement("select username" 
+							+ " from advisors"
+							+ " where advisors.advisorId = ?");
+					stmt.setInt(1, id);
+
+					String result = null;
+
+
+					resultSet = stmt.executeQuery();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					if(resultSet.next())
+					{
+						found=true;
+						result=resultSet.getString(1);
+					}
+
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + id + "> is not found.");
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
+		
+	}
 	@Override
 	public Student findStudentByLogin(final String username, final String password) {
 		return executeTransaction(new Transaction<Student>() {
