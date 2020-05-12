@@ -3,6 +3,7 @@ package edu.ycp.cs320.comm.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -21,20 +22,27 @@ import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 @WebServlet("/AdvisorMainServlet")
 public class AdvisorMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	private int notify;
 	
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
+		ProjectDatabse prodb = (ProjectDatabse) DatabaseProvider.getInstance();
 
 		Advisor model =  (Advisor) req.getSession().getAttribute("user");
 		System.out.println("AdvisorMain Servlet: doGet");
-		
-		//set list of students as attribute'
+		ArrayList<String> notification = new ArrayList<String>();
+	 notify= prodb.findNotificationByUsernameAdvisor(model.getUsername());
+		for(int j= 1; j<= notify; j++) {
+			notification.add("Student uploaded content");
+		}
+		System.out.println(notification);
+		//set list of students as attribute
 		req.setAttribute("studentList", model.adviseeList());
 		req.setAttribute("user", model);
+		req.setAttribute("notification", notification);
 		// add result objects as attributes
 		
 		// call JSP to generate empty form
@@ -45,10 +53,9 @@ public class AdvisorMainServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
 		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
 		ProjectDatabse prodb = (ProjectDatabse) DatabaseProvider.getInstance();
-
+		
 		System.out.println("advisor Servlet: doPost");	
 		String name = req.getParameter("name");
 		System.out.print(name);
@@ -61,6 +68,7 @@ public class AdvisorMainServlet extends HttpServlet {
 	    
 	    try {
 	    	prodb.insertCommentByUsername(name, comment);
+	    	prodb.insertNotificationByUsername(name, notify++);
 	    	System.out.print("done");
 			prodb.insertStatusByUsername(name, status);
 		} catch (SQLException e) {
