@@ -67,7 +67,8 @@
 				font-weight: bold;
 				max-width: 100px;
 				padding-left: 40px;
-			}				
+			}
+			
 		</style>
 	</head>
 
