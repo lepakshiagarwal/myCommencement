@@ -6,7 +6,7 @@ import java.util.Scanner;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
-import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider2;
 
 public class findContentTypeByStudentUsername
 {
@@ -19,8 +19,8 @@ public class findContentTypeByStudentUsername
 		String username = keyboard.next();
 		
 		// get the DB instance and execute transaction
-		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
-		ProjectDatabse db = (ProjectDatabse) DatabaseProvider.getInstance();
+		DatabaseProvider2.setInstance((IDatabase2) new ProjectDatabse());
+		ProjectDatabse db = (ProjectDatabse) DatabaseProvider2.getInstance();
 		String contentType = db.findContentTypeByUsername(username);
 		
 		// check if anything was returned and output the list

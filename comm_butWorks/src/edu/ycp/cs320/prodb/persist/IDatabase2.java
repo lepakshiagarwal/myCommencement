@@ -9,7 +9,6 @@ import edu.ycp.cs320.comm.model.Student;
 
 public interface IDatabase2 {
 
-	Student findStudentByLogin(String username, String password);
 
 	String findContentURLByStudentUsername(String username);
 	

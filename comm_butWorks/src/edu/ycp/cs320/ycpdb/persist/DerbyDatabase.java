@@ -92,7 +92,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	@Override
-	public String findnmaeByAdvisorId(int id) 
+	public String findUsernameByAdvisorId(int id) 
 	{
 		return executeTransaction(new Transaction<String>() {
 

@@ -44,8 +44,8 @@ public class StudentTest {
 	public void testGetAndSetGpa()
 	{
 		model.setGpa((float)3.32);
-		assertTrue(3.32==(model.getGpa()));
-		assertFalse(3.28==(model.getGpa()));
+		assertTrue(0.35>(model.getGpa()%3));
+		assertFalse(3.3<(model.getGpa()%3));
 		}
 	
 	@Test

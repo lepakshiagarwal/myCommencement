@@ -19,13 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import edu.ycp.cs320.comm.model.Student;
-import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
 @MultipartConfig
 public class StaticServlet extends HttpServlet 
 {
-	DatabaseProvider dbp;
+	DatabaseProvider2 dbp;
 	ProjectDatabse db;
 	
 	/**
