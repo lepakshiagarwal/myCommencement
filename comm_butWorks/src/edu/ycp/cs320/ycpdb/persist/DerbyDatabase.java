@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.comm.model.Advisor;
-import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse.Transaction;
 import edu.ycp.cs320.sqldemo.DBUtil;
@@ -232,54 +231,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
-	@Override
-	public Content findContentByStudentUsername(String username) 
-	{
-		return executeTransaction(new Transaction<Content>() {
-
-			public Content execute(Connection connycp) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-
-				try {
-					// retreive all attributes from both Books and Authors tables
-
-					stmt = connycp.prepareStatement("select *" 
-							+ " from students "
-							+ " where students.username = ?");
-					stmt.setString(1, username);
-
-					Content result = new Content();
-
-
-					resultSet = stmt.executeQuery();
-
-					// for testing that a result was returned
-					Boolean found = false;
-					resultSet.next();
-					if(resultSet.next())
-					{
-						found=true;
-						loadContent(result, resultSet, 1);
-						
-						
-					}
-
-					// check if the title was found
-					if (!found) {
-						System.out.println("<" + username + "> was not found in the advisors table");
-					}
-
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-
-			
-		});
-	}
+	
 
 
 	public <ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -355,17 +307,7 @@ public class DerbyDatabase implements IDatabase {
 		student.setPassword(resultSet.getString(index++));
 	}
 	
-	private void loadContent(Content content, ResultSet resultSet, int index) throws SQLException
-	{
-		
-		content.setVideoFile((File) resultSet.getObject(index++));
-		content.setSlideShowImgs((List<Image>) resultSet.getArray(index++));
-		content.setStaticImage((Image) resultSet.getObject(index++));
-	}
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {

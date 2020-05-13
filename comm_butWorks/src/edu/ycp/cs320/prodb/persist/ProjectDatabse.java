@@ -18,7 +18,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import edu.ycp.cs320.comm.model.Advisor;
-import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.sqldemo.DBUtil;
 
@@ -96,64 +95,7 @@ public class ProjectDatabse implements IDatabase2 {
 		});
 	}
 	
-	@Override
-	public Content findContentByStudentUsername(String username) 
-	{
-		return executeTransaction(new Transaction<Content>() {
 
-			public Content execute(Connection connpro) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-
-				try {
-					// retreive all attributes from both Books and Authors tables
-
-					stmt = connpro.prepareStatement("select studentspro.content" 
-							+ " from studentspro "
-							+ " where studentspro.username = ?");
-					stmt.setString(1, username);
-
-					String contentURL = new String();
-
-
-					resultSet = stmt.executeQuery();
-					Content result = new Content();
-					// for testing that a result was returned
-					Boolean found = false;
-					if(resultSet.next())
-					{
-						found=true;
-						File Content = new File(contentURL);
-						try 
-						{
-							
-							BufferedImage image = ImageIO.read(Content);
-							result.setStaticImage(image);
-						} 
-						catch (IOException e) 
-						{
-							e.printStackTrace();
-						}
-						
-						
-					}
-
-					// check if the title was found
-					if (!found) {
-						System.out.println("<" + username + "> has no content.");
-					}
-
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-
-			
-		});
-	}
-	
 	@Override
 	public String findContentURLByStudentUsername(String username) 
 	{

@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import edu.ycp.cs320.comm.controller.AdvisorController;
 import edu.ycp.cs320.comm.model.Advisor;
+import edu.ycp.cs320.comm.model.Student;
 
 public class AdvisorControllerTest {
 	private Advisor model;
@@ -22,6 +23,8 @@ public class AdvisorControllerTest {
 	public void setUp() {
 		model = new Advisor("Dhake", "tesla");
 		controller=new AdvisorController(model);
+		controller.addAdvisee(new Student("Acanzano","goodbyeworld"));
+		controller.addAdvisee(new Student("Smelendez","badPassword"));
 	}
 	
 	@Test
@@ -32,12 +35,12 @@ public class AdvisorControllerTest {
 	
 	@Test
 	public void testValidatePassword() {
-		assertTrue(controller.validateCredentials("Mshae","xyz"));
+		assertTrue(controller.validateCredentials("Dhake","tesla"));
 	}
 	
 	@Test 
 	public void testValidatePasswordd() {
-		assertFalse(controller.validateCredentials("Rshae","xyz"));
+		assertFalse(controller.validateCredentials("Dhake","xyz"));
 	}
 	
 	@Test

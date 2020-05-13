@@ -49,13 +49,19 @@ public class FileUploadServlet extends HttpServlet {
 	    //upload it to a file host like S3 or GCS instead
 	    File fileToSave = new File("war/uploaded-files/" +user.getUsername()+"/"+ filePart.getSubmittedFileName());
 
-		try {
-			Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+
+
+	    try {
+		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+		response.getOutputStream().println("<p>Success!</p>");
+	    }
+	    catch(Exception e)
+	    {
+
+			response.getOutputStream().println("<p>No file selected, try again</p>");
+	    }
+
 		//get the URL of the uploaded file
 		String fileUrl = "war/uploaded-files/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
 		try {
@@ -68,7 +74,6 @@ public class FileUploadServlet extends HttpServlet {
 			//save files into folder in project
 			db.insertContentURLByStudentUsername(user.getUsername(), filePart.getSubmittedFileName());
 			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,9 +85,6 @@ public class FileUploadServlet extends HttpServlet {
 		//response.getOutputStream().println("<p><img src= filePart.getSubmittedFileName()></p>");
 
 		
-		//create output HTML that uses the 
-		response.getOutputStream().println("<p>Here's a link to your uploaded file:</p>");
-		response.getOutputStream().println("<p><a href=\"" + fileUrl + "\">" + fileUrl + "</a></p>");
 		//response.getOutputStream().println("<p>Upload another file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");	
 	}
 }

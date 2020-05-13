@@ -3,7 +3,6 @@ package edu.ycp.cs320.ycpdb.Queries;
 import java.util.List;
 import java.util.Scanner;
 
-import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;

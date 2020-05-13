@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import edu.ycp.cs320.comm.model.Advisor;
-import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 
 public interface IDatabase2 {
@@ -30,7 +29,6 @@ public interface IDatabase2 {
 
 	String findStatusByUsername(String username);
 
-	Content findContentByStudentUsername(String username);
 
 	boolean insertContentTypeByUsername(String username, String contentType) throws SQLException;
 
