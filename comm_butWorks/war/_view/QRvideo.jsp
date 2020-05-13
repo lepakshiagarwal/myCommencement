@@ -31,7 +31,7 @@ font-family:impact;}
 			<a href="http://localhost:8081/lab02/index">Back!</a>
 		</form>	
 <h1> CONGRATS GRAD! </h1>
-<video class="video" controls>
+<video class="video" controls autoplay>
   <source id="video" src="http://localhost:8081${pageContext.request.contextPath}/${Url}" type="video/mp4">
   Your browser does not support HTML5 video.
 </video>
