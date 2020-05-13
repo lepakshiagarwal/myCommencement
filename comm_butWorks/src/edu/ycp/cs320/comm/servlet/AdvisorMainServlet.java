@@ -100,6 +100,9 @@ public class AdvisorMainServlet extends HttpServlet {
 				}
 				req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 			}
+			else {
+				req.getRequestDispatcher("/_view/NoContent.jsp").forward(req, resp);
+			}
 		}
 		String status = req.getParameter("Status") ;
 		System.out.print(status);
@@ -115,7 +118,6 @@ public class AdvisorMainServlet extends HttpServlet {
 		}
 		if(but.equals("submit")) {
 			req.getRequestDispatcher("/_view/ResponseRecorded.jsp").forward(req, resp);
-
 		}
 
 		// holds the error message text, if there is any

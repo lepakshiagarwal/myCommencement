@@ -49,7 +49,12 @@ public class FileUploadServlet extends HttpServlet {
 	    //upload it to a file host like S3 or GCS instead
 	    File fileToSave = new File("war/uploaded-files/" +user.getUsername()+"/"+ filePart.getSubmittedFileName());
 
-		Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		try {
+			Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		//get the URL of the uploaded file
 		String fileUrl = "war/uploaded-files/" +user.getUsername()+"/"+ filePart.getSubmittedFileName();
