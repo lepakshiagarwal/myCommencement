@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Wed May 13 10:12:05 EDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0172-0e60-d008-000000ac8e78 
-on database directory C:\CS320-myComm-datbase\pro.db with class loader sun.misc.Launcher$AppClassLoader@cf9800 
-Loaded from file:/C:/Users/lego_/OneDrive/Desktop/CS320_Derby/lib/derby.jar
+Wed May 13 00:12:33 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0172-0c3b-ec07-000003c96e40 
+on database directory C:\CS320-myComm-datbase\ycp.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/johnb/Desktop/School%20Projects/Cs320/myCommencement/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_251-b08
 user.dir=C:\Users\lego_\OneDrive\Desktop\github\comm_butWorks
@@ -12,10 +12,10 @@ os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Wed May 13 10:12:05 EDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a13ec033-0172-0e60-d008-000000ac8e78 
-on database directory C:\CS320-myComm-datbase\ycp.db with class loader sun.misc.Launcher$AppClassLoader@cf9800 
-Loaded from file:/C:/Users/lego_/OneDrive/Desktop/CS320_Derby/lib/derby.jar
+Wed May 13 00:12:35 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance 08264012-0172-0c3b-ec07-000003c96e40 
+on database directory C:\CS320-myComm-datbase\pro.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/johnb/Desktop/School%20Projects/Cs320/myCommencement/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_251-b08
 user.dir=C:\Users\lego_\OneDrive\Desktop\github\comm_butWorks
