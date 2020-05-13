@@ -10,30 +10,27 @@ import edu.ycp.cs320.ycpdb.persist.IDatabase;
  */
 public class StudentController {
 	private Student model;
-	private IDatabase db    = null;
+	private DerbyDatabase db;
 
 	//Set the model.
 	public StudentController() {
 		DatabaseProvider.setInstance(new DerbyDatabase());
-		db = DatabaseProvider.getInstance();
+		db = (DerbyDatabase) DatabaseProvider.getInstance();
 	}
-	public StudentController(Student model)
+	
+	public void setModel(Student s)
 	{
-		this.model = model;
+		model=s;
 	}
 
 
-	public Student getLog(String username,String password) {
+	public Student getLog(String username,String password) 
+	{
 
-		 Student log = db.findStudentByLogin(username, password);
-			System.out.println("makes it here");
+		return db.findStudentByLogin(username, password);
 
-			return log;
-
-
-		// return list of book,author pairs
 	}
-	//method to check username
+
 
 
 }
