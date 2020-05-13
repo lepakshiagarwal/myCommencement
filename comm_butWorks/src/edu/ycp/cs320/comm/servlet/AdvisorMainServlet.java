@@ -100,7 +100,13 @@ public class AdvisorMainServlet extends HttpServlet {
 				}
 				req.getRequestDispatcher("/_view/SlideShow.jsp").forward(req, resp);
 			}
-		}else {
+
+	
+			else {
+				req.getRequestDispatcher("/_view/NoContent.jsp").forward(req, resp);
+			}
+		}
+
 		String status = req.getParameter("Status") ;
 		System.out.print(status);
 		String comment = req.getParameter("comment");
@@ -115,7 +121,6 @@ public class AdvisorMainServlet extends HttpServlet {
 		}
 		if(but.equals("submit")) {
 			req.getRequestDispatcher("/_view/ResponseRecorded.jsp").forward(req, resp);
-
 		}
 
 		// holds the error message text, if there is any
@@ -126,7 +131,7 @@ public class AdvisorMainServlet extends HttpServlet {
 
 
 	}
-	}
+	
 	// gets double from the request with attribute named s
 	private String getStringFromParameter(String s) {
 		if (s == null || s.equals("")) {
