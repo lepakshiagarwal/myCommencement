@@ -2,7 +2,6 @@ package edu.ycp.cs320.ycpdb.Queries;
 
 import java.util.Scanner;
 
-import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.comm.model.Student;
 import edu.ycp.cs320.ycpdb.persist.DatabaseProvider;
 import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;

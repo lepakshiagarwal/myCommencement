@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.comm.controller.ContentController;
-import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.prodb.persist.DatabaseProvider;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
@@ -17,9 +15,6 @@ public class QRServlet extends HttpServlet {
 	DatabaseProvider dbp;
 	ProjectDatabse db;
 	private static final long serialVersionUID = 1L;
-	//for validate method
-	private String model;
-	private ContentController controller;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

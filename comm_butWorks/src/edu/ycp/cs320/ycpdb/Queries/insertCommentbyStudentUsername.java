@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import edu.ycp.cs320.comm.model.Content;
 import edu.ycp.cs320.prodb.persist.DatabaseProvider;
 import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
