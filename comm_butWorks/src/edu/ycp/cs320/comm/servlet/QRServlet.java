@@ -1,5 +1,6 @@
 package edu.ycp.cs320.comm.servlet;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -76,6 +77,21 @@ public class QRServlet extends HttpServlet {
 					System.out.println("static jsp");	
 					req.getRequestDispatcher("/_view/QRCode.jsp").forward(req, resp);
 				}else if(cont.equals("SlideShow")){
+					File root = new File("./war/uploaded-files/"+user);
+					String[] urls = root.list();
+					for(int i=1;i<4;i++)
+					{
+						try
+						{
+							req.setAttribute("Url"+i, "uploaded-files/"+user+"/"+urls[i-1]);
+							System.out.print(urls[i-1]);
+						}
+						catch(NullPointerException e)
+						{
+							e.printStackTrace();
+							System.out.print("root directory is returning no files");
+						}
+					}
 					System.out.println("SlideShow jsp");	
 					req.getRequestDispatcher("/_view/QRSlide.jsp").forward(req, resp);
 				}else{
