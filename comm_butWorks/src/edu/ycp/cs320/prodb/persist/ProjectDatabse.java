@@ -38,62 +38,6 @@ public class ProjectDatabse implements IDatabase2 {
 
 	private static final int MAX_ATTEMPTS = 10;
 
-	@Override
-	public Student findStudentByLogin(final String username, final String password) {
-		return executeTransaction(new Transaction<Student>() {
-
-			public Student execute(Connection connpro) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-
-				try {
-					// retreive all attributes from both Books and Authors tables
-					
-					
-					
-					//If I want this to work, I need to create a table studentspro that would be in the 
-					stmt = connpro.prepareStatement("select * " 
-							+ " from studentspro "
-							+ " where studentspro.username= ? " 
-							+ " and studentspro.password = ?"
-							);
-					stmt.setString(1, username);
-					stmt.setString(2, password);
-
-					Student result = new Student();
-
-
-					resultSet = stmt.executeQuery();
-
-					// for testing that a result was returned
-					Boolean found = false;
-
-					while (resultSet.next()) {
-						found = true;
-
-						// create new Author object
-						// retrieve attributes from resultSet starting with index 1
-					
-						// create new Book object
-						// retrieve attributes from resultSet starting at index 4
-						//why 4? -Shea
-						loadStudentPro(result, resultSet, 1);
-
-					}
-
-					// check if the title was found
-					if (!found) {
-						System.out.println("<User> was not found in the advisorspro table");
-					}
-
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
-	}
 	
 
 	@Override
@@ -583,6 +527,8 @@ public class ProjectDatabse implements IDatabase2 {
 		});
 		
 	}
+	
+	
 	@Override
 	public boolean insertContentURLByStudentUsername(String username, String fileNameOfContent) throws SQLException, FileNotFoundException
 	{
@@ -597,11 +543,10 @@ public class ProjectDatabse implements IDatabase2 {
 		{
 			//query to see if student exists in database first
 			conn.setAutoCommit(true);
-			
 			PreparedStatement insertContent = null;
 			insertContent = conn.prepareStatement("update studentspro "
-					+"set content = ? "
-					+"where username = ?");
+					+"set studentspro.content = ? "
+					+"where studentspro.username = ?");
 			insertContent.setString(1, fileNameOfContent);
 			insertContent.setString(2, username);
 			insertContent.execute();

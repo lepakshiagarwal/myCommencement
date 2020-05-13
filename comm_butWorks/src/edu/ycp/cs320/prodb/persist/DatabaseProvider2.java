@@ -2,7 +2,7 @@ package edu.ycp.cs320.prodb.persist;
 
 import edu.ycp.cs320.ycpdb.persist.IDatabase;
 
-public class DatabaseProvider {
+public class DatabaseProvider2 {
 	private static IDatabase2 theInstance;
 	
 	public static void setInstance(IDatabase2 db) {

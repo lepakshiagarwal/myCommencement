@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.comm.controller.AdvisorController;
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Student;
-import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider2;
 import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
@@ -29,8 +29,8 @@ public class AdvisorMainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
-		ProjectDatabse prodb = (ProjectDatabse) DatabaseProvider.getInstance();
+		DatabaseProvider2.setInstance((IDatabase2) new ProjectDatabse());
+		ProjectDatabse prodb = (ProjectDatabse) DatabaseProvider2.getInstance();
 
 		Advisor model =  (Advisor) req.getSession().getAttribute("user");
 		System.out.println("AdvisorMain Servlet: doGet");
@@ -54,8 +54,8 @@ public class AdvisorMainServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
-		ProjectDatabse prodb = (ProjectDatabse) DatabaseProvider.getInstance();
+		DatabaseProvider2.setInstance((IDatabase2) new ProjectDatabse());
+		ProjectDatabse prodb = (ProjectDatabse) DatabaseProvider2.getInstance();
 
 		System.out.println("advisor Servlet: doPost");	
 		String name = req.getParameter("name");

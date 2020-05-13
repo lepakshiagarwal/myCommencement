@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider2;
 import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
@@ -21,8 +21,8 @@ public class insertStatusbyStudentUsername
 		System.out.print("Enter student status");
 		String status = keyboard.nextLine();
 		// get the DB instance and execute transaction
-		DatabaseProvider.setInstance((IDatabase2) new ProjectDatabse());
-		ProjectDatabse db = (ProjectDatabse) DatabaseProvider.getInstance();
+		DatabaseProvider2.setInstance((IDatabase2) new ProjectDatabse());
+		ProjectDatabse db = (ProjectDatabse) DatabaseProvider2.getInstance();
 		
 		boolean inserted = db.insertStatusByUsername(username, status);
 		

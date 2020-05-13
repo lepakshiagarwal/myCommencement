@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.comm.controller.StudentController;
 import edu.ycp.cs320.comm.model.Advisor;
 import edu.ycp.cs320.comm.model.Student;
-import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider2;
 import edu.ycp.cs320.prodb.persist.IDatabase2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 import edu.ycp.cs320.ycpdb.persist.DerbyDatabase;
@@ -23,7 +23,7 @@ import edu.ycp.cs320.ycpdb.persist.IDatabase;
 
 
 public class StudentMainServlet extends HttpServlet {
-	DatabaseProvider dbp;
+	DatabaseProvider2 dbp;
 	ProjectDatabse db;
 	private static final long serialVersionUID = 1L;
 	//for validate method
@@ -158,9 +158,9 @@ public class StudentMainServlet extends HttpServlet {
 			 req.setAttribute("Comment", Comment);
 			 req.setAttribute("Status", Status);
 			 
-			 DatabaseProvider.setInstance2((IDatabase) new DerbyDatabase());
-				DerbyDatabase ycpdb = (DerbyDatabase) DatabaseProvider.getInstance2();
-			String name=ycpdb.findnmaeByAdvisorId(user.getAdvisorId());
+			 DatabaseProvider2.setInstance2((IDatabase) new DerbyDatabase());
+				DerbyDatabase ycpdb = (DerbyDatabase) DatabaseProvider2.getInstance2();
+			String name=ycpdb.findUsernameByAdvisorId(user.getAdvisorId());
 				try {
 				db.insertNotificationByUsernameAdvisor(name, notify++);
 			} catch (SQLException e) {

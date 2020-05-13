@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.prodb.persist.DatabaseProvider;
+import edu.ycp.cs320.prodb.persist.DatabaseProvider2;
 import edu.ycp.cs320.prodb.persist.ProjectDatabse;
 
 
 public class QRServlet extends HttpServlet {
-	DatabaseProvider dbp;
+	DatabaseProvider2 dbp;
 	ProjectDatabse db;
 	private static final long serialVersionUID = 1L;
 
