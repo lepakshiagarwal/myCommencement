@@ -75,6 +75,7 @@
 	<servlet-name>QRServlet</servlet-name>
 	<url-pattern>/QRCode</url-pattern>
 	<url-pattern>/QRvideo</url-pattern>
+	<url-pattern>/QRGeneric</url-pattern>
 </servlet-mapping>
 
   
