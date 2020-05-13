@@ -19,6 +19,6 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/CS320_Derby"/>
 	<classpathentry kind="lib" path="/CS320_Jetty9/lib/apache-jstl/org.apache.taglibs.taglibs-standard-impl-1.2.5.jar"/>
 	<classpathentry kind="lib" path="/CS320_Jetty9/lib/apache-jstl/org.apache.taglibs.taglibs-standard-spec-1.2.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/DELL/Desktop/jre1.8.0_251.zip"/>
+	<classpathentry kind="lib" path="C:/Users/lego_/OneDrive/Desktop/jre1.8.0_251.zip"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
